@@ -1,6 +1,6 @@
 package it.uniroma3.siw.model;
 
 public class Animale {
-	private int gay;
+	private int gay; // prova 
 
 }
