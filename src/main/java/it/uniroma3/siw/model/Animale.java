@@ -59,7 +59,7 @@ public class Animale {
 	
 	public Animale() {}
 	
-	public Animale(String nome, Specie specie, String razza, LocalDate dataNascita, LocalDate DataArrivo, String descrizione, String immagineUrl) {
+	public Animale(String nome, Specie specie, String razza, LocalDate dataNascita, LocalDate dataArrivo, String descrizione, String immagineUrl) {
 
 		this.nome = nome;
 		this.specie = specie;
