@@ -5,12 +5,12 @@
 	</head>
 	<body> 
 		<h1> Inserisci un nuovo ospite </h1>
-		<form th:action = "@{/animali}" method = "POST" th:object = "${animale}">
+		<form th:action = "@{/admin/animali}" th:method = "POST" th:object = "${animale}">
 		<div>
-			Nome: <span><input required type="text" th:field = "${animale.title}"/></span>
+			Nome: <span><input required type="text" th:field = "${animale.nome}"/></span>
 		</div>
 		<div>
-			Specie: <span><input required type="specie" th:field = "${animale.specie}"/></span>
+			Specie: <span><input required type="text" th:field = "${animale.specie}"/></span>
 		</div>
 		<div>
 			Razza: <span><input required type="text" th:field = "${animale.razza}"/></span>

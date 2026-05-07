@@ -27,7 +27,6 @@ public class Animale {
 	@Column(nullable = false)
 	private String nome;
 	
-	@NotBlank
 	@Column(nullable = false)
 	private Specie specie;
 	

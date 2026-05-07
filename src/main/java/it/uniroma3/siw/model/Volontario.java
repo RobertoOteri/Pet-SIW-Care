@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Volontario {
@@ -18,13 +19,18 @@ public class Volontario {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@NotBlank
 	@Column(nullable = false)
 	private String nome;
 	
+	@NotBlank
 	@Column(nullable = false)
 	private String cognome;
 
+	@NotBlank
 	private String codiceFiscale;
+	
+	@NotBlank
 	private String specializzazione;
 	
 	@Column(nullable = false)

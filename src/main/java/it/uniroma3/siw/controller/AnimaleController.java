@@ -11,11 +11,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Animale;
 import it.uniroma3.siw.service.AnimaleService;
+import jakarta.validation.Valid;
 
 @Controller
 public class AnimaleController {
 	
 	private AnimaleService animaleService;
+	
+	public AnimaleController(AnimaleService animaleService) {
+		this.animaleService = animaleService;
+	}
 	
 	@GetMapping("/admin/animali/form")
 	public String formNuovoAnimale(Model model) {
@@ -24,7 +29,7 @@ public class AnimaleController {
 	}
 	
 	@PostMapping("/admin/animali")
-	public String newAnimale(@ModelAttribute("animale") Animale animale) {
+	public String newAnimale(@Valid @ModelAttribute("animale") Animale animale) {
 		this.animaleService.save(animale);
 		return "redirect:/animali";
 	}
@@ -36,7 +41,7 @@ public class AnimaleController {
 		return "animali/list";
 	}
 	
-	@GetMapping("/animale/{id}")
+	@GetMapping("/animali/{id}")
 	public String getAnimale(@PathVariable("id") Long id, Model model) {
 		Animale animale = this.animaleService.findById(id);
 		model.addAttribute("animale", animale);
