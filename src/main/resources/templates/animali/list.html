@@ -1,1 +1,17 @@
-vds nv ds
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>	ANIMALI </animali>
+	</head>
+	<body>
+		<h1> lista animali </h1>
+		<div>
+			<ul>
+				<li th:each = "animale : ${animali}">
+					<a th:href = "@{'/animali/' + ${animale.id}}" th:text = "${animale.title}"> NomeAnimale </a>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
+	

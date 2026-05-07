@@ -1,1 +1,36 @@
-genjgkfdngdjk
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Aggiungi un Animale </title>
+	</head>
+	<body> 
+		<h1> Inserisci un nuovo ospite </h1>
+		<form th:action = "@{/animali}" method = "POST" th:object = "${animale}">
+		<div>
+			Nome: <span><input required type="text" th:field = "${animale.title}"/></span>
+		</div>
+		<div>
+			Specie: <span><input required type="specie" th:field = "${animale.specie}"/></span>
+		</div>
+		<div>
+			Razza: <span><input required type="text" th:field = "${animale.razza}"/></span>
+		</div>
+		<div>
+			Data di nascita: <span><input required type = "text" th:field = "${animale.dataNascita}"/></span>
+		</div>
+		<div>
+			Data di arrivo: <span><input required type = "text" th:field = "${animale.dataArrivo}"/></span>
+		</div>
+		<div>
+			Descrizione: <span><input required type = "text" th:field = "${animale.descrizione}"/></span>
+		</div>
+		<div>
+			URL dell'immagine: <span><input type = "url" th:field = "${animale.immagineUrl}"/></span>
+		</div>
+		</div>
+			</span><button type = "submit"> Conferma </button></span>
+		</div>
+		</form>
+	</body>
+</html>
+ 		

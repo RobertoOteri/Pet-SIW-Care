@@ -24,7 +24,7 @@ public class AnimaleController {
 	}
 	
 	@PostMapping("/admin/animali")
-	public String newAnimale(@ModelAttribute("animale") Animale animale, Model model) {
+	public String newAnimale(@ModelAttribute("animale") Animale animale) {
 		this.animaleService.save(animale);
 		return "redirect:/animali";
 	}
