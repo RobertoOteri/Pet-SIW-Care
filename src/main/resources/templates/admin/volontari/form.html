@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Volontari</title>
+	</head>
+	<body>
+		<h1> Aggiungi Volontario</h1>
+		<form th:action = "@{/volontari}"  th:method="POST" th:object="${volontario}">
+			<div th:if="${#fields.hasGlobalErrors()}">
+				<p th:each ="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+			</div>
+			<div>
+				Codice Fiscale: <span><input type="text" th:field:="${volontario.codiceFiscale}"></span>
+				<span th:if="${#fields.hasErrors('codiceFiscale')}" th:errors="*{codiceFiscale}"></span>
+			</div>
+			<div>
+				Nome: <span><input type="text" th:field:="${volontario.nome}"></span>
+				<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+			</div>
+			<div>
+				Cognome: <span><input type="text" th:field:="${volontario.cognome}"></span>
+				<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+			</div>
+			<div>
+				Data Di Nascita: <span><input type="text" th:field:="${volontario.dataDiNascita}"></span>
+				<span th:if="${#fields.hasErrors('dataDiNascita')}" th:errors="*{dataDiNascita}"></span>
+			</div>
+			<div>
+				Specializzazione: <span><input type="text" th:field:="${volontario.specializzazione}"></span>
+				<span th:if="${#fields.hasErrors('specializzazione')}" th:errors="*{specializzazione}"></span>
+			</div>
+			<div>
+				<span><button type = "submit">Conferma </button></span>
+			</div>
+		</form>
+		
+		
+	</body>	
+
+
+</html>

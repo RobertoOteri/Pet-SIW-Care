@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Volontari</title>
+	</head>
+	<body>
+		<ul>
+			<li th:each="v : volontari">
+				<a th:href="@{'/volontari/' + ${v.id} + }" th:text="${v.nome + ' ' + v.cognome}"></a>
+			</li>
+		</ul>
+		
+	</body>	
+
+
+</html>
