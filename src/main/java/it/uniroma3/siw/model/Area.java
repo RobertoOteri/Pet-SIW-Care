@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+
 import java.util.List;
 import java.util.Objects;
 
@@ -112,6 +113,7 @@ public class Area {
 		Area other = (Area) obj;
 		return Objects.equals(capacita, other.capacita) && Objects.equals(nome, other.nome);
 	}
+}	
 	
 	
 	
@@ -119,5 +121,3 @@ public class Area {
 	
 	
 	
-	
-}

@@ -33,7 +33,6 @@ public class RichiestaAdozione {
 	}
 
 	public RichiestaAdozione(LocalDateTime dataOra, Stato stato, String descrizione) {
-		super();
 		this.dataOra = dataOra;
 		this.stato = stato;
 		this.descrizione = descrizione;
@@ -80,11 +79,5 @@ public class RichiestaAdozione {
 	}
 	
 	//da fare has e equals su utente e animale
-	
-	
-	
-	
-	
-	
-	
+
 }
