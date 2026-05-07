@@ -1,1 +1,20 @@
-dsvnjdskvn
+<DOCTYPE html>
+<html>
+	<head>
+		<title> Animale </title>
+	</head>
+	<body>
+		<h1 th:text = "${animale.nome}"> Nome Animale </h1>
+		<div>
+			Specie: <span th:text = "${animale.specie}"> Cane </span>
+			Razza: <span th:text = "${animale.razza}"> BullDog </span>
+			Data Di Nascita: <span th:text = "${animale.dataNascita}"> 20/01/2000 </span>
+			Data Di Arrivo: <span th:text = "${animale.dataArrivo}"> 20/12/2001 </span>
+		</div>
+		<div>
+			<span th:text = "${animale.descrizione}"> Bello </span>
+		</div>
+		<img th:src = "${animale.immagineUrl}"></img>
+	</body>
+</html>
+		 

@@ -4,13 +4,12 @@
 		<title>Volontari</title>
 	</head>
 	<body>
+		<h1>Lista Volontari</h1>
 		<ul>
-			<li th:each="v : volontari">
+			<li th:each="v : ${volontari}">
+
 				<a th:href="@{'/volontari/' + ${v.id}}" th:text="${v.nome + ' ' + v.cognome}"></a>
 			</li>
-		</ul>
-		
+		</ul>	
 	</body>	
-
-
 </html>
