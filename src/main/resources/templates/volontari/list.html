@@ -6,7 +6,7 @@
 	<body>
 		<ul>
 			<li th:each="v : volontari">
-				<a th:href="@{'/volontari/' + ${v.id} + }" th:text="${v.nome + ' ' + v.cognome}"></a>
+				<a th:href="@{'/volontari/' + ${v.id}}" th:text="${v.nome + ' ' + v.cognome}"></a>
 			</li>
 		</ul>
 		
