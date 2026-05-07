@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Aree</title>
+	</head>
+	<body>
+		<h1> Aggiungi Aree</h1>
+		<form th:action = "@{/admin/aree}"  th:method="POST" th:object="${area}">
+			<div th:if="${#fields.hasGlobalErrors()}">
+				<p th:each ="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+			</div>
+			<div>
+				Nome: <span><input type="text" th:field="${area.nome}"></span>
+				<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+			</div>
+			<div>
+				Capacità: <span><input type="text" th:field="${area.capacita}"></span>
+				<span th:if="${#fields.hasErrors('capacita')}" th:errors="*{capacita}"></span>
+			</div>
+			<div>
+				Descrizione: <span><input type="text" th:field="${area.descrizione}"></span>
+				<span th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
+			</div>
+			<div>
+				Immagine: <span><input type="url" th:field="${area.immagineUrl}"></span>
+				<span th:if="${#fields.hasErrors('immagineUrl')}" th:errors="*{immagineUrl}"></span>
+			</div>
+
+			<div>
+				<span><button type = "submit">Conferma </button></span>
+			</div>
+		</form>
+		
+		
+	</body>	
+
+
+</html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,8 +43,14 @@ public class AreaController {
 		return "admin/aree/form";
 	}
 	@PostMapping("/admin/aree")
-	public String newArea(@Valid @ModelAttribute("area") Area area) {
-		this.areaService.save(area);
-		return "redirect:/aree";
+	public String newArea(@Valid @ModelAttribute("area") Area area,BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "admin/aree/form";
+		}
+		else {
+			this.areaService.save(area);
+			return "redirect:/aree";
+		}
+
 	}
 }

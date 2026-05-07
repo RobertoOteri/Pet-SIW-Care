@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Aggiungi un Animale </title>
+	</head>
+	<body> 
+		<ul>
+			<li th:each="a : ${aree}">
+				<a th:href="@{'/aree/' + ${a.id}}" th:text="${a.nome}">Nome Area</a>
+			</li>
+		</ul>
+	</body>
+</html>
