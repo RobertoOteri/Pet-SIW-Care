@@ -28,6 +28,8 @@ public class RichiestaAdozione {
 	@ManyToOne
 	private Animale animale;
 	
+	// Costruttori //
+	
 	public RichiestaAdozione() {
 		
 	}
@@ -38,6 +40,8 @@ public class RichiestaAdozione {
 		this.descrizione = descrizione;
 	}
 
+	// Getters And Setters //
+	
 	public Long getId() {
 		return id;
 	}

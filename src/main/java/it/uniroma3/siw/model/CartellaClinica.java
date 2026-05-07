@@ -29,6 +29,8 @@ public class CartellaClinica {
 	
 	private String terapia;
 	
+	// Costruttori //
+	
 	public CartellaClinica() {
 		
 	}
@@ -71,6 +73,8 @@ public class CartellaClinica {
 		this.terapia = terapia;
 	}
 
+	// HashCode And Equals //
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

@@ -38,6 +38,8 @@ public class Area {
 	@OneToMany(mappedBy = "area",cascade = {CascadeType.PERSIST,CascadeType.REMOVE,CascadeType.MERGE})
 	private List<Animale> animali;
 	
+	// Costruttori //
+	
 	public Area() {
 		
 	}
@@ -49,6 +51,8 @@ public class Area {
 		this.immagineUrl = immagineUrl;
 	}
 
+	// Getters And Setters // 
+	
 	public Long getId() {
 		return id;
 	}
@@ -97,6 +101,8 @@ public class Area {
 		this.animali = animali;
 	}
 
+	// Hash Code And Equals //
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(capacita, nome);

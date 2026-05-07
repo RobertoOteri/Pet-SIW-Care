@@ -33,7 +33,7 @@ public class Volontario {
 	@OneToMany(mappedBy = "volontario")
 	private List<Animale> listaAnimali;
 	
-	// Constructors //
+	// Costruttori //
 	
 	public Volontario() {}
 	

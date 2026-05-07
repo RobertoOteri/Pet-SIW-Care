@@ -13,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Animale {
@@ -21,21 +23,25 @@ public class Animale {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@NotBlank
 	@Column(nullable = false)
 	private String nome;
 	
+	@NotBlank
 	@Column(nullable = false)
 	private Specie specie;
 	
-	@Column(nullable = false)
 	private String razza;
 	
 	private LocalDate dataNascita;
 	
+	@NotNull
 	@Column(nullable = false)
 	private LocalDate dataArrivo;
 	
 	private String descrizione;
+	
+	private String immagineUrl;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST})
 	private Volontario volontario;
@@ -49,11 +55,11 @@ public class Animale {
 	@OneToMany(mappedBy = "animale", cascade = {CascadeType.REMOVE})
 	private List<RichiestaAdozione> richiesteDiAdozione;
 	
-	// Constructors //
+	// Costruttori //
 	
 	public Animale() {}
 	
-	public Animale(String nome, Specie specie, String razza, LocalDate dataNascita, LocalDate DataArrivo, String descrizione) {
+	public Animale(String nome, Specie specie, String razza, LocalDate dataNascita, LocalDate DataArrivo, String descrizione, String immagineUrl) {
 
 		this.nome = nome;
 		this.specie = specie;
@@ -61,6 +67,7 @@ public class Animale {
 		this.dataNascita = dataNascita;
 		this.dataArrivo = dataArrivo;
 		this.descrizione = descrizione;
+		this.immagineUrl = immagineUrl;
 	}
 	
 	// Getters And Setters //
@@ -152,9 +159,17 @@ public class Animale {
 	public void setRichiesteDiAdozione(List<RichiestaAdozione> richiesteDiAdozione) {
 		this.richiesteDiAdozione = richiesteDiAdozione;
 	}
+	
+	public String getImmagineUrl() {
+		return immagineUrl;
+	}
+
+	public void setImmagineUrl(String immagineUrl) {
+		this.immagineUrl = immagineUrl;
+	}
 
 	// HashCode And Equals //
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(dataNascita, nome, razza, specie);
