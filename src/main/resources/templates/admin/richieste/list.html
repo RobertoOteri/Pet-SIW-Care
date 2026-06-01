@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>	Richieste Adozioni </title>
+	</head>
+	<body>
+		<h1> lista richieste </h1>
+		<div>
+			<ul>
+				<li th:each = "richiesta : ${richieste}">
+					<a th:href = "@{'/admin/richieste/' + ${richiesta.id}}"> Id </a>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
+	

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Richieste</title>
+	</head>
+	
+	<body>
+		<h1> Aggiungi Richiesta</h1>
+		<form th:method="POST" th:action="@{/utenti/richieste}" th:object="${richiesta}">
+			<div th:if="${#fields.hasGlobalErrors()}">
+				<p th:each="err:${#fields.globalErrors()}" th:text="${err}"></p>
+			</div>
+			<div>
+				Animale:<select th:field="${richiesta.animale}">
+				<option value="">--Scegli Animale--</option>
+				<option th:each="animale : ${animali}" th:value="${animale.id}" th:text="${animale.nome + '-' + animale.specie}"></option>
+				</select>
+			</div>
+			<div>
+				Descrizione:<span><input type="text" th:field="${richiesta.descrizione}"></span>
+			</div>
+			<div>
+				<span><button type="submit">Conferma</button></span>
+			</div> 
+		</form>
+
+	</body>
+	
+</html>

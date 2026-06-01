@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>	Richiesta Adozione </title>
+	</head>
+	<body>
+		<h1 th:text="${richiesta.id}"> Id richiesta</h1>
+		<div>
+			Animale Richiesto:<span th:text="${richiesta.animale.nome + '-' + richiesta.animale.specie}"></span>
+		</div>
+		<div>
+			Effettuata in:<span th:text="${#temporals.format(richiesta.dataOra, 'dd/MM/yyyy HH:mm')}"></span>
+		</div>
+		<div>
+			Stato:<span th:text="${richiesta.stato}"></span>
+		</div>
+		<div>
+			Descrizione:<span th:text="${richiesta.descrizione}"></span>
+		</div>
+	</body>
+</html>
+	
