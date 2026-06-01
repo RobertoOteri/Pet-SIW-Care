@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -29,8 +30,13 @@ public class CartellaClinica {
 	
 	private String terapia;
 	
-	// Costruttori //
+	private Double peso;
 	
+	@OneToOne
+	private Animale animale;
+	
+	// Costruttori //
+
 	public CartellaClinica() {
 		
 	}
@@ -73,6 +79,21 @@ public class CartellaClinica {
 		this.terapia = terapia;
 	}
 
+	public Animale getAnimale() {
+		return animale;
+	}
+
+	public void setAnimale(Animale animale) {
+		this.animale = animale;
+	}
+	
+	public Double getPeso() {
+		return this.peso;
+	}
+	
+	public void setPeso(Double peso) {
+		this.peso = peso;
+	}
 	// HashCode And Equals //
 	
 	@Override

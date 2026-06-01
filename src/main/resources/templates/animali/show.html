@@ -15,6 +15,22 @@
 			<span th:text = "${animale.descrizione}"> Bello </span>
 		</div>
 		<img th:src = "${animale.immagineUrl}"></img>
+		
+		<hr>
+		
+		<h2>Cartella Clinica</h2>
+
+		<div th:if="${animale.cartellaClinica != null}">
+		    <p><strong>Data Visita:</strong> <span th:text="${animale.cartellaClinica.dataVisita}">01/01/2026</span></p>
+		    <p><strong>Peso:</strong> <span th:text="${animale.cartellaClinica.peso}">10</span> kg</p>
+		    <p><strong>Diagnosi:</strong> <span th:text="${animale.cartellaClinica.diagnosi}">Sano</span></p>
+		    <p><strong>Terapia:</strong> <span th:text="${animale.cartellaClinica.terapia}">Nessuna</span></p>
+		</div>
+
+		<div th:unless="${animale.cartellaClinica != null}">
+		    <p>Questo animale non ha ancora una cartella clinica registrata.</p>
+		    <a th:href="@{/admin/animali/{id}/nuova-cartella(id=${animale.id})}">Crea Nuova Cartella Clinica</a>
+		</div>
 	</body>
 </html>
 		 

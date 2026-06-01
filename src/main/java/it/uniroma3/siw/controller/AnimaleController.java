@@ -45,6 +45,7 @@ public class AnimaleController {
 	public String getAnimale(@PathVariable("id") Long id, Model model) {
 		Animale animale = this.animaleService.findById(id);
 		model.addAttribute("animale", animale);
+		model.addAttribute("cartellaClinica", animale.getCartellaClinica());
 		return "animali/show";
 	}
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Aggiungi una Cartella</title>
+	</head>
+	<body>
+		<h1> Inserisci una nuova Cartella per <span th:text = "${animale.nome}"> nome Animale </span> </h1>
+		<form th:action = "@{/admin/animali/{id}/salva-cartella(id = ${animale.id})}"
+			  th:method = "POST" th:object = "${cartellaClinica}">
+			  
+			  <div>
+				<label for="dataVisita"> Data della visita: </label>
+				<input type = "date" id="dataVisita" th:field = "*{dataVisita}" required />
+				<span th:if="${#fields.hasErrors('dataVisita')}" th:errors="*{dataVisita}">Errore data</span>
+			  </div>
+			  
+			  <div>
+				<label for = "diagnosi"> Diagnosi: </label>
+				<input type = "text" id = "diagnosi" th:field = "*{diagnosi}" required/>
+				<span th:if="${#fields.hasErrors('diagnosi')}" th:errors = "*{diagnosi}"> Errore diagnosi </span>
+			</div>
+			<div>
+				<label for = "terapia"> Terapia: </label>
+				<input type = "text" id = "terapia" th:field = "*{terapia}"/>
+				<span th:if = "${#fields.hasErrors('terapia')}" th:errors = "*{terapia}"> Errore terapia </span>
+			</div>
+			<div>
+				<label for = "peso"> Peso: </label>
+				<input type = "text" id ="peso" th:field = "*{peso}" />
+				<span th:if = "${#fields.hasErrors('peso')}" th:errors = "*{peso}"> Errore peso </span>
+			</div>
+			<div>
+				<span><button type="submit"> Conferma </button></span>
+			</div>
+			</form>
+		</body>
+</html>
+				
+				

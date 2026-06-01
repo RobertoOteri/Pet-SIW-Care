@@ -48,7 +48,7 @@ public class Animale {
 	@ManyToOne
 	private Area area;
 	
-	@OneToOne
+	@OneToOne(cascade =  CascadeType.ALL)
 	private CartellaClinica cartellaClinica;
 	
 	@OneToMany(mappedBy = "animale", cascade = {CascadeType.REMOVE})

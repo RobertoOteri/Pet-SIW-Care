@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class RichiestaAdozione {
@@ -16,15 +18,19 @@ public class RichiestaAdozione {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@NotNull
 	@Column(nullable = false)
 	private LocalDateTime dataOra;
 	
+	@NotBlank
 	@Column(nullable = false)
 	private Stato stato;
 	
+	@NotBlank
 	@Column(nullable = false)
 	private String descrizione;
 	
+	@NotBlank
 	@ManyToOne
 	private Animale animale;
 	
