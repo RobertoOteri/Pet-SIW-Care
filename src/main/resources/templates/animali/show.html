@@ -14,8 +14,21 @@
 		<div>
 			<span th:text = "${animale.descrizione}"> Bello </span>
 		</div>
-		<img th:src = "${animale.immagineUrl}"></img>
-		
+		<div>
+			<img th:src = "${animale.immagineUrl}"></img>
+		</div>
+		<div>
+			<a th:href="@{/admin/animali/{id}/modifica(id=${animale.id})}" 
+			style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
+			✏️ Modifica Informazioni
+			</a>
+					    
+			<a th:href="@{/admin/animali/{id}/elimina(id=${animale.id})}" 
+			onclick="return confirm('Sei sicuro?');"
+			style="display: inline-block; padding: 8px 16px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px;">
+			❌ Elimina Animale
+			</a>
+		</div>
 		<hr>
 		
 		<h2>Cartella Clinica</h2>
@@ -25,11 +38,26 @@
 		    <p><strong>Peso:</strong> <span th:text="${animale.cartellaClinica.peso}">10</span> kg</p>
 		    <p><strong>Diagnosi:</strong> <span th:text="${animale.cartellaClinica.diagnosi}">Sano</span></p>
 		    <p><strong>Terapia:</strong> <span th:text="${animale.cartellaClinica.terapia}">Nessuna</span></p>
+			<div>
+				<a th:href="@{/admin/cartelleCliniche/{id}/modifica(id=${cartellaClinica.id})}" 
+				style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
+				✏️ Modifica Informazioni
+				</a>
+						    
+				<a th:href="@{/admin/cartelleCliniche/{id}/elimina(id=${cartellaClinica.id})}" 
+				onclick="return confirm('Sei sicuro?');"
+				style="display: inline-block; padding: 8px 16px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px;">
+				❌ Elimina Cartella
+				</a>
+			</div>
 		</div>
 
 		<div th:unless="${animale.cartellaClinica != null}">
 		    <p>Questo animale non ha ancora una cartella clinica registrata.</p>
-		    <a th:href="@{/admin/animali/{id}/nuova-cartella(id=${animale.id})}">Crea Nuova Cartella Clinica</a>
+			<a th:href="@{/admin/animali/{id}/nuova-cartella(id=${animale.id})}"
+			       style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;">
+			       ➕ Crea Nuova Cartella Clinica
+			</a>
 		</div>
 	</body>
 </html>

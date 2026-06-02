@@ -54,5 +54,29 @@ public class CartellaClinicaController {
 		
 		return "redirect:/animali/" + id;
 	}
+	
+	@GetMapping("/admin/cartelleCliniche/{id}/modifica")
+	public String modificaCartellaClinica(@PathVariable("id") Long id, Model model) {
+		CartellaClinica cartellaClinica = this.cartellaClinicaService.findById(id);
+		model.addAttribute("cartellaClinica", cartellaClinica);
+		model.addAttribute("animale", cartellaClinica.getAnimale());
+		return "admin/animali/formCartella";
+	}
+	
+	@PostMapping("/admin/cartelleCliniche/{id}/modifica")
+	public String salvaModificaCartellaClinica(@PathVariable("id") Long id,
+											   @Valid @ModelAttribute("cartellaClinica") CartellaClinica cartellaClinica,
+											   BindingResult bindingResult, Model model) {
+		Animale animale = this.cartellaClinicaService.findById(id).getAnimale();
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("animale", animale);
+			return "admin/animali/formCartella";
+		}
+		cartellaClinica.setId(id);
+		cartellaClinica.setAnimale(animale);
+		this.cartellaClinicaService.save(cartellaClinica);
+		
+		return "redirect:/animali/" + animale.getId();
+	}
 
 }

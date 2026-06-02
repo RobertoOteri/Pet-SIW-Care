@@ -53,4 +53,29 @@ public class AreaController {
 		}
 
 	}
+	
+	@GetMapping("/admin/aree/{id}/elimina")
+	public String deleteArea(@PathVariable("id") Long id) {
+		this.areaService.deleteById(id);
+		return "redirect:/aree";
+	}
+	
+	@GetMapping("/admin/aree/{id}/modifica")
+	public String modificaArea(@PathVariable("id") Long id, Model model) {
+		Area area = this.areaService.findById(id);
+		model.addAttribute("area", area);
+		return "admin/aree/form";
+	}
+	
+	@PostMapping("/admin/aree/{id}/modifica")
+	public String salvaModificaArea(@PathVariable("id") Long id,
+									@Valid @ModelAttribute("area") Area area,
+									BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors()) {
+			return "admin/aree/form";
+		}
+		area.setId(id);
+		this.areaService.save(area);
+		return "redirect:/aree/" + id;
+	}
 }

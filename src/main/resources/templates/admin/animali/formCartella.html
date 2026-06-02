@@ -5,9 +5,13 @@
 	</head>
 	<body>
 		<h1> Inserisci una nuova Cartella per <span th:text = "${animale.nome}"> nome Animale </span> </h1>
-		<form th:action = "@{/admin/animali/{id}/salva-cartella(id = ${animale.id})}"
-			  th:method = "POST" th:object = "${cartellaClinica}">
+		<form th:action = "${cartellaClinica.id == null} ? @{/admin/animali/{id}/salva-cartella(id = ${animale.id})} : 
+						                                   @{/admin/cartelleCliniche/{id}/modifica(id = ${cartellaClinica.id})}"
+			  th:method = "POST"
+			  th:object = "${cartellaClinica}">
 			  
+			  <input type = "hidden" th:field = "*{id}" />
+
 			  <div>
 				<label for="dataVisita"> Data della visita: </label>
 				<input type = "date" id="dataVisita" th:field = "*{dataVisita}" required />

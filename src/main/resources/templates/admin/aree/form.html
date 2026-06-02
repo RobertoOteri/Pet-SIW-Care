@@ -5,7 +5,13 @@
 	</head>
 	<body>
 		<h1> Aggiungi Aree</h1>
-		<form th:action = "@{/admin/aree}"  th:method="POST" th:object="${area}">
+		<form th:action = "${area.id == null} ? @{/admin/aree} : 
+												@{/admin/aree/{id}/modifica(id = ${area.id})}"
+			th:method="POST"
+			th:object="${area}">
+			
+			<input type = "hidden" th:field = "*{id}" />
+			
 			<div th:if="${#fields.hasGlobalErrors()}">
 				<p th:each ="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 			</div>

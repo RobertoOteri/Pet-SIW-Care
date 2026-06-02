@@ -5,7 +5,13 @@
 	</head>
 	<body> 
 		<h1> Inserisci un nuovo ospite </h1>
-		<form th:action = "@{/admin/animali}" th:method = "POST" th:object = "${animale}">
+		<form th:action = " ${animale.id == null} ? @{/admin/animali} : 
+							@{/admin/animali/{id}/modifica(id = ${animale.id})}"
+			  th:method = "POST" 
+			  th:object = "${animale}">
+			  
+			<input type="hidden" th:field="*{id}" />
+			
 		<div>
 			Nome: <span><input required type="text" th:field = "${animale.nome}"/></span>
 		</div>

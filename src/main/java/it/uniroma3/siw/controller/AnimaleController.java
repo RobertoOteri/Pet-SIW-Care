@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +48,31 @@ public class AnimaleController {
 		model.addAttribute("animale", animale);
 		model.addAttribute("cartellaClinica", animale.getCartellaClinica());
 		return "animali/show";
+	}
+	
+	@GetMapping("/admin/animali/{id}/elimina")
+	public String deleteAnimale(@PathVariable("id") Long id) {
+		this.animaleService.deleteById(id);
+		return "redirect:/animali/";
+	}
+	
+	@GetMapping("/admin/animali/{id}/modifica")
+	public String formModificaAnimale(@PathVariable("id") Long id, Model model) {
+		Animale animale = this.animaleService.findById(id);
+		model.addAttribute("animale", animale);
+		return "admin/animali/form";
+	}
+	
+	@PostMapping("/admin/animali/{id}/modifica")
+	public String salvaModificaAnimale(@PathVariable("id") Long id,
+									   @Valid @ModelAttribute("animale") Animale animale,
+									   BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors()) {
+			return "admin/animali/form";
+		}
+		animale.setId(id);
+		this.animaleService.save(animale);
+		return "redirect:/animali/" + id;
 	}
 
 }
