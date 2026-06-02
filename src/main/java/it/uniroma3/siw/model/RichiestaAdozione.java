@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,19 +20,17 @@ public class RichiestaAdozione {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@NotNull
 	@Column(nullable = false)
 	private LocalDateTime dataOra;
 	
-	@NotBlank
-	@Column(nullable = false)
+
+    @Enumerated(EnumType.STRING)
 	private Stato stato;
 	
 	@NotBlank
 	@Column(nullable = false)
 	private String descrizione;
 	
-	@NotBlank
 	@ManyToOne
 	private Animale animale;
 	

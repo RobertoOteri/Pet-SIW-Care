@@ -27,4 +27,9 @@ public class VolontarioService {
 	public Volontario save(Volontario volontario) {
 		return this.volontarioRepository.save(volontario);
 	}
+	
+	public void deleteById(Long id) {
+		this.volontarioRepository.deleteById(id);
+	}
+	
 }
