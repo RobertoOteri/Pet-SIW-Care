@@ -27,7 +27,7 @@
 				<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
 			</div>
 			<div>
-				Data Di Nascita: <span><input type="text" th:field="${volontario.dataDiNascita}"></span>
+				Data Di Nascita: <span><input type="date" th:field="${volontario.dataDiNascita}"></span>
 				<span th:if="${#fields.hasErrors('dataDiNascita')}" th:errors="*{dataDiNascita}"></span>
 			</div>
 			<div>

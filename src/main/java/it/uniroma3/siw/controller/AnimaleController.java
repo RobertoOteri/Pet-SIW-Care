@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Animale;
+import it.uniroma3.siw.model.Specie;
 import it.uniroma3.siw.service.AnimaleService;
 import jakarta.validation.Valid;
 
@@ -26,6 +27,7 @@ public class AnimaleController {
 	@GetMapping("/admin/animali/form")
 	public String formNuovoAnimale(Model model) {
 		model.addAttribute("animale", new Animale());
+		model.addAttribute("specie",Specie.values());
 		return "admin/animali/form";
 	}
 	
@@ -60,6 +62,7 @@ public class AnimaleController {
 	public String formModificaAnimale(@PathVariable("id") Long id, Model model) {
 		Animale animale = this.animaleService.findById(id);
 		model.addAttribute("animale", animale);
+		model.addAttribute("specie",Specie.values());
 		return "admin/animali/form";
 	}
 	
@@ -68,6 +71,7 @@ public class AnimaleController {
 									   @Valid @ModelAttribute("animale") Animale animale,
 									   BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("specie",Specie.values());
 			return "admin/animali/form";
 		}
 		animale.setId(id);
