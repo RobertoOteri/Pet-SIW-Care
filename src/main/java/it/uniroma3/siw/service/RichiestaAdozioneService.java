@@ -28,4 +28,8 @@ public class RichiestaAdozioneService {
 		return this.richiestaAdozioneRepository.save(richiestaAdozione);
 	}
 	
+	public void deleteById(Long id) {
+		this.richiestaAdozioneRepository.deleteById(id);
+	}
+	
 }

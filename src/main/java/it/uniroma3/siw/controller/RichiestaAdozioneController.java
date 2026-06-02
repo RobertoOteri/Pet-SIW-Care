@@ -61,4 +61,29 @@ public class RichiestaAdozioneController {
 			return "redirect:/admin/richieste";
 		}
 	}
+	
+	@GetMapping("/utenti/richieste/{id}/elimina")
+	public String delete(@PathVariable ("id") Long id) {
+		this.richiestaAdozioneService.deleteById(id);
+		return "redirect:/admin/richieste";
+	}
+	
+	@GetMapping("/utenti/richieste/{id}/modifica")
+	public String formModificaRichiesta(@PathVariable ("id") Long id, Model model) {
+		model.addAttribute("richiesta", this.richiestaAdozioneService.findById(id));
+		return "utenti/richieste/form";
+	}
+	
+	@PostMapping("/utenti/richieste/{id}/modifica")
+	public String saveModificaRichiesta(@PathVariable ("id") Long id,@Valid @ModelAttribute("richiesta") RichiestaAdozione richiesta,
+			BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "utenti/richieste/form";
+		}
+		else {
+			richiesta.setId(id);
+			this.richiestaAdozioneService.save(richiesta);
+			return "redirect:/admin/richieste";
+		}
+	}
 }

@@ -17,6 +17,19 @@
 		<div>
 			Descrizione:<span th:text="${richiesta.descrizione}"></span>
 		</div>
+		<div>
+			<a th:href = "@{/utenti/richiesta/{id}/modifica(id = ${richiesta.id})}"
+					   style = "display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
+					   ✏️ Modifica Informazioni
+			</a>
+		</div>
+		<div>
+				<a th:href = "@{/utenti/richiesta/{id}/elimina(id = ${richiesta.id})}"
+				onclick="return confirm('Sei sicuro?');"
+				style = "display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
+				❌ Elimina Richiesta
+				</a>
+		</div> 
 	</body>
 </html>
 	

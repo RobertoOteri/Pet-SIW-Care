@@ -51,4 +51,31 @@ public class VolontarioController {
 		}
 
 	}
+	
+	@GetMapping("/admin/volontari/{id}/elimina")
+	public String delete(@PathVariable ("id") Long id) {
+		this.volontarioService.deleteById(id);
+		return "redirect:/volontari";
+	}
+	
+	@GetMapping("/admin/volontari/{id}/modifica")
+	public String formModificaVolontario(@PathVariable ("id") Long id,Model model) {
+		model.addAttribute("volontario",this.volontarioService.findById(id));
+		return "admin/volontari/form";
+	}
+	
+	@PostMapping("/admin/volontari/{id}/modifica")
+	public String saveVolontarioModificato(@PathVariable("id") Long id,@Valid @ModelAttribute("volontario") Volontario volontario, 
+			BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "admin/volontari/form";
+		}
+		else {
+			volontario.setId(id);
+			this.volontarioService.save(volontario);
+			return "redirect:/volontari";
+		}
+	}
+	
+	
 }
