@@ -5,7 +5,12 @@
 	</head>
 	<body>
 		<h1> Aggiungi Volontario</h1>
-		<form th:action = "${volontario.id == null} ? @{/admin/volontari} : @{/admin/volontari/{id}/modifica(id=${volontario.id})}"  th:method="POST" th:object="${volontario}">
+		<form th:action = "${volontario.id == null} ? @{/admin/volontari} :
+						   @{/admin/volontari/{id}/modifica(id=${volontario.id})}"  
+				th:method="POST" 
+				th:object="${volontario}">
+				
+				
 			<div th:if="${#fields.hasGlobalErrors()}">
 				<p th:each ="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 			</div>

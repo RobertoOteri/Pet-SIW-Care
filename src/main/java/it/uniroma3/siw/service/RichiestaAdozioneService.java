@@ -32,4 +32,5 @@ public class RichiestaAdozioneService {
 		this.richiestaAdozioneRepository.deleteById(id);
 	}
 	
+	
 }

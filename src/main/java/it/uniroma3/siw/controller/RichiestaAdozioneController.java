@@ -71,19 +71,41 @@ public class RichiestaAdozioneController {
 	@GetMapping("/utenti/richieste/{id}/modifica")
 	public String formModificaRichiesta(@PathVariable ("id") Long id, Model model) {
 		model.addAttribute("richiesta", this.richiestaAdozioneService.findById(id));
+		model.addAttribute("animali", this.animaleService.findAll());
 		return "utenti/richieste/form";
 	}
 	
 	@PostMapping("/utenti/richieste/{id}/modifica")
 	public String saveModificaRichiesta(@PathVariable ("id") Long id,@Valid @ModelAttribute("richiesta") RichiestaAdozione richiesta,
-			BindingResult bindingResult) {
+			BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("animali", this.animaleService.findAll());
 			return "utenti/richieste/form";
 		}
 		else {
 			richiesta.setId(id);
+			richiesta.setDataOra(LocalDateTime.now());
+			richiesta.setStato(Stato.IN_ATTESA);
 			this.richiestaAdozioneService.save(richiesta);
-			return "redirect:/admin/richieste";
+			return "redirect:/admin/richieste" + id;
 		}
+	}
+	
+	@PostMapping("/admin/richieste/{id}/approva")
+	public String approvaRichiesta(@PathVariable("id") Long id) {
+		RichiestaAdozione richiestaAdozione = this.richiestaAdozioneService.findById(id);
+		richiestaAdozione.setStato(Stato.APPROVATA);
+		richiestaAdozione.setDataOraAccettazione(LocalDateTime.now());
+		this.richiestaAdozioneService.save(richiestaAdozione);
+		return "redirect:/admin/richieste";
+	}
+	
+	@PostMapping("/admin/richieste/{id}/rifiuta")
+	public String rifiutaRichiesta(@PathVariable("id") Long id) {
+		RichiestaAdozione richiestaAdozione = this.richiestaAdozioneService.findById(id);
+		richiestaAdozione.setStato(Stato.RIFIUTATA);
+		richiestaAdozione.setDataOraRifiuto(LocalDateTime.now());
+		this.richiestaAdozioneService.save(richiestaAdozione);
+		return "redirect:/admin/richieste";
 	}
 }

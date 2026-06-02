@@ -13,18 +13,27 @@
 		</div>
 		<div>
 			Stato:<span th:text="${richiesta.stato}"></span>
+		<div>
+			<span th:if = "${richiesta.stato.name() == 'RIFIUTATA' and richiesta.dataOraRifiuto != null}"> Data e ora Rifiuto: 
+				<span th:text = "${#temporals.format(richiesta.dataOraRifiuto, 'dd/MM/yyyy HH:mm')}"></span>
+			</span>
+			
+			<span th:if = "${richiesta.stato.name() == 'APPROVATA' and richiesta.dataOraAccettazione != null}"> Data e ora Approvazione: 
+					<span th:text = "${#temporals.format(richiesta.dataOraAccettazione, 'dd/MM/yyyy HH:mm')}"></span>
+			</span>
+		</div>
 		</div>
 		<div>
 			Descrizione:<span th:text="${richiesta.descrizione}"></span>
 		</div>
 		<div>
-			<a th:href = "@{/utenti/richiesta/{id}/modifica(id = ${richiesta.id})}"
-					   style = "display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
-					   ✏️ Modifica Informazioni
+			<a th:href = "@{/utenti/richieste/{id}/modifica(id = ${richiesta.id})}"
+				style = "display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
+				✏️ Modifica Informazioni
 			</a>
 		</div>
 		<div>
-				<a th:href = "@{/utenti/richiesta/{id}/elimina(id = ${richiesta.id})}"
+				<a th:href = "@{/utenti/richieste/{id}/elimina(id = ${richiesta.id})}"
 				onclick="return confirm('Sei sicuro?');"
 				style = "display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
 				❌ Elimina Richiesta

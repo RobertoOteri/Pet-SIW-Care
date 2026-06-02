@@ -73,7 +73,7 @@ public class VolontarioController {
 		else {
 			volontario.setId(id);
 			this.volontarioService.save(volontario);
-			return "redirect:/volontari";
+			return "redirect:/volontari/" + id;
 		}
 	}
 	

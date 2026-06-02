@@ -6,7 +6,12 @@
 	
 	<body>
 		<h1> Aggiungi Richiesta</h1>
-		<form th:method="POST" th:action="${richiesta.id == null} ? @{/utenti/richieste} : @{/utenti/richieste/{id}/modifica(id=${richiesta.id})}" th:object="${richiesta}">
+		<form th:method="POST" th:action="${richiesta.id == null} ? @{/utenti/richieste} : 
+										  @{/utenti/richieste/{id}/modifica(id=${richiesta.id})}"
+			 th:object="${richiesta}">
+			 
+			<input type = "hidden" th:field = "*{id}" />
+			
 			<div th:if="${#fields.hasGlobalErrors()}">
 				<p th:each="err:${#fields.globalErrors()}" th:text="${err}"></p>
 			</div>

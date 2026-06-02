@@ -34,8 +34,12 @@ public class RichiestaAdozione {
 	@ManyToOne
 	private Animale animale;
 	
-	// Costruttori //
+	private LocalDateTime dataOraRifiuto;
 	
+	private LocalDateTime dataOraAccettazione;
+	
+	// Costruttori //
+
 	public RichiestaAdozione() {
 		
 	}
@@ -88,6 +92,21 @@ public class RichiestaAdozione {
 		this.animale = animale;
 	}
 	
+	public LocalDateTime getDataOraRifiuto() {
+		return dataOraRifiuto;
+	}
+
+	public void setDataOraRifiuto(LocalDateTime dataOraRifiuto) {
+		this.dataOraRifiuto = dataOraRifiuto;
+	}
+
+	public LocalDateTime getDataOraAccettazione() {
+		return dataOraAccettazione;
+	}
+
+	public void setDataOraAccettazione(LocalDateTime dataOraAccettazione) {
+		this.dataOraAccettazione = dataOraAccettazione;
+	}
 	//da fare has e equals su utente e animale
 
 }
