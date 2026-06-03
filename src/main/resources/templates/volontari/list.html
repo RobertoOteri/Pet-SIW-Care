@@ -10,6 +10,9 @@
 
 				<a th:href="@{'/volontari/' + ${v.id}}" th:text="${v.nome + ' ' + v.cognome}"></a>
 			</li>
-		</ul>	
+		</ul>
+		<button th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" type ="submit">
+			<a href="/admin/volontari/new"> Aggiungi volontari</a>
+		</button>
 	</body>	
 </html>

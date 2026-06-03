@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title> Aggiungi un Animale </title>
+		<title> Area </title>
 	</head>
 	<body> 
+		<h1>Lista Aree</h1>
 		<ul>
 			<li th:each="a : ${aree}">
 				<a th:href="@{'/aree/' + ${a.id}}" th:text="${a.nome}">Nome Area</a>
 			</li>
 		</ul>
+		<button th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" type="submit">
+			<a href="/admin/aree/form">Aggiungi Area</a>
+		</button>	
 	</body>
 </html>
