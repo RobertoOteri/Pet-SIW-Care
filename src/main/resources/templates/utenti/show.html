@@ -46,21 +46,42 @@
 		            </td>
 		            
 		            <td>
-		                <div th:if="${richiesta.stato.name() == 'IN_ATTESA'}">
-		                    
-		                    <form th:action="@{/utenti/richieste/{id}/elimina(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-		                        <button type="submit">Elimina</button>
-		                    </form>
-		                    
-		                    <form th:action="@{/utenti/richieste/{id}/modifica(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-		                        <button type="submit">Modifica</button>
-		                    </form>
-		                    
-		                </div>
-		                
-		                <div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
-		                    <span>Gestita</span>
-		                </div>
+						<div th:if="${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}">
+			                <div th:if="${richiesta.stato.name() == 'IN_ATTESA'}">
+			                    
+			                    <form th:action="@{/utenti/richieste/{id}/elimina(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+			                        <button type="submit">Elimina</button>
+			                    </form>
+			                    
+			                    <form th:action="@{/utenti/richieste/{id}/modifica(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+			                        <button type="submit">Modifica</button>
+			                    </form>
+			                    
+			                </div>
+			                
+			                <div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
+			                    <span>Gestita</span>
+			                </div>
+						</div>
+						
+						<div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
+							<div th:if="${richiesta.stato.name() == 'IN_ATTESA'}">
+							    
+							    <form th:action="@{/admin/richieste/{id}/approva(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+							        <button type="submit">Approva</button>
+							    </form>
+							    
+							    <form th:action="@{/admin/richieste/{id}/rifiuta(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+							        <button type="submit">Rifiuta</button>
+							    </form>
+							    
+							</div>
+
+							<div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
+							    <span>Gestita</span>
+							</div>
+							
+						</div>
 		            </td>
 		        </tr>
 		        
