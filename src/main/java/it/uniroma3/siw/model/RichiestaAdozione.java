@@ -1,6 +1,7 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,17 +27,23 @@ public class RichiestaAdozione {
 
     @Enumerated(EnumType.STRING)
 	private Stato stato;
-	
+    
 	@NotBlank
 	@Column(nullable = false)
 	private String descrizione;
 	
-	@ManyToOne
-	private Animale animale;
-	
 	private LocalDateTime dataOraRifiuto;
 	
 	private LocalDateTime dataOraAccettazione;
+
+	
+	@NotNull
+	@ManyToOne
+	private Animale animale;
+	
+	@NotNull
+	@ManyToOne
+	private Utente utente;
 	
 	// Costruttori //
 
@@ -107,6 +114,34 @@ public class RichiestaAdozione {
 	public void setDataOraAccettazione(LocalDateTime dataOraAccettazione) {
 		this.dataOraAccettazione = dataOraAccettazione;
 	}
-	//da fare has e equals su utente e animale
+	
+	public Utente getUtente() {
+		return utente;
+	}
 
+	public void setUtente(Utente utente) {
+		this.utente = utente;
+	}
+
+	// HashCode And Equals //
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(animale, dataOra, utente);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RichiestaAdozione other = (RichiestaAdozione) obj;
+		return Objects.equals(animale, other.animale) && Objects.equals(dataOra, other.dataOra)
+				&& Objects.equals(utente, other.utente);
+	}
+
+	
 }

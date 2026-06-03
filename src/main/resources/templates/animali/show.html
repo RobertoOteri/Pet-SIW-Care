@@ -7,8 +7,14 @@
 		<h1 th:text = "${animale.nome}"> Nome Animale </h1>
 		<div>
 			Specie: <span th:text = "${animale.specie}"> Cane </span>
+		</div>
+		<div>
 			Razza: <span th:text = "${animale.razza}"> BullDog </span>
+		</div>
+		<div>
 			Data Di Nascita: <span th:text = "${animale.dataNascita}"> 20/01/2000 </span>
+		</div>
+		<div>
 			Data Di Arrivo: <span th:text = "${animale.dataArrivo}"> 20/12/2001 </span>
 		</div>
 		<div>
@@ -18,7 +24,7 @@
 			<img th:src = "${animale.immagineUrl}"></img>
 		</div>
 		<div>
-			<a 	th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')]"
+			<a 	th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
 				th:href="@{/admin/animali/{id}/modifica(id=${animale.id})}" 
 			style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
 			✏️ Modifica Informazioni
@@ -55,6 +61,13 @@
 				th:href="@{/admin/animali/{id}/nuova-cartella(id=${animale.id})}"
 			       style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;">
 			       ➕ Crea Nuova Cartella Clinica
+			</a>
+		</div>
+		<div>
+			<a 	th:if = "${userDetails != null and !userDetails.authorities.toString().contains('ADMIN')}"
+				th:href="@{/utenti/animali/{id}/nuova-richiesta(id=${animale.id})}"
+			       style="display: inline-block; padding: 8px 16px; background-color: #6A0DAD; color: white; text-decoration: none; border-radius: 4px;">
+			       ➕ Richiedi Adozione
 			</a>
 		</div>
 	</body>

@@ -5,31 +5,26 @@
 	</head>
 	
 	<body>
-		<h1> Aggiungi Richiesta</h1>
-		<form th:method="POST" th:action="${richiesta.id == null} ? @{/utenti/richieste} : 
-										  @{/utenti/richieste/{id}/modifica(id=${richiesta.id})}"
-			 th:object="${richiesta}">
+		<h1> Richiesta di Adozione per <span th:text="${animale.nome}">Nome Animale</span></h1>
+		
+		<form th:method="POST" 
+			  th:action="${richiesta.id == null} ? @{/utenti/animali/{id}/salva-richiesta(id=${animale.id})} : @{/utenti/richieste/{id}/modifica(id=${richiesta.id})}"
+			  th:object="${richiesta}">
 			 
-			<input type = "hidden" th:field = "*{id}" />
+			<input type="hidden" th:field="*{id}" />
 			
 			<div th:if="${#fields.hasGlobalErrors()}">
-				<p th:each="err:${#fields.globalErrors()}" th:text="${err}"></p>
+				<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 			</div>
+			
 			<div>
-				Animale:<select th:field="${richiesta.animale}">
-				<option value="">--Scegli Animale--</option>
-				<option th:each="animale : ${animali}" th:value="${animale.id}" th:text="${animale.nome + '-' + animale.specie}"></option>
-				</select>
+				Descrizione: <span><input type="text" th:field="*{descrizione}"></span>
+				<p th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}" style="color:red;"></p>
 			</div>
-			<div>
-				Descrizione:<span><input type="text" th:field="${richiesta.descrizione}"></span>
-			</div>
+			
 			<div>
 				<span><button type="submit">Conferma</button></span>
 			</div>
-
 		</form>
-
 	</body>
-	
 </html>
