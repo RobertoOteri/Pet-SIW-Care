@@ -31,6 +31,12 @@
 			Data di arrivo: <span><input type = "date" th:field = "${animale.dataArrivo}"/></span>
 		</div>
 		<div>
+			Volontario:<select th:field="${animale.volontario}">
+				<option value="">--Scegli Volontario--</option>
+				<option th:each="volontario :${volontari}" th:value="${volontario.id}" th:text="${volontario.nome + ' ' + volontario.cognome + ' - ' + volontario.specializzazione}"></option>
+			</select>
+		</div>
+		<div>
 			Descrizione: <span><input required type = "text" th:field = "${animale.descrizione}"/></span>
 		</div>
 		<div>

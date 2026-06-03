@@ -18,6 +18,9 @@
 			Data Di Arrivo: <span th:text = "${animale.dataArrivo}"> 20/12/2001 </span>
 		</div>
 		<div>
+			Volontario: <a th:href="@{/volontari/{id}(id=${animale.volontario.id})}" th:text="${animale.volontario.nome + ' ' + animale.volontario.cognome}"> Marco</a>
+		</div>
+		<div>
 			<span th:text = "${animale.descrizione}"> Bello </span>
 		</div>
 		<div>

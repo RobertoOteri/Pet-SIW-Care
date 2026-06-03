@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Utente</title>
+	</head>
+	<body>
+		<div>
+			Nome: <span th:text="${utente.nome}"></span>
+		</div>
+		<div>
+			Cognome:<span th:text="${utente.cognome}"></span>
+		</div>
+		<div>
+			Indirizzo:<span th:text="${utente.indirizzo}"></span>
+		</div>
+		<div>
+			Email:<span th:text="${utente.email}"></span>></span>
+		</div>
+		
+		<hr>
+		
+		<h1>Elenco Richieste di Adozione</h1>
+
+		<table border="1">
+		    <thead>
+		        <tr>
+		            <th>ID</th>
+		            <th>Data/Ora</th>
+		            <th>Animale</th>
+		            <th>Descrizione</th>
+		            <th>Stato Attuale</th>
+		            <th>Azioni</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:each="richiesta : ${richieste}">
+					<td>
+					    <a th:href="@{/richieste/{id}(id=${richiesta.id})}" th:text="${richiesta.id}">1</a>
+					</td>
+		            <td th:text="${#temporals.format(richiesta.dataOra, 'dd/MM/yyyy HH:mm')}">02/06/2026 15:37</td>
+		            <td th:text="${richiesta.animale != null ? richiesta.animale.nome : 'Non specificato'}">Nome Animale</td>
+		            <td th:text="${richiesta.descrizione}">Dettagli...</td>
+		            
+		            <td>
+		                <strong th:text="${richiesta.stato}">IN_ATTESA</strong>
+		            </td>
+		            
+		            <td>
+		                <div th:if="${richiesta.stato.name() == 'IN_ATTESA'}">
+		                    
+		                    <form th:action="@{/utenti/richieste/{id}/elimina(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+		                        <button type="submit">Elimina</button>
+		                    </form>
+		                    
+		                    <form th:action="@{/utenti/richieste/{id}/modifica(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+		                        <button type="submit">Modifica</button>
+		                    </form>
+		                    
+		                </div>
+		                
+		                <div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
+		                    <span>Gestita</span>
+		                </div>
+		            </td>
+		        </tr>
+		        
+		        <tr th:if="${#lists.isEmpty(richieste)}">
+		            <td colspan="6">Non ci sono richieste di adozione presenti nel sistema.</td>
+		        </tr>
+		    </tbody>
+		</table>
+
+	</body>	
+
+
+</html>
