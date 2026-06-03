@@ -27,7 +27,7 @@ public class Utente {
 	private String cognome;
 	
 	private String indirizzo;
-	
+
 	@NotBlank
 	@Column(nullable = false, unique = true)
 	private String email;
@@ -75,6 +75,14 @@ public class Utente {
 
 	public void setRichiesteAdozione(List<RichiestaAdozione> richiesteAdozione) {
 		this.richiesteAdozione = richiesteAdozione;
+	}
+	
+	public String getIndirizzo() {
+		return indirizzo;
+	}
+
+	public void setIndirizzo(String indirizzo) {
+		this.indirizzo = indirizzo;
 	}
 	
 	// HashCode And Equals //

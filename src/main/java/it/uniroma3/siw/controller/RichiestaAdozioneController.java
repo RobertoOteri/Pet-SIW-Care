@@ -79,14 +79,14 @@ public class RichiestaAdozioneController {
 			richiesta.setAnimale(animale);
 			richiesta.setUtente(utente);
 			this.richiestaAdozioneService.save(richiesta);
-			return "redirect:/richieste-utente";
+			return "redirect:/animali";
 		}
 	}
 	
 	@PostMapping("/utenti/richieste/{id}/elimina")
 	public String delete(@PathVariable ("id") Long id) {
 		this.richiestaAdozioneService.deleteById(id);
-		return "redirect:/richieste-utente";
+		return "redirect:/utenti";
 	}
 	
 	@GetMapping("/utenti/richieste/{id}/modifica")
