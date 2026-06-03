@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Registrazione - SIW</title>
+	</head>
+	<body>
+		<h1> Registrati </h1>
+		<form th:action ="@{/register}" method = "POST">
+			<div>
+			   <label>Nome:</label>
+			   <input type="text" name="nome" th:value="${utente.nome}" required />
+			   <p th:if="${#fields.hasErrors('utente.nome')}" th:errors="${utente.nome}" style="color:red;"></p>
+			        </div>
+			        
+			        <div>
+			            <label>Cognome:</label>
+			            <input type="text" name="cognome" th:value="${utente.cognome}" required />
+			            <p th:if="${#fields.hasErrors('utente.cognome')}" th:errors="${utente.cognome}" style="color:red;"></p>
+			        </div>
+			        
+			        <div>
+			            <label>Email:</label>
+			            <input type="email" name="email" th:value="${utente.email}" required />
+			            <p th:if="${#fields.hasErrors('utente.email')}" th:errors="${utente.email}" style="color:red;"></p>
+			        </div>
+			        
+			        <div>
+			            <label>Username:</label>
+			            <input type="text" name="username" th:value="${credenziali.username}" required />
+			            <p th:if="${#fields.hasErrors('credenziali.username')}" th:text="${#fields.errors('credenziali.username')[0]}" style="color:red;"></p>
+			        </div>
+			        
+			        <div>
+			            <label>Password:</label>
+			            <input type="password" name="password" th:value="${credenziali.password}" required />
+			            <p th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}" style="color:red;"></p>
+			        </div>
+			        
+			        <div>
+			            <button type="submit">Registrati</button>
+			        </div>
+			    </form>
+			</body>
+			</html>

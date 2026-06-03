@@ -55,7 +55,7 @@ public class AnimaleController {
 	@GetMapping("/admin/animali/{id}/elimina")
 	public String deleteAnimale(@PathVariable("id") Long id) {
 		this.animaleService.deleteById(id);
-		return "redirect:/animali/";
+		return "redirect:/animali";
 	}
 	
 	@GetMapping("/admin/animali/{id}/modifica")
