@@ -13,21 +13,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import it.uniroma3.siw.model.Animale;
 import it.uniroma3.siw.model.Specie;
 import it.uniroma3.siw.service.AnimaleService;
+import it.uniroma3.siw.service.VolontarioService;
 import jakarta.validation.Valid;
 
 @Controller
 public class AnimaleController {
 	
 	private AnimaleService animaleService;
+	private VolontarioService volontarioService;
 	
-	public AnimaleController(AnimaleService animaleService) {
+	public AnimaleController(AnimaleService animaleService, VolontarioService volontarioService) {
 		this.animaleService = animaleService;
+		this.volontarioService = volontarioService;
 	}
 	
 	@GetMapping("/admin/animali/form")
 	public String formNuovoAnimale(Model model) {
 		model.addAttribute("animale", new Animale());
 		model.addAttribute("specie",Specie.values());
+		model.addAttribute("volontari", this.volontarioService.findAll());
 		return "admin/animali/form";
 	}
 	
@@ -63,6 +67,7 @@ public class AnimaleController {
 		Animale animale = this.animaleService.findById(id);
 		model.addAttribute("animale", animale);
 		model.addAttribute("specie",Specie.values());
+		model.addAttribute("volontari", this.volontarioService.findAll());
 		return "admin/animali/form";
 	}
 	
@@ -72,6 +77,7 @@ public class AnimaleController {
 									   BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("specie",Specie.values());
+			model.addAttribute("volontari", this.volontarioService.findAll());
 			return "admin/animali/form";
 		}
 		animale.setId(id);

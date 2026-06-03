@@ -26,6 +26,8 @@ public class Utente {
 	@NotBlank
 	private String cognome;
 	
+	private String indirizzo;
+	
 	@NotBlank
 	@Column(nullable = false, unique = true)
 	private String email;

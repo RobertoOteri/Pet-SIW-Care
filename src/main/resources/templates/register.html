@@ -17,6 +17,12 @@
 			            <input type="text" name="cognome" th:value="${utente.cognome}" required />
 			            <p th:if="${#fields.hasErrors('utente.cognome')}" th:errors="${utente.cognome}" style="color:red;"></p>
 			        </div>
+					
+					<div>
+						<label>Indirizzo</label>
+						<input type="text" th:field="${utente.indirizzo}">
+						<p th:if="${#fields.hasErrors('utente.indirizzo')}" th:errors="${utente.indirizzo}" style="color:red;"></p>
+					</div>
 			        
 			        <div>
 			            <label>Email:</label>
