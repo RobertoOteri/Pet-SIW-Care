@@ -9,7 +9,7 @@
 			<li><a href="/volontari"> Lista volontari</a></li>
 			<li><a href="/aree">Lista Aree</a></li>
 			<li><a th:if = "${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}"
-				   href="/richieste-utenti">Lista Richieste dell'utente</a>
+				   href="/richieste-utente">Lista Richieste dell'utente</a>
 		    </li>
 			<li><a th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
 				   href="/admin/richieste">Lista Richieste</a>

@@ -5,7 +5,7 @@
 	</head>
 	
 	<body>
-		<h1> Richiesta di Adozione per <span th:text="${animale.nome}">Nome Animale</span></h1>
+		<h1> Richiesta di Adozione per <span th:text="${animale != null ? animale.nome : richiesta.animale?.nome}">Nome Animale</span></h1>
 		
 		<form th:method="POST" 
 			  th:action="${richiesta.id == null} ? @{/utenti/animali/{id}/salva-richiesta(id=${animale.id})} : @{/utenti/richieste/{id}/modifica(id=${richiesta.id})}"

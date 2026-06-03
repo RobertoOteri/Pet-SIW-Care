@@ -82,7 +82,7 @@ public class RichiestaAdozioneController {
 		}
 	}
 	
-	@GetMapping("/utenti/richieste/{id}/elimina")
+	@PostMapping("/utenti/richieste/{id}/elimina")
 	public String delete(@PathVariable ("id") Long id) {
 		this.richiestaAdozioneService.deleteById(id);
 		return "redirect:/richieste-utente";
@@ -92,7 +92,6 @@ public class RichiestaAdozioneController {
 	public String formModificaRichiesta(@PathVariable ("id") Long id, Model model) {
 		RichiestaAdozione richiesta = this.richiestaAdozioneService.findById(id);
 		model.addAttribute("richiesta", richiesta);
-		model.addAttribute("animali", this.animaleService.findAll());
 		model.addAttribute("animale", richiesta.getAnimale());
 		return "utenti/richieste/form";
 	}
@@ -101,6 +100,9 @@ public class RichiestaAdozioneController {
 	public String saveModificaRichiesta(@PathVariable ("id") Long id,@Valid @ModelAttribute("richiesta") RichiestaAdozione richiesta,
 			BindingResult bindingResult, Model model) {
 		
+		RichiestaAdozione richiestaOriginale = this.richiestaAdozioneService.findById(id);
+		Animale animale = richiestaOriginale.getAnimale();
+		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = userDetails.getUsername();
 		
@@ -108,16 +110,17 @@ public class RichiestaAdozioneController {
 		Utente utente = credenziali.getUtente();
 		
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("animali", this.animaleService.findAll());
+			model.addAttribute("animale", animale);
 			return "utenti/richieste/form";
 		}
 		else {
 			richiesta.setId(id);
 			richiesta.setDataOra(LocalDateTime.now());
 			richiesta.setStato(Stato.IN_ATTESA);
+			richiesta.setAnimale(animale);
 			richiesta.setUtente(utente);
 			this.richiestaAdozioneService.save(richiesta);
-			return "redirect:/richieste" + id;
+			return "redirect:/richieste/" + id;
 		}
 	}
 	

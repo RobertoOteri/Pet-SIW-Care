@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Volontario {
 	@Column(nullable = false)
 	private LocalDate dataDiNascita;
 	
-	@OneToMany(mappedBy = "volontario")
+	@OneToMany(mappedBy = "volontario", cascade = CascadeType.ALL)
 	private List<Animale> listaAnimali;
 	
 	// Costruttori //

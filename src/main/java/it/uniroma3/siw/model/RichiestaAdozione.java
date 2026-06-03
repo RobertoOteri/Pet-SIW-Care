@@ -36,12 +36,9 @@ public class RichiestaAdozione {
 	
 	private LocalDateTime dataOraAccettazione;
 
-	
-	@NotNull
 	@ManyToOne
 	private Animale animale;
 	
-	@NotNull
 	@ManyToOne
 	private Utente utente;
 	
