@@ -44,6 +44,7 @@ public class RichiestaAdozioneController {
 	@GetMapping("/richieste/{id}")
 	public String show(@PathVariable("id") Long id, Model model) {
 		RichiestaAdozione richiesta = this.richiestaAdozioneService.findById(id);
+		model.addAttribute("utente", richiesta.getUtente());
 		model.addAttribute("richiesta",richiesta);
 		return "richieste/show";
 	}
@@ -140,18 +141,5 @@ public class RichiestaAdozioneController {
 		richiestaAdozione.setDataOraRifiuto(LocalDateTime.now());
 		this.richiestaAdozioneService.save(richiestaAdozione);
 		return "redirect:/admin/richieste";
-	}
-	
-	@GetMapping("/richieste-utente")
-	public String listRichiesteUtente(Model model) {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = userDetails.getUsername();
-		
-		Credenziali credenziali = this.credenzialiService.findByUsername(username);
-		Long utenteId = credenziali.getUtente().getId();
-		
-		model.addAttribute("richieste", this.richiestaAdozioneService.findAllByUtenteId(utenteId));
-		
-		return "utenti/richieste/list";
 	}
 }

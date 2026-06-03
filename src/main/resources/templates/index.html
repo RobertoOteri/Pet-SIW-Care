@@ -9,11 +9,14 @@
 			<li><a href="/volontari"> Lista volontari</a></li>
 			<li><a href="/aree">Lista Aree</a></li>
 			<li><a th:if = "${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}"
-				   href="/richieste-utente">Lista Richieste dell'utente</a>
+				   href="/utenti">Visualizza Profilo</a>
 		    </li>
 			<li><a th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
 				   href="/admin/richieste">Lista Richieste</a>
 		    </li>
+			<form th:action="@{/logout}" method="POST">
+			    <button type="submit" class="btn btn-danger">Disconnetti</button>
+			</form>
 
 		</ul>
 		

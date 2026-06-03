@@ -20,7 +20,7 @@
         <tbody>
             <tr th:each="richiesta : ${richieste}">
 				<td>
-				    <a th:href="@{/admin/richieste/{id}(id=${richiesta.id})}" th:text="${richiesta.id}">1</a>
+				    <a th:href="@{richieste/{id}(id=${richiesta.id})}" th:text="${richiesta.id}">1</a>
 				</td>
                 <td th:text="${#temporals.format(richiesta.dataOra, 'dd/MM/yyyy HH:mm')}">02/06/2026 15:37</td>
                 <td th:text="${richiesta.animale != null ? richiesta.animale.nome : 'Non specificato'}">Nome Animale</td>

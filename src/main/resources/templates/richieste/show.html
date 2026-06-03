@@ -28,13 +28,15 @@
 		</div>
 		<div>
 			<span>
-			<a th:href = "@{/utenti/richieste/{id}/modifica(id = ${richiesta.id})}"
+			<a   th:if = "${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}"
+				th:href = "@{/utenti/richieste/{id}/modifica(id = ${richiesta.id})}"
 				style = "display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
 				✏️ Modifica Informazioni
 			</a>
 			</span>
 			<span>
-		    <form th:action="@{/utenti/richieste/{id}/elimina(id=${richiesta.id})}" th:method="POST" style="display: inline;">
+		    <form   th:if = "${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}"
+					th:action="@{/utenti/richieste/{id}/elimina(id=${richiesta.id})}" th:method="POST" style="display: inline;">
 		        <button type="submit" 
 		                onclick="return confirm('Sei sicuro di voler eliminare questa richiesta?');"
 		                style="display: inline-block; padding: 8px 16px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">
@@ -42,6 +44,13 @@
 		        </button>
 		    </form>
 			</span>
+		</div>
+		<div>
+			<a th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
+				th:href = "@{/utenti/{id}(id = ${richiesta.utente.id})}"
+				style = "display: inline-block; padding: 8px 16px; background-color: #343a40; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
+				👤 Visualizza utente
+			</a>
 		</div>
 	</body>
 </html>
