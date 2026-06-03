@@ -2,6 +2,8 @@ package it.uniroma3.siw.controller;
 
 import java.time.LocalDateTime;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.uniroma3.siw.model.Credenziali;
 import it.uniroma3.siw.model.RichiestaAdozione;
 import it.uniroma3.siw.model.Stato;
 import it.uniroma3.siw.service.AnimaleService;
+import it.uniroma3.siw.service.CredenzialiService;
 import it.uniroma3.siw.service.RichiestaAdozioneService;
 import jakarta.validation.Valid;
 
@@ -21,10 +25,12 @@ public class RichiestaAdozioneController {
 	
 	private RichiestaAdozioneService richiestaAdozioneService;
 	private AnimaleService animaleService;
+	private CredenzialiService credenzialiService;
 	
 	public RichiestaAdozioneController(RichiestaAdozioneService richiestaAdozioneService,AnimaleService animaleService) {
 		this.richiestaAdozioneService = richiestaAdozioneService;
 		this.animaleService = animaleService;
+		this.credenzialiService = credenzialiService;
 	}
 	
 	@GetMapping("/admin/richieste")
@@ -107,5 +113,18 @@ public class RichiestaAdozioneController {
 		richiestaAdozione.setDataOraRifiuto(LocalDateTime.now());
 		this.richiestaAdozioneService.save(richiestaAdozione);
 		return "redirect:/admin/richieste";
+	}
+	
+	@GetMapping("/richieste-utente")
+	public String listRichiesteUtente(Model model) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = userDetails.getUsername();
+		
+		Credenziali credenziali = this.credenzialiService.findByUsername(username);
+		Long utenteId = credenziali.getUtente().getId();
+		
+		model.addAttribute("richieste", this.richiestaAdozioneService.findAllByUtenteId(utenteId));
+		
+		return "utenti/richieste/list";
 	}
 }

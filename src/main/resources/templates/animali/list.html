@@ -12,6 +12,13 @@
 				</li>
 			</ul>
 		</div>
+		<div>
+			<a 	th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
+				th:href="@{/admin/animali/form}"
+			       style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;">
+			       ➕ Aggiungi Animale
+			</a>
+		</div>
 	</body>
 </html>
 	

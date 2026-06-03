@@ -32,5 +32,9 @@ public class RichiestaAdozioneService {
 		this.richiestaAdozioneRepository.deleteById(id);
 	}
 	
+	public List<RichiestaAdozione> findAllByUtenteId(Long id){
+		return this.richiestaAdozioneRepository.findAllByUtenteId(id);
+	}
+	
 	
 }

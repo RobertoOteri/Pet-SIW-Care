@@ -6,13 +6,17 @@
 	<body>
 		<ul>
 			<li><a href="/animali"> Lista Animali</a></li>
-			<li><a href="/admin/animali/form"> Aggiungi Animali</a></li>
 			<li><a href="/volontari"> Lista volontari</a></li>
 			<li><a href="/admin/volontari/new"> Aggiungi volontari</a></li>
 			<li><a href="/aree">Lista Aree</a></li>
 			<li><a href="/admin/aree/form">Aggiungi Area</a></li>
 			<li><a href="/utenti/richieste/new">Aggiungi Richiesta</a></li>
-			<li><a href="/admin/richieste">Lista Richiesta</a></li>
+			<li><a th:if = "${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}"
+				   href="/richieste-utenti">Lista Richieste dell'utente</a>
+		    </li>
+			<li><a th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
+				   href="/admin/richieste">Lista Richieste</a>
+		    </li>
 
 		</ul>
 		
