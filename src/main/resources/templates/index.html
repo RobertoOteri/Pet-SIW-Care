@@ -1,26 +1,57 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Inizio</title>
-	</head>
-	<body>
-		<ul>
-			<li><a href="/animali"> Lista Animali</a></li>
-			<li><a href="/volontari"> Lista volontari</a></li>
-			<li><a href="/aree">Lista Aree</a></li>
-			<li><a th:if = "${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}"
-				   href="/utenti">Visualizza Profilo</a>
-		    </li>
-			<li><a th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
-				   href="/admin/richieste">Lista Richieste</a>
-		    </li>
-			<form th:action="@{/logout}" method="POST">
-			    <button type="submit" class="btn btn-danger">Disconnetti</button>
-			</form>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet-SIW-Care - Inizio</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
 
-		</ul>
+    <nav class="navbar-top">
+        
+        <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+            🏡 Home
+        </button>
+        
+        <div class="navbar-right">
+            
+            <div class="profile-avatar-wrapper">
+                <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+            </div>
+            
+            <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+                <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+            </form>
+            
+            <form th:if="${userDetails == null}" th:action="@{/login}">
+                <button type="submit" class="btn-action-nav">🔑 Log in</button>
+            </form>
+            
+        </div>
+    </nav>
+
+
+    <main class="main-dashboard">
+        
+        <div class="dashboard-intro">
+            <h1>🐾 Benvenuto al Rifugio</h1>
+            <p>Seleziona una sezione per iniziare la gestione</p>
+        </div>
+        
+        <ul class="services-list">
+            <li><a href="/animali">🦮 Lista Animali</a></li>
+            <li><a href="/volontari">🤝 Lista Volontari</a></li>
+            <li><a href="/aree">🌳 Lista Aree</a></li>
+            
+            <li th:if="${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}">
+                <a href="/utenti">👤 Visualizza Profilo</a>
+            </li>
+            <li th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
+                <a href="/admin/richieste">📋 Lista Richieste</a>
+            </li>
+        </ul>
+        
+    </main>
 		
-	</body>	
-
-
+</body>	
 </html>

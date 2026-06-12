@@ -1,0 +1,181 @@
+/* --- RESET & VARIABILI CHILL --- */
+:root {
+    --verde-foresta: #1b4d3e;  /* Verde profondo del rifugio */
+    --verde-salvia: #a3b899;    /* Verde morbido e rilassante */
+    --verde-sfondo: #f2f7f4;    /* Sfondo fresco e rigenerante */
+    --bianco: #ffffff;
+    --testo: #2c3e50;
+    --shadow-morbida: 0 10px 30px rgba(27, 77, 62, 0.06);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--verde-sfondo);
+    color: var(--testo);
+    min-height: 100vh;
+    padding-top: 100px; /* Spazio per non far coprire i contenuti dalla navbar fissa */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- 🌿 NAVBAR SUPER CHILL IN ALTO --- */
+.navbar-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px); /* Effetto vetro sfocato moderno */
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(27, 77, 62, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+/* Gruppo di destra: profilo + bottoni login/logout */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Cerchio immagine profilo */
+.profile-avatar-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--verde-foresta);
+    box-shadow: 0 2px 8px rgba(27, 77, 62, 0.1);
+    background-color: var(--bianco);
+}
+
+.profile-avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- BUTTONS GENERATOR (LOGIN / LOGOUT / HOME) --- */
+/* Tasto Home Casetta */
+.btn-home-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--verde-foresta);
+    background: var(--bianco);
+    padding: 10px 18px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 15px;
+    border: 1px solid rgba(27, 77, 62, 0.15);
+    transition: all 0.2s ease;
+}
+.btn-home-nav:hover {
+    background: #e8f2ee;
+    transform: translateY(-1px);
+}
+
+/* Bottone Login / Logout */
+.btn-action-nav {
+    background: linear-gradient(135deg, var(--verde-foresta) 0%, #226f54 100%);
+    color: var(--bianco);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(27, 77, 62, 0.15);
+}
+.btn-action-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(27, 77, 62, 0.25);
+}
+
+/* Variante rossa morbida per il Logout */
+.btn-logout {
+    background: #fff0f0;
+    color: #d93838;
+    border: 1px solid #ffdbdb;
+}
+.btn-logout:hover {
+    background: #d93838;
+    color: var(--bianco);
+    box-shadow: 0 6px 15px rgba(217, 56, 56, 0.15);
+}
+
+
+/* --- 🐾 CONTENITORE CENTRALE DELLA HOME --- */
+.main-dashboard {
+    background: var(--bianco);
+    width: 100%;
+    max-width: 600px;
+    border-radius: 28px;
+    padding: 45px 35px;
+    box-shadow: var(--shadow-morbida);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin-top: 20px;
+}
+
+.dashboard-intro {
+    margin-bottom: 35px;
+}
+
+.dashboard-intro h1 {
+    font-size: 28px;
+    color: var(--verde-foresta);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.dashboard-intro p {
+    font-size: 15px;
+    color: #7a948a;
+    margin-top: 5px;
+}
+
+/* --- LISTA TRASFORMATA IN SCHEDE ACCOGLIENTI --- */
+.services-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.services-list li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--testo);
+    background-color: #f8faf9;
+    padding: 18px 24px;
+    border-radius: 18px;
+    font-weight: 600;
+    font-size: 16px;
+    border: 1px solid rgba(27, 77, 62, 0.04);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Hover elastico e accogliente */
+.services-list li a:hover {
+    background-color: var(--verde-foresta);
+    color: var(--bianco);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(27, 77, 62, 0.12);
+}

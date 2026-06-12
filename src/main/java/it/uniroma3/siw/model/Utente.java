@@ -27,6 +27,8 @@ public class Utente {
 	private String cognome;
 	
 	private String indirizzo;
+	
+	private String immagineProfiloUrl = "https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg";
 
 	@NotBlank
 	@Column(nullable = false, unique = true)
