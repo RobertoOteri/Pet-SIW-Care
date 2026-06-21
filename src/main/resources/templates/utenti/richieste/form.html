@@ -1,30 +1,61 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Richieste</title>
+		<title>Richiesta di Adozione</title>
+		<link rel="stylesheet" th:href="@{/css/style.css}">
 	</head>
 	
 	<body>
-		<h1> Richiesta di Adozione per <span th:text="${animale != null ? animale.nome : richiesta.animale?.nome}">Nome Animale</span></h1>
+		<nav class="navbar-top">
+		    <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+		        🏡 Home
+		    </button>
+		    
+		    <div class="navbar-right">
+		        <div class="profile-avatar-wrapper">
+		            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+		        </div>
+		        
+		        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+		            <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+		        </form>
+		        
+		        <form th:if="${userDetails == null}" th:action="@{/login}">
+		            <button type="submit" class="btn-action-nav">🔑 Log in</button>
+		        </form>
+		    </div>
+		</nav>
+
+		<div class="main-dashboard">
+			
+			<div class="dashboard-intro">
+				<h1>Richiesta di Adozione 📝</h1>
+				<p>Stai avviando la procedura per: <strong th:text="${animale != null ? animale.nome : richiesta.animale?.nome}">Nome Animale</strong></p>
+			</div>
 		
-		<form th:method="POST" 
-			  th:action="${richiesta.id == null} ? @{/utenti/animali/{id}/salva-richiesta(id=${animale.id})} : @{/utenti/richieste/{id}/modifica(id=${richiesta.id})}"
-			  th:object="${richiesta}">
-			 
-			<input type="hidden" th:field="*{id}" />
-			
-			<div th:if="${#fields.hasGlobalErrors()}">
-				<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-			</div>
-			
-			<div>
-				Descrizione: <span><input type="text" th:field="*{descrizione}"></span>
-				<p th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}" style="color:red;"></p>
-			</div>
-			
-			<div>
-				<span><button type="submit">Conferma</button></span>
-			</div>
-		</form>
+			<form th:method="POST" 
+				  th:action="${richiesta.id == null} ? @{/utenti/animali/{id}/salva-richiesta(id=${animale.id})} : @{/utenti/richieste/{id}/modifica(id=${richiesta.id})}"
+				  th:object="${richiesta}"
+				  class="form-strutturato">
+				 
+				<input type="hidden" th:field="*{id}" />
+				
+				<div th:if="${#fields.hasGlobalErrors()}" class="form-error-global">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+				</div>
+				
+				<div class="form-group">
+					<label>Presentazione e motivazione:</label>
+					<input type="text" th:field="*{descrizione}" placeholder="Raccontaci qualcosa di te, della tua casa e perché vuoi adottarlo..."/>
+					<span class="error-message" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
+				</div>
+				
+				<div class="form-submit-container">
+					<button type="submit" class="btn-action-nav btn-submit-form">
+						Invia Richiesta
+					</button>
+				</div>
+			</form>
+		</div>
 	</body>
 </html>
