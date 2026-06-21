@@ -1,18 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Volontari</title>
+		<link rel="stylesheet" th:href="@{/css/style.css}">
 	</head>
 	<body>
-		<h1>Lista Volontari</h1>
-		<ul>
-			<li th:each="v : ${volontari}">
+		<nav class="navbar-top">
+		    
+		    <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+		        🏡 Home
+		    </button>
+		    
+		    <div class="navbar-right">
+		        
+		        <div class="profile-avatar-wrapper">
+		            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+		        </div>
+		        
+		        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+		            <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+		        </form>
+		        
+		        <form th:if="${userDetails == null}" th:action="@{/login}">
+		            <button type="submit" class="btn-action-nav">🔑 Log in</button>
+		        </form>
+		        
+		    </div>
+		</nav>
+		<div class="main-dashboard">
+			
+			<div class="dashboard-intro">
+				<h1>Lista Volontari 🤝</h1>
+				<p>La squadra che si prende cura dei nostri amici a quattro zampe</p>
+			</div>
 
-				<a th:href="@{'/volontari/' + ${v.id}}" th:text="${v.nome + ' ' + v.cognome}"></a>
-			</li>
-		</ul>
-		<button th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" type ="submit">
-			<a href="/admin/volontari/new"> Aggiungi volontari</a>
-		</button>
+			<div class="volontari-container">
+				<ul class="services-list">
+					<li th:each="v : ${volontari}">
+						<a th:href="@{'/volontari/' + ${v.id}}" th:text="${v.nome + ' ' + v.cognome}">Nome Cognome</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="admin-actions-container" th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
+				<a href="/admin/volontari/new" class="btn-action-nav btn-add-volunteer">
+					➕ Aggiungi Volontario
+				</a>
+			</div>
+
+		</div>
 	</body>	
 </html>
