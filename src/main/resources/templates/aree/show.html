@@ -29,7 +29,7 @@
     <main class="profile-dashboard" style="max-width: 850px;">
         
         <div class="area-banner-box">
-            <img src="../immagini/default-area.jpg" th:src="${area.immagineUrl != null ? area.immagineUrl : '/immagini/default-area.jpg'}" alt="Immagine dell'Area">
+            <img th:src="${area?.immagineUrl != null ? area.immagineUrl : '/images/default-area.png'}" alt="Immagine Area">
         </div>
 
         <div class="dashboard-intro" style="text-align: left; margin-bottom: 25px;">

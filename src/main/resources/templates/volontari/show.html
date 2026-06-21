@@ -34,9 +34,9 @@
         
         <!-- HEADER VOLONTARIO: Foto/Tesserino a sinistra, Informazioni a destra -->
         <section class="profile-header">
-            <div class="profile-large-avatar" style="border-radius: 24px; width: 130px; height: 130px;">
+            <div class="volontario-badge-pic">
                 <!-- Foto di default del volontario -->
-                <img src="../immagini/default-avatar.jpg" th:src="@{/immagini/default-avatar.jpg}" alt="Foto Volontario">
+               <img src="../immagini/default-volontario.jpg" th:src="@{${volontario.immagineUrl}}" alt="Foto Volontario">
             </div>
             
             <div class="profile-info-grid">

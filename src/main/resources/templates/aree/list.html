@@ -36,7 +36,7 @@
             
             <a th:each="a : ${aree}" th:href="@{'/aree/' + ${a.id}}" class="area-card-link">
                 <div class="area-image-wrapper">
-                    <img src="../immagini/default-area.jpg" th:src="@{'/immagini/area_' + ${a.id} + '.jpg'}" alt="Immagine Area">
+                    <img th:src="${a?.immagineUrl != null ? a.immagineUrl : '/images/default-area.png'}" alt="Immagine Area">
                 </div>
                 
                 <div class="area-overlay">

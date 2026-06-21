@@ -18,7 +18,7 @@
 
 /* Sfondo standard dell'Index */
 body {
-    background-image: url('../immagini/sfondo_index.jpg'); 
+    background-image: url('../immagini/sfondo_index.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -810,4 +810,23 @@ body {
     .navbar-top {
         padding: 0 20px;
     }
+}
+
+/* Rettangolo verticale specifico per la foto del volontario */
+.volontario-badge-pic {
+    width: 180px;          /* Larghezza fissa più stretta */
+    height: 240px;         /* Altezza fissa più lunga (Rettangolo) */
+    border-radius: 20px;   /* Angoli arrotondati moderni */
+    overflow: hidden;      /* Taglia l'immagine se esce dai bordi */
+    border: 3px solid var(--verde-foresta); /* Bordo scuro coordinato */
+    box-shadow: 0 8px 25px rgba(27, 77, 62, 0.2); /* Ombra profonda */
+    background-color: var(--bianco);
+    flex-shrink: 0;        /* Impedisce il rimpicciolimento su schermi piccoli */
+}
+
+/* Regola l'immagine dentro il rettangolo per non farla deformare */
+.volontario-badge-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     /* Mantiene le proporzioni centrando la foto */
 }

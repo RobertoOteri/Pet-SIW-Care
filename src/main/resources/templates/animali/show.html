@@ -30,7 +30,7 @@
         
         <div class="animal-show-container">
             <div class="animal-large-pic">
-                <img src="../immagini/default-animal.jpg" th:src="@{'/immagini/animale_' + ${animale.id} + '.jpg'}" alt="Foto Animale">
+               <img src="../immagini/default-animal.jpg" th:src="@{${animale.immagineUrl}}" alt="Foto Animale">
             </div>
             
             <div class="animal-details-box">

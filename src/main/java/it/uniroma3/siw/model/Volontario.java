@@ -37,6 +37,8 @@ public class Volontario {
 	@Column(nullable = false)
 	private LocalDate dataDiNascita;
 	
+	private String immagineUrl;
+
 	@OneToMany(mappedBy = "volontario", cascade = CascadeType.ALL)
 	private List<Animale> listaAnimali;
 	
@@ -44,13 +46,14 @@ public class Volontario {
 	
 	public Volontario() {}
 	
-	public Volontario(String nome, String cognome, String codiceFiscale, String specializzazione, LocalDate dataDiNascita) {
+	public Volontario(String nome, String cognome, String codiceFiscale, String specializzazione, LocalDate dataDiNascita, String immagineUrl) {
 
 		this.nome = nome;
 		this.cognome = cognome;
 		this.codiceFiscale = codiceFiscale;
 		this.specializzazione = specializzazione;
 		this.dataDiNascita = dataDiNascita;
+		this.immagineUrl = immagineUrl;
 	}
 	
 	// Getters And Setters //
@@ -103,6 +106,14 @@ public class Volontario {
 		this.dataDiNascita = dataDiNascita;
 	}
 
+	public String getImmagineUrl() {
+		return immagineUrl;
+	}
+
+	public void setImmagineUrl(String immagineUrl) {
+		this.immagineUrl = immagineUrl;
+	}
+	
 	public List<Animale> getListaAnimali() {
 		return listaAnimali;
 	}
