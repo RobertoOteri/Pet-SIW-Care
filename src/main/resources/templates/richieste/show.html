@@ -1,51 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="'Richiesta Adozione #' + ${richiesta.id}">Dettagli Richiesta</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="body-richiesta-show"> <!-- Sfondo verde chiaro #bce4c5 -->
-
-    <!-- 🌿 NAVBAR TOP -->
-    <nav class="navbar-top">
+<body class="body-richiesta-show"> <nav class="navbar-top">
             <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
                 🏡 Home
             </button>
-			<div class="navbar-right">
-			        
-			        <div class="profile-avatar-wrapper">
-			            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
-			        </div>
-			        
-			        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
-			            <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
-			        </form>
-			        
-			        <form th:if="${userDetails == null}" th:action="@{/login}">
-			            <button type="submit" class="btn-action-nav">🔑 Log in</button>
-			        </form>
-			        
-			    </div>
+        <div class="navbar-right">
+            <div class="profile-avatar-wrapper">
+                <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+            </div>
+            
+            <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+                <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+            </form>
+            
+            <form th:if="${userDetails == null}" th:action="@{/login}">
+                <button type="submit" class="btn-action-nav">🔑 Log in</button>
+            </form>
+        </div>
     </nav>
 
-    <!-- 🐾 CONTENITORE DASHBOARD GLASSMORPHISM -->
     <main class="profile-dashboard" style="max-width: 750px;">
         
-        <div class="dashboard-intro" style="text-align: left; margin-bottom: 30px;">
-            <h1 class="animal-name-title" th:text="'Pratica di Adozione #' + ${richiesta.id}">Id richiesta</h1>
-            
-            <!-- Badge dinamico che cambia colore in base allo stato -->
-            <div th:class="'status-banner ' + 
-                          (${richiesta.stato.name() == 'IN_ATTESA'} ? 'status-waiting' : 
-                          (${richiesta.stato.name() == 'APPROVATA'} ? 'status-approved' : 'status-rejected'))">
-                <span th:text="${richiesta.stato == 'IN_ATTESA' ? '⏳ ' : (${richiesta.stato == 'APPROVATA' ? '✅ ' : '❌ '})}"></span>
-                <span th:text="${richiesta.stato}">STATO</span>
-            </div>
-        </div>
+		<div class="dashboard-intro" style="text-align: left; margin-bottom: 30px;">
+		    <h1 class="animal-name-title" th:text="'Pratica di Adozione #' + ${richiesta.id}">Id richiesta</h1>
+		    
+		    <div th:class="'status-banner ' + 
+		                  (${richiesta.stato.name() == 'IN_ATTESA'} ? 'status-waiting' : 
+		                  (${richiesta.stato.name() == 'APPROVATA'} ? 'status-approved' : 'status-rejected'))">
+		        <span th:text="${richiesta.stato.name() == 'IN_ATTESA' ? '⏳ ' : (richiesta.stato.name() == 'APPROVATA' ? '✅ ' : '❌ ')}"></span>
+		        <span th:text="${richiesta.stato}">STATO</span>
+		    </div>
+		</div>
 
-        <!-- GRIGLIA DETTAGLI PRATICA -->
         <section class="profile-info-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 25px;">
             <div class="info-item">
                 <label>Animale Richiesto</label>
@@ -59,20 +50,17 @@
                 <span th:text="${#temporals.format(richiesta.dataOra, 'dd/MM/yyyy HH:mm')}">01/01/2026 12:00</span>
             </div>
 
-            <!-- Mostra data rifiuto se rifiutata -->
             <div th:if="${richiesta.stato.name() == 'RIFIUTATA' and richiesta.dataOraRifiuto != null}" class="info-item">
                 <label>Data di Rifiuto Pratica</label>
                 <span th:text="${#temporals.format(richiesta.dataOraRifiuto, 'dd/MM/yyyy HH:mm')}" style="color: #d93838; font-weight: 700;">02/01/2026 15:00</span>
             </div>
             
-            <!-- Mostra data approvazione se approvata -->
             <div th:if="${richiesta.stato.name() == 'APPROVATA' and richiesta.dataOraAccettazione != null}" class="info-item">
                 <label>Data di Approvazione</label>
                 <span th:text="${#temporals.format(richiesta.dataOraAccettazione, 'dd/MM/yyyy HH:mm')}" style="color: var(--verde-foresta); font-weight: 700;">02/01/2026 15:00</span>
             </div>
         </section>
 
-        <!-- NOTE E MOTIVAZIONI ADOZIONE -->
         <section class="info-item" style="text-align: left; margin-bottom: 35px;">
             <label>Lettera di Motivazione / Descrizione contesto familiare</label>
             <p th:text="${richiesta.descrizione}" class="area-description-text">
@@ -80,10 +68,8 @@
             </p>
         </section>
 
-        <!-- 🛠️ SEZIONE AZIONI (Divise per Ruolo) -->
         <div class="admin-area-actions" style="justify-content: flex-start; align-items: center;">
             
-            <!-- Azioni Utente Registrato (DEFAULT) -->
             <th:block th:if="${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}">
                 
                 <a th:href="@{/utenti/richieste/{id}/modifica(id=${richiesta.id})}" class="btn-admin-edit">
@@ -98,12 +84,17 @@
                 
             </th:block>
 
-            <!-- Azioni Amministratore (ADMIN) -->
             <th:block th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
                 
-                <a th:href="@{/utenti/{id}(id=${richiesta.utente.id})}" class="btn-admin-dark">
+                <a th:if="${richiesta.utente != null}" 
+                   th:href="@{/utenti/{id}(id=${richiesta.utente.id})}" 
+                   class="btn-admin-dark">
                     👤 Visualizza Profilo Richiedente
                 </a>
+                
+                <span th:unless="${richiesta.utente != null}" class="text-muted">
+                    ⚠️ Utente richiedente non trovato nel database
+                </span>
                 
             </th:block>
             

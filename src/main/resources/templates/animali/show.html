@@ -62,7 +62,7 @@
                 </div>
 
                 <div th:if="${userDetails != null and !userDetails.authorities.toString().contains('ADMIN')}" style="margin-top: 15px; text-align: left;">
-                    <a th:href="@{/utenti/animali/{id}/nuova-richiesta(animaleId=${animale.id})}" class="btn-admin-edit" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; background: linear-gradient(135deg, var(--verde-foresta) 0%, #226f54 100%);">
+                    <a th:href="@{/utenti/animali/{id}/nuova-richiesta(id=${animale.id})}" class="btn-admin-edit" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; background: linear-gradient(135deg, var(--verde-foresta) 0%, #226f54 100%);">
                         💝 Invia Richiesta di Adozione
                     </a>
                 </div>
