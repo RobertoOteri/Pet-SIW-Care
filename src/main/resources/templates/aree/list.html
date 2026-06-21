@@ -6,11 +6,24 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="body-aree"> <nav class="navbar-top">
-        <div class="navbar-left">
 			<button type="button" onclick="window.location.href='/'" class="btn-home-nav">
 			            🏡 Home
 			</button>
-        </div>
+			<div class="navbar-right">
+			            
+			            <div class="profile-avatar-wrapper">
+			                <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+			            </div>
+			            
+			            <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+			                <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+			            </form>
+			            
+			            <form th:if="${userDetails == null}" th:action="@{/login}">
+			                <button type="submit" class="btn-action-nav">🔑 Log in</button>
+			            </form>
+			            
+			        </div>
     </nav>
 
     <main class="profile-dashboard" style="max-width: 950px;">

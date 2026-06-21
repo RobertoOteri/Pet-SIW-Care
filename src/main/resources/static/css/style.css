@@ -603,3 +603,327 @@ body {
     box-shadow: 0 6px 18px rgba(27, 77, 62, 0.35);
     background-color: #226f54;
 }
+
+/* --- 🐾 SEZIONE SPECIFICA LISTA ANIMALI & ADMIN --- */
+
+/* Contenitore della lista per dare un po' di margine */
+.animali-container {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+/* Contenitore del tasto admin per distanziarlo dalla lista */
+.admin-actions-container {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(27, 77, 62, 0.15);
+    display: flex;
+    justify-content: center;
+}
+
+/* Personalizzazione del tasto aggiungi (eredita la base di .btn-action-nav) */
+.btn-add-animal {
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 26px; /* Leggermente più grande e comodo */
+}
+/* Contenitore della lista volontari per la spaziatura */
+.volontari-container {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+/* Personalizzazione del tasto aggiungi volontario (eredita la base di .btn-action-nav) */
+.btn-add-volunteer {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 26px;
+}
+
+/* --- 🐾 PAGINA DETTAGLIO ANIMALE (SHOW) --- */
+.body-animale {
+    background-color: #bce4c5 !important; /* Il tuo verde chiaro acceso */
+    background-image: none !important;
+    background-attachment: unset;
+}
+
+/* Layout a due colonne per la parte alta (Foto + Info) */
+.animal-show-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+/* Foto dell'animale grande */
+.animal-large-pic {
+    width: 100%;
+    max-width: 380px;
+    height: 400px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(27, 77, 62, 0.2);
+    border: 4px solid var(--bianco);
+    flex-shrink: 0;
+}
+
+.animal-large-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Griglia informazioni dell'animale */
+.animal-details-box {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.animal-name-title {
+    font-size: 36px;
+    color: var(--verde-foresta);
+    font-weight: 800;
+    margin: 0;
+}
+
+/* --- 📋 LA VERA CARTELLA CLINICA (EFFETTO FOGLIO) --- */
+.medical-folder {
+    background: #e6dfd3; /* Colore cartellina di cartone/substrato */
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    margin-top: 20px;
+}
+
+.medical-sheet {
+    background: #fafafa; /* Il foglio di carta */
+    background-image: linear-gradient(#e8e8e8 1px, transparent 1px); /* Righe del foglio */
+    background-size: 100% 30px;
+    line-height: 30px;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 4px 10px rgba(0,0,0,0.05);
+    position: relative;
+    text-align: left;
+}
+
+/* Effetto "Margine" rosso della cartella clinica */
+.medical-sheet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 30px;
+    width: 1px;
+    height: 100%;
+    background: rgba(217, 56, 56, 0.4); /* Riga rossa del margine */
+}
+
+.medical-title {
+    font-family: 'Courier New', Courier, monospace; /* Font stile macchina da scrivere/clinico */
+    font-size: 24px;
+    color: #3a3a3a;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    padding-left: 10px;
+    border-bottom: 2px solid #3a3a3a;
+    line-height: 40px;
+}
+
+.medical-content {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    color: #2c2c2c;
+    padding-left: 10px;
+}
+
+.medical-line {
+    margin-bottom: 10px;
+}
+
+.medical-line strong {
+    color: #111;
+}
+
+/* Responsività per schermi piccoli */
+@media (max-width: 768px) {
+    .animal-show-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .animal-large-pic {
+        max-width: 100%;
+        height: 300px;
+    }
+}
+
+/* --- 🗺️ PAGINA DETTAGLIO AREA (SHOW) --- */
+.body-area-show {
+    background-color: #bce4c5 !important; /* Il tuo verde chiaro acceso */
+    background-image: none !important;
+    background-attachment: unset;
+}
+
+/* Contenitore per il mega banner dell'area */
+.area-banner-box {
+    width: 100%;
+    height: 350px; /* Altezza panoramica grande */
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(27, 77, 62, 0.15);
+    border: 4px solid var(--bianco);
+    margin-bottom: 30px;
+}
+
+.area-banner-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Riempie lo spazio senza deformarsi */
+}
+
+/* Testo della descrizione stilizzato in modo accogliente */
+.area-description-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--testo);
+    text-align: left;
+    background: rgba(27, 77, 62, 0.04);
+    padding: 20px;
+    border-radius: 16px;
+    border-left: 4px solid var(--verde-foresta);
+    margin-top: 10px;
+}
+
+/* --- 🛠️ CONTENITORE PULSANTI AMMINISTRATORE MODERNI --- */
+.admin-area-actions {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(27, 77, 62, 0.1);
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+/* Pulsante Modifica Area (Verde Foresta / Stile Brand) */
+.btn-admin-edit {
+    background: var(--verde-foresta);
+    color: var(--bianco) !important;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(27, 77, 62, 0.15);
+}
+.btn-admin-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(27, 77, 62, 0.25);
+    background: #226f54;
+}
+
+/* Pulsante Elimina Area (Rosso / Pericolo) */
+.btn-admin-delete {
+    background: #fff0f0;
+    color: #d93838 !important;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #ffdbdb;
+    transition: all 0.3s ease;
+}
+.btn-admin-delete:hover {
+    background: #d93838;
+    color: var(--bianco) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(217, 56, 56, 0.2);
+}
+
+
+/* --- 🤝 PAGINA DETTAGLIO VOLONTARIO (SHOW) --- */
+.body-volontario-show {
+    background-color: #bce4c5 !important; /* Il tuo verde chiaro acceso */
+    background-image: none !important;
+    background-attachment: unset;
+}
+
+/* Badge Specializzazione in risalto */
+.specialization-badge {
+    display: inline-block;
+    background: #e8f2ee;
+    color: var(--verde-foresta);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(27, 77, 62, 0.15);
+    margin-top: 5px;
+}
+
+/* --- 📄 PAGINA DETTAGLIO RICHIESTA (SHOW) --- */
+.body-richiesta-show {
+    background-color: #bce4c5 !important; /* Il tuo verde chiaro acceso */
+    background-image: none !important;
+    background-attachment: unset;
+}
+
+/* Badge di stato grandi per la richiesta */
+.status-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+/* Colori personalizzati per i tre stati possibili */
+.status-waiting {
+    background-color: #fef9e7;
+    color: #f39c12;
+    border: 1px solid #fdebd0;
+}
+
+.status-approved {
+    background-color: #e8f2ee;
+    color: var(--verde-foresta);
+    border: 1px solid rgba(27, 77, 62, 0.15);
+}
+
+.status-rejected {
+    background-color: #fff0f0;
+    color: #d93838;
+    border: 1px solid #ffdbdb;
+}
+
+/* Bottone scuro per visualizzare l'utente (Admin) */
+.btn-admin-dark {
+    background: #2c3e50;
+    color: var(--bianco) !important;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.btn-admin-dark:hover {
+    background: #1a252f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}

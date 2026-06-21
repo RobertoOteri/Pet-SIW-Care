@@ -1,39 +1,98 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Volontari</title>
-	</head>
-	<body>
-		<div>
-			Codice Fiscale: <span th:text="${volontario.codiceFiscale}"></span>
-		</div>
-		<div>
-			Nome:<span th:text="${volontario.nome}"></span>
-		</div>
-		<div>
-			Cognome:<span th:text="${volontario.cognome}"></span>
-		</div>
-		<div>
-			Data Nascita:<span th:text="${volontario.dataDiNascita}"></span>></span>
-		</div>
-		<div>
-			Specializzazione:<span th:text="${volontario.specializzazione}"></span>
-		</div>
-		<div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" type ="submit">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Volontario - ' + ${volontario.nome} + ' ' + ${volontario.cognome}">Dettagli Volontario</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="body-volontario-show"> <!-- Sfondo verde chiaro #bce4c5 -->
 
-				<a th:href="@{/admin/volontari/{id}/modifica(id=${volontario.id})}"
-				   style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
-				    ✏️ Modifica Informazioni
-				</a>
-				
-				<a th:href = "@{/admin/volontari/{id}/elimina(id = ${volontario.id})}"
-						onclick="return confirm('Sei sicuro?');"
-						style = "display: inline-block; padding: 8px 16px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
-						❌ Elimina Volontario
-				</a>
-		</div>
+    <!-- 🌿 NAVBAR TOP -->
+    <nav class="navbar-top">
+            <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+                🏡 Home
+            </button>
+			<div class="navbar-right">
+						            
+						            <div class="profile-avatar-wrapper">
+						                <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+						            </div>
+						            
+						            <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+						                <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+						            </form>
+						            
+						            <form th:if="${userDetails == null}" th:action="@{/login}">
+						                <button type="submit" class="btn-action-nav">🔑 Log in</button>
+						            </form>
+						            
+						        </div>
+    </nav>
 
-	</body>	
+    <!-- 🐾 CONTENITORE DASHBOARD GLASSMORPHISM -->
+    <main class="profile-dashboard" style="max-width: 850px;">
+        
+        <!-- HEADER VOLONTARIO: Foto/Tesserino a sinistra, Informazioni a destra -->
+        <section class="profile-header">
+            <div class="profile-large-avatar" style="border-radius: 24px; width: 130px; height: 130px;">
+                <!-- Foto di default del volontario -->
+                <img src="../immagini/default-avatar.jpg" th:src="@{/immagini/default-avatar.jpg}" alt="Foto Volontario">
+            </div>
+            
+            <div class="profile-info-grid">
+                <div class="info-item">
+                    <label>Nome Completo</label>
+                    <span th:text="${volontario.nome} + ' ' + ${volontario.cognome}">Mario Rossi</span>
+                </div>
+                <div class="info-item">
+                    <label>Codice Fiscale</label>
+                    <span th:text="${volontario.codiceFiscale}" style="font-family: monospace; letter-spacing: 0.5px;">RSSMRA80A01H501W</span>
+                </div>
+                <div class="info-item">
+                    <label>Data di Nascita</label>
+                    <span th:text="${volontario.dataDiNascita != null ? #temporals.format(volontario.dataDiNascita, 'dd/MM/yyyy') : 'Non specificata'}">01/01/1980</span>
+                </div>
+                <div class="info-item">
+                    <label>Ruolo / Specializzazione</label>
+                    <div>
+                        <span th:text="${volontario.specializzazione}" class="specialization-badge">Educatore Cinofilo</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- 🐾 SEZIONE EXTRA: ANIMALI ASSEGNATI (Opzionale ma stupenda visto che hai la listaAnimali) -->
+        <section style="text-align: left; margin-top: 10px;">
+            <h3 class="section-title" style="font-size: 18px; margin-bottom: 10px;">🐾 Animali Accuditi da questo Volontario</h3>
+            <div class="area-description-text" style="border-left-color: var(--verde-salvia);">
+                <p th:if="${#lists.isEmpty(volontario.listaAnimali)}" style="margin: 0; font-style: italic; color: #7f8c8d;">
+                    Al momento questo volontario non ha animali assegnati direttamente.
+                </p>
+                <ul th:unless="${#lists.isEmpty(volontario.listaAnimali)}" style="margin: 0; padding-left: 20px; line-height: 24px;">
+                    <li th:each="animale : ${volontario.listaAnimali}">
+                        <a th:href="@{/animali/{id}(id=${animale.id})}" th:text="${animale.nome}" class="table-link" style="font-weight: 600;">Nome Animale</a> 
+                        <span th:text="' (' + ${animale.specie} + ')'" style="font-size: 13px; color: #7f8c8d;">(Cane)</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
+        <!-- 🛠️ SEZIONE AZIONI ADMIN (Solo per amministratori) -->
+        <div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" class="admin-area-actions">
+            
+            <a th:href="@{/admin/volontari/{id}/modifica(id=${volontario.id})}" class="btn-admin-edit">
+                ✏️ Modifica Informazioni
+            </a>
+            
+            <a th:href="@{/admin/volontari/{id}/elimina(id=${volontario.id})}" 
+               onclick="return confirm('Sei sicuro di voler eliminare questo volontario dal sistema?');" 
+               class="btn-admin-delete">
+                ❌ Elimina Volontario
+            </a>
+            
+        </div>
+        
+    </main>
+
+</body>
 </html>

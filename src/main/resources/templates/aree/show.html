@@ -1,30 +1,72 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title> Area </title>
-	</head>
-	<body> 
-		<h1 th:text="${area.nome}"></h1>
-		<div>
-			Capacità:<span th:text="${area.capacita}"></span>
-		</div>
-		<div>
-			Descizione:<span th:text="${area.descrizione}"></span>
-		</div>
-		<div>
-			<img th:src="${area.immagineUrl}"></img> 
-		</div>
-		<div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" type="submit">
-				<a th:href="@{/admin/aree/{id}/modifica(id=${area.id})}" 
-				style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
-				✏️ Modifica Informazioni
-				</a>
-				
-				<a th:href="@{/admin/aree/{id}/elimina(id=${area.id})}" 
-				onclick="return confirm('Sei sicuro?');"
-				style="display: inline-block; padding: 8px 16px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px;">
-				❌ Elimina Area
-				</a>			
-		</div>
-	</body>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${area.nome} + ' - Dettagli'">Dettagli Area</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="body-area-show"> <nav class="navbar-top">
+            <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+                🏡 Home
+            </button>
+			<div class="navbar-right">
+			        
+			        <div class="profile-avatar-wrapper">
+			            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+			        </div>
+			        
+			        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+			            <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+			        </form>
+			        
+			        <form th:if="${userDetails == null}" th:action="@{/login}">
+			            <button type="submit" class="btn-action-nav">🔑 Log in</button>
+			        </form>
+			        
+			    </div>
+    </nav>
+
+    <main class="profile-dashboard" style="max-width: 850px;">
+        
+        <div class="area-banner-box">
+            <img src="../immagini/default-area.jpg" th:src="${area.immagineUrl != null ? area.immagineUrl : '/immagini/default-area.jpg'}" alt="Immagine dell'Area">
+        </div>
+
+        <div class="dashboard-intro" style="text-align: left; margin-bottom: 25px;">
+            <h1 th:text="${area.nome}" class="animal-name-title" style="margin-bottom: 15px;">Nome Area</h1>
+            
+            <div class="profile-info-grid" style="grid-template-columns: 1fr;">
+                <div class="info-item">
+                    <label>Capacità Massima Ospiti</label>
+                    <span>
+                         🐾 <strong th:text="${area.capacita}">10</strong> animali consentiti
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-item" style="text-align: left;">
+            <label>Presentazione e Dettagli della Zona</label>
+            <p th:text="${area.descrizione}" class="area-description-text">
+                Descrizione dell'area...
+            </p>
+        </div>
+
+        <div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" class="admin-area-actions">
+            
+            <a th:href="@{/admin/aree/{id}/modifica(id=${area.id})}" class="btn-admin-edit">
+                ✏️ Modifica Informazioni
+            </a>
+            
+            <a th:href="@{/admin/aree/{id}/elimina(id=${area.id})}" 
+               onclick="return confirm('Attenzione! Questa operazione eliminerà definitivamente l\'area e potrebbe influire sugli animali ospitati. Vuoi procedere?');" 
+               class="btn-admin-delete">
+                ❌ Elimina Area
+            </a>
+            
+        </div>
+        
+    </main>
+
+</body>
 </html>

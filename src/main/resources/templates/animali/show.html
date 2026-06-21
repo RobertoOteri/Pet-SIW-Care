@@ -1,78 +1,103 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title> Animale </title>
-	</head>
-	<body>
-		<h1 th:text = "${animale.nome}"> Nome Animale </h1>
-		<div>
-			Specie: <span th:text = "${animale.specie}"> Cane </span>
-		</div>
-		<div>
-			Razza: <span th:text = "${animale.razza}"> BullDog </span>
-		</div>
-		<div>
-			Data Di Nascita: <span th:text = "${animale.dataNascita}"> 20/01/2000 </span>
-		</div>
-		<div>
-			Data Di Arrivo: <span th:text = "${animale.dataArrivo}"> 20/12/2001 </span>
-		</div>
-		<div>
-			Volontario: <a th:href="@{/volontari/{id}(id=${animale.volontario.id})}" th:text="${animale.volontario.nome + ' ' + animale.volontario.cognome}"> Marco</a>
-		</div>
-		<div>
-			<span th:text = "${animale.descrizione}"> Bello </span>
-		</div>
-		<div>
-			<img th:src = "${animale.immagineUrl}"></img>
-		</div>
-		<div>
-			<a 	th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
-				th:href="@{/admin/animali/{id}/modifica(id=${animale.id})}" 
-			style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
-			✏️ Modifica Informazioni
-			</a>
-					    
-			<a  th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
-				th:href="@{/admin/animali/{id}/elimina(id=${animale.id})}" 
-			onclick="return confirm('Sei sicuro?');"
-			style="display: inline-block; padding: 8px 16px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px;">
-			❌ Elimina Animale
-			</a>
-		</div>
-		<hr>
-		
-		<h2>Cartella Clinica</h2>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${animale.nome} + ' - Dettagli'">Dettagli Animale</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="body-animale"> <nav class="navbar-top">
+            <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+                🏡 Home
+            </button>
+			<div class="navbar-right">
+			        
+			        <div class="profile-avatar-wrapper">
+			            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+			        </div>
+			        
+			        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+			            <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+			        </form>
+			        
+			        <form th:if="${userDetails == null}" th:action="@{/login}">
+			            <button type="submit" class="btn-action-nav">🔑 Log in</button>
+			        </form>
+			        
+			    </div>
+    </nav>
 
-		<div th:if="${animale.cartellaClinica != null}">
-		    <p><strong>Data Visita:</strong> <span th:text="${animale.cartellaClinica.dataVisita}">01/01/2026</span></p>
-		    <p><strong>Peso:</strong> <span th:text="${animale.cartellaClinica.peso}">10</span> kg</p>
-		    <p><strong>Diagnosi:</strong> <span th:text="${animale.cartellaClinica.diagnosi}">Sano</span></p>
-		    <p><strong>Terapia:</strong> <span th:text="${animale.cartellaClinica.terapia}">Nessuna</span></p>
-			<div>
-				<a th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" 
-				   th:href="@{/admin/cartelleCliniche/{id}/modifica(id=${cartellaClinica.id})}" 
-				style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
-				✏️ Modifica Informazioni
-				</a>
-			</div>
-		</div>
+    <main class="profile-dashboard" style="max-width: 850px;">
+        
+        <div class="animal-show-container">
+            <div class="animal-large-pic">
+                <img src="../immagini/default-animal.jpg" th:src="@{'/immagini/animale_' + ${animale.id} + '.jpg'}" alt="Foto Animale">
+            </div>
+            
+            <div class="animal-details-box">
+                <h1 class="animal-name-title" th:text="${animale.nome}">Nome Animale</h1>
+                
+                <div class="profile-info-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="info-item">
+                        <label>Specie / Razza</label>
+                        <span th:text="${animale.specie} + ' / ' + ${animale.razza}">Cane / Labradoodle</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <label>Età Calcolata</label>
+                        <span th:with="oggi=${T(java.time.LocalDate).now()}" 
+                              th:text="${animale.dataNascita != null ? (T(java.time.Period).between(animale.dataNascita, oggi).getYears() + ' anni') : 'Non calcolabile'}">
+                              3 anni
+                        </span>
+                    </div>
 
-		<div th:unless="${animale.cartellaClinica != null}">
-		    <p>Questo animale non ha ancora una cartella clinica registrata.</p>
-			<a 	th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
-				th:href="@{/admin/animali/{id}/nuova-cartella(id=${animale.id})}"
-			       style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;">
-			       ➕ Crea Nuova Cartella Clinica
-			</a>
-		</div>
-		<div>
-			<a 	th:if = "${userDetails != null and !userDetails.authorities.toString().contains('ADMIN')}"
-				th:href="@{/utenti/animali/{id}/nuova-richiesta(id=${animale.id})}"
-			       style="display: inline-block; padding: 8px 16px; background-color: #6A0DAD; color: white; text-decoration: none; border-radius: 4px;">
-			       ➕ Richiedi Adozione
-			</a>
-		</div>
-	</body>
+                    <div class="info-item">
+                        <label>Data di Nascita</label>
+                        <span th:text="${animale.dataNascita != null ? #temporals.format(animale.dataNascita, 'dd/MM/yyyy') : 'Non specificata'}">01/01/2023</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Area di Alloggio</label>
+                        <span th:text="${animale.area != null ? animale.area.nome : 'Non assegnata'}">Area Verde</span>
+                    </div>
+                </div>
+
+                <div th:if="${userDetails != null and !userDetails.authorities.toString().contains('ADMIN')}" style="margin-top: 15px; text-align: left;">
+                    <a th:href="@{/utenti/animali/{id}/nuova-richiesta(animaleId=${animale.id})}" class="btn-admin-edit" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; background: linear-gradient(135deg, var(--verde-foresta) 0%, #226f54 100%);">
+                        💝 Invia Richiesta di Adozione
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="medical-folder">
+            <div class="medical-sheet">
+                <div class="medical-title">⚕️ Cartella Clinica Ospite</div>
+                
+                <div class="medical-content">
+                    <div class="medical-line">
+                        <strong>DATA VISITA:</strong> 
+                        <span th:text="${animale.cartellaClinica != null and animale.cartellaClinica.dataVisita != null ? #temporals.format(animale.cartellaClinica.dataVisita, 'dd/MM/yyyy') : 'Nessuna visita registrata'}">01/01/2026</span>
+                    </div>
+                    
+                    <div class="medical-line">
+                        <strong>PESO RISCONTRATO:</strong> 
+                        <span th:text="${animale.cartellaClinica != null and animale.cartellaClinica.peso != null ? animale.cartellaClinica.peso + ' Kg' : 'Non inserito'}">-- Kg</span>
+                    </div>
+                    
+                    <div class="medical-line">
+                        <strong>DIAGNOSI:</strong> 
+                        <p th:text="${animale.cartellaClinica != null ? animale.cartellaClinica.diagnosi : 'Nessuna diagnosi presente.'}" style="line-height: 30px; margin: 0;">Dettagli diagnosi...</p>
+                    </div>
+                    
+                    <div class="medical-line">
+                        <strong>TERAPIA ASSEGNATA:</strong> 
+                        <p th:text="${animale.cartellaClinica != null and animale.cartellaClinica.terapia != null ? animale.cartellaClinica.terapia : 'Nessuna terapia in corso.'}" style="line-height: 30px; margin: 0;">Dettagli terapia...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
 </html>
-		 
