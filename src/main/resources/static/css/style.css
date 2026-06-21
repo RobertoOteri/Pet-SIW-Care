@@ -1,0 +1,605 @@
+/* --- RESET & VARIABILI CHILL --- */
+:root {
+    --verde-foresta: #1b4d3e;  /* Verde profondo del rifugio */
+    --verde-salvia: #a3b899;    /* Verde morbido e rilassante */
+    --bianco: #ffffff;
+    --testo: #2c3e50;
+    --shadow-morbida: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+
+    background-image: url('../immagini/sfondo_index.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Mantiene lo sfondo fermo durante lo scroll */
+    color: var(--testo);
+    min-height: 100vh;
+    padding-top: 100px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- 🌿 NAVBAR SUPER CHILL IN ALTO --- */
+.navbar-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    background: rgba(255, 255, 255, 0.65); /* Più trasparente per abbinarsi allo stile */
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+
+
+/* Gruppo di destra: profilo + bottoni login/logout */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Cerchio immagine profilo */
+.profile-avatar-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--verde-foresta);
+    box-shadow: 0 2px 8px rgba(27, 77, 62, 0.1);
+    background-color: var(--bianco);
+}
+
+.profile-avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- BUTTONS GENERATOR (LOGIN / LOGOUT / HOME) --- */
+.btn-home-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--verde-foresta);
+    background: var(--bianco);
+    padding: 10px 18px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 15px;
+    border: 1px solid rgba(27, 77, 62, 0.15);
+    transition: all 0.2s ease;
+}
+.btn-home-nav:hover {
+    background: #e8f2ee;
+    transform: translateY(-1px);
+}
+
+.btn-action-nav {
+    background: linear-gradient(135deg, var(--verde-foresta) 0%, #226f54 100%);
+    color: var(--bianco);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(27, 77, 62, 0.15);
+}
+.btn-action-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(27, 77, 62, 0.25);
+}
+
+.btn-logout {
+    background: #fff0f0;
+    color: #d93838;
+    border: 1px solid #ffdbdb;
+}
+.btn-logout:hover {
+    background: #d93838;
+    color: var(--bianco);
+    box-shadow: 0 6px 15px rgba(217, 56, 56, 0.15);
+}
+
+/* --- 🐾 CONTENITORE CENTRALE TRASPARENTE (GLASSMORPHISM) --- */
+.main-dashboard {
+    /* Sfondo bianco semitrasparente come nello screen */
+    background: rgba(255, 255, 255, 0.75); 
+    /* Effetto sfocatura sullo sfondo posteriore */
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    
+    width: 100%;
+    max-width: 600px;
+    border-radius: 28px;
+    padding: 45px 35px;
+    box-shadow: var(--shadow-morbida);
+    /* Bordino chiaro per accentuare l'effetto vetro */
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    text-align: center;
+    margin-top: 40px; /* Leggermente aumentato per centrarlo meglio verticalmente */
+}
+
+.dashboard-intro {
+    margin-bottom: 35px;
+}
+
+.dashboard-intro h1 {
+    font-size: 28px;
+    color: var(--verde-foresta);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.dashboard-intro p {
+    font-size: 15px;
+    color: #4a6358; /* Scurito leggermente per renderlo leggibile sopra lo sfondo trasparente */
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* --- LISTA TRASFORMATA IN SCHEDE ACCOGLIENTI --- */
+.services-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.services-list li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--testo);
+    /* Anche i bottoni della lista diventano semitrasparenti */
+    background-color: rgba(255, 255, 255, 0.6); 
+    padding: 18px 24px;
+    border-radius: 18px;
+    font-weight: 600;
+    font-size: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Hover elastico e accogliente */
+.services-list li a:hover {
+    background-color: var(--verde-foresta);
+    color: var(--bianco);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(27, 77, 62, 0.15);
+}
+
+/* --- 📝 INTEGRAZIONE FORM DI AUTENTICAZIONE (LOGIN / REGISTER) --- */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Struttura affiancata per Nome e Cognome */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--verde-foresta);
+    padding-left: 4px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 15px;
+    border-radius: 14px;
+    border: 1px solid rgba(27, 77, 62, 0.15);
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--testo);
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--verde-foresta);
+    background: var(--bianco);
+    box-shadow: 0 0 0 4px rgba(27, 77, 62, 0.1);
+}
+
+.form-actions {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-block {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+}
+
+.auth-link {
+    font-size: 14px;
+    color: #4a6358;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+    color: var(--verde-foresta);
+    text-decoration: underline;
+}
+
+/* --- ⚠️ MESSAGGI DI ERRORE & VALIDAZIONE --- */
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff0f0;
+    color: #d93838;
+    border: 1px solid #ffdbdb;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.field-error {
+    color: #d93838;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 4px;
+    padding-left: 4px;
+}
+
+/* --- 👤 COPERTURA SPECIFICA PER PAGINA PROFILO --- */
+.body-profilo {
+    background-color: #bce4c5; /* Un verdino chiarissimo, rilassante e pulito */
+    background-image: none; 
+	background-attachment: unset;   /* Rimuove lo sfondo dell'index se presente */
+}
+
+/* Modifica al contenitore per ospitare contenuti più larghi (la tabella) */
+.profile-dashboard {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    width: 100%;
+    max-width: 900px; /* Più largo per contenere comodamente la tabella */
+    border-radius: 28px;
+    padding: 40px;
+    box-shadow: var(--shadow-morbida);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+/* --- 🪵 HEADER PROFILO (Avatar a sinistra, Dati a destra) --- */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    text-align: left;
+    padding-bottom: 30px;
+    border-bottom: 2px dashed rgba(163, 184, 153, 0.5); /* Divisore stile "nature" */
+    margin-bottom: 35px;
+}
+
+/* Immagine profilo grande */
+.profile-large-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 30px; /* Angoli arrotondati stile squircle, molto moderno */
+    overflow: hidden;
+    border: 3px solid var(--verde-foresta);
+    box-shadow: 0 8px 20px rgba(27, 77, 62, 0.15);
+    background-color: var(--bianco);
+    flex-shrink: 0;
+}
+
+.profile-large-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Info Utente */
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dispone i dati su due colonne */
+    gap: 15px 25px;
+    flex-grow: 1;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.info-item label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--verde-salvia);
+    font-weight: 700;
+}
+
+.info-item span {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--testo);
+}
+
+/* --- 📋 TABELLA DELLE RICHIESTE MODERNIZZATA --- */
+.section-title {
+    font-size: 22px;
+    color: var(--verde-foresta);
+    font-weight: 800;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Rende la tabella responsive su mobile */
+    border-radius: 16px;
+    border: 1px solid rgba(27, 77, 62, 0.1);
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bianco);
+    text-align: left;
+    font-size: 14px;
+}
+
+.custom-table th {
+    background-color: var(--verde-foresta);
+    color: var(--bianco);
+    padding: 14px 16px;
+    font-weight: 600;
+}
+
+.custom-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eef3f0;
+    color: var(--testo);
+    font-weight: 500;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f9fbf9; /* Effetto hover leggero sulle righe */
+}
+
+/* Link degli ID */
+.table-link {
+    color: var(--verde-foresta);
+    text-decoration: none;
+    font-weight: 700;
+}
+.table-link:hover {
+    text-decoration: underline;
+}
+
+/* --- 🏷️ STATI (Badge colorati) --- */
+.badge-stato {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+/* Esempi di colori dinamici basati sul testo dello stato (opzionali se vuoi mapparli in th:class) */
+.badge-stato {
+    background: #e8f2ee;
+    color: var(--verde-foresta);
+}
+
+/* --- ⚡ PULSANTI DELLE AZIONI --- */
+.actions-cell {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-table-action {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+/* Bottone generico/Modifica */
+.btn-table-action.btn-edit {
+    background: #e8f2ee;
+    color: var(--verde-foresta);
+}
+.btn-table-action.btn-edit:hover {
+    background: var(--verde-foresta);
+    color: var(--bianco);
+}
+
+/* Bottone Elimina/Rifiuta */
+.btn-table-action.btn-danger {
+    background: #fff0f0;
+    color: #d93838;
+}
+.btn-table-action.btn-danger:hover {
+    background: #d93838;
+    color: var(--bianco);
+}
+
+/* Stato già gestito */
+.text-muted {
+    color: #a3b899;
+    font-style: italic;
+    font-size: 13px;
+}
+
+/* Mobile responsive per la griglia utente */
+@media (max-width: 600px) {
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- 🗺️ STILE PAGINA LISTA AREE --- */
+.body-aree {
+    background-color: #bce4c5 !important; /* Il tuo verde chiaro acceso */
+    background-image: none !important;
+    background-attachment: unset;
+}
+
+/* Griglia per i mega pulsanti rettangolari */
+.areas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 35px;
+}
+
+/* Il mega pulsante rettangolare cliccabile */
+.area-card-link {
+    display: block;
+    position: relative;
+    height: 180px; /* Forma rettangolare */
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(27, 77, 62, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+/* Effetto zoom e sollevamento all'hover */
+.area-card-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(27, 77, 62, 0.22);
+}
+
+/* Immagine di sfondo del rettangolo */
+.area-image-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: var(--verde-salvia); /* Fallback se manca l'immagine */
+}
+
+.area-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Leggero zoom dell'immagine all'hover */
+.area-card-link:hover .area-image-wrapper img {
+    transform: scale(1.05);
+}
+
+/* Overlay scuro sul fondo del rettangolo per rendere leggibile il testo */
+.area-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Nome dell'area dentro il rettangolo */
+.area-name {
+    color: var(--bianco);
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* --- 🛠️ BOTTONE ADMIN AGGIUNGI AREA --- */
+.admin-actions-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-admin-add {
+    background: var(--verde-foresta);
+    border: none;
+    border-radius: 14px;
+    padding: 0; /* Rimosso padding per farlo gestire al tag 'a' interno */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(27, 77, 62, 0.2);
+}
+
+.btn-admin-add a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--bianco);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 28px;
+}
+
+.btn-admin-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(27, 77, 62, 0.35);
+    background-color: #226f54;
+}

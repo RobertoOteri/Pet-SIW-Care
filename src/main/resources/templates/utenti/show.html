@@ -1,97 +1,122 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Utente</title>
-	</head>
-	<body>
-		<div>
-			Nome: <span th:text="${utente.nome}"></span>
-		</div>
-		<div>
-			Cognome:<span th:text="${utente.cognome}"></span>
-		</div>
-		<div>
-			Indirizzo:<span th:text="${utente.indirizzo}"></span>
-		</div>
-		<div>
-			Email:<span th:text="${utente.email}"></span>></span>
-		</div>
-		
-		<hr>
-		
-		<h1>Elenco Richieste di Adozione</h1>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Utente - Il Rifugio</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="body-profilo"> <nav class="navbar-top">
+        <div class="navbar-left">
+            <a th:href="@{/}" class="btn-home-nav">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Home
+            </a>
+        </div>
+        <div class="navbar-right">
+            <div class="profile-avatar-wrapper">
+                <img src="../immagini/default-avatar.jpg" th:src="@{/immagini/default-avatar.jpg}" alt="Profilo">
+            </div>
+        </div>
+    </nav>
 
-		<table border="1">
-		    <thead>
-		        <tr>
-		            <th>ID</th>
-		            <th>Data/Ora</th>
-		            <th>Animale</th>
-		            <th>Descrizione</th>
-		            <th>Stato Attuale</th>
-		            <th>Azioni</th>
-		        </tr>
-		    </thead>
-		    <tbody>
-		        <tr th:each="richiesta : ${richieste}">
-					<td>
-					    <a th:href="@{/richieste/{id}(id=${richiesta.id})}" th:text="${richiesta.id}">1</a>
-					</td>
-		            <td th:text="${#temporals.format(richiesta.dataOra, 'dd/MM/yyyy HH:mm')}">02/06/2026 15:37</td>
-		            <td th:text="${richiesta.animale != null ? richiesta.animale.nome : 'Non specificato'}">Nome Animale</td>
-		            <td th:text="${richiesta.descrizione}">Dettagli...</td>
-		            
-		            <td>
-		                <strong th:text="${richiesta.stato}">IN_ATTESA</strong>
-		            </td>
-		            
-		            <td>
-						<div th:if="${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}">
-			                <div th:if="${richiesta.stato.name() == 'IN_ATTESA'}">
-			                    
-			                    <form th:action="@{/utenti/richieste/{id}/elimina(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-			                        <button type="submit">Elimina</button>
-			                    </form>
-			                    
-			                    <form th:action="@{/utenti/richieste/{id}/modifica(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-			                        <button type="submit">Modifica</button>
-			                    </form>
-			                    
-			                </div>
-			                
-			                <div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
-			                    <span>Gestita</span>
-			                </div>
-						</div>
-						
-						<div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
-							<div th:if="${richiesta.stato.name() == 'IN_ATTESA'}">
-							    
-							    <form th:action="@{/admin/richieste/{id}/approva(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-							        <button type="submit">Approva</button>
-							    </form>
-							    
-							    <form th:action="@{/admin/richieste/{id}/rifiuta(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-							        <button type="submit">Rifiuta</button>
-							    </form>
-							    
-							</div>
+    <main class="profile-dashboard">
+        
+        <section class="profile-header">
+            <div class="profile-large-avatar">
+                <img src="../immagini/default-avatar.jpg" th:src="@{/immagini/default-avatar.jpg}" alt="Foto Profilo">
+            </div>
+            
+            <div class="profile-info-grid">
+                <div class="info-item">
+                    <label>Nome</label>
+                    <span th:text="${utente.nome}">Nome</span>
+                </div>
+                <div class="info-item">
+                    <label>Cognome</label>
+                    <span th:text="${utente.cognome}">Cognome</span>
+                </div>
+                <div class="info-item">
+                    <label>Indirizzo</label>
+                    <span th:text="${utente.indirizzo}">Via delle Foreste, 12</span>
+                </div>
+                <div class="info-item">
+                    <label>Email</label>
+                    <span th:text="${utente.email}">utente@email.com</span>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2 class="section-title">Elenco Richieste di Adozione</h2>
 
-							<div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
-							    <span>Gestita</span>
-							</div>
-							
-						</div>
-		            </td>
-		        </tr>
-		        
-		        <tr th:if="${#lists.isEmpty(richieste)}">
-		            <td colspan="6">Non ci sono richieste di adozione presenti nel sistema.</td>
-		        </tr>
-		    </tbody>
-		</table>
+            <div class="table-container">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Data/Ora</th>
+                            <th>Animale</th>
+                            <th>Descrizione</th>
+                            <th>Stato Attuale</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="richiesta : ${richieste}">
+                            <td>
+                                <a th:href="@{/richieste/{id}(id=${richiesta.id})}" th:text="${richiesta.id}" class="table-link">1</a>
+                            </td>
+                            <td th:text="${#temporals.format(richiesta.dataOra, 'dd/MM/yyyy HH:mm')}">02/06/2026 15:37</td>
+                            <td th:text="${richiesta.animale != null ? richiesta.animale.nome : 'Non specificato'}">Nome Animale</td>
+                            <td th:text="${richiesta.descrizione}">Dettagli...</td>
+                            
+                            <td>
+                                <span class="badge-stato" th:text="${richiesta.stato}">IN_ATTESA</span>
+                            </td>
+                            
+                            <td>
+                                <div class="actions-cell">
+                                    <div th:if="${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}">
+                                        <div th:if="${richiesta.stato.name() == 'IN_ATTESA'}" class="actions-cell">
+                                            <form th:action="@{/utenti/richieste/{id}/elimina(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+                                                <button type="submit" class="btn-table-action btn-danger">Elimina</button>
+                                            </form>
+                                            <form th:action="@{/utenti/richieste/{id}/modifica(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+                                                <button type="submit" class="btn-table-action btn-edit">Modifica</button>
+                                            </form>
+                                        </div>
+                                        <div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
+                                            <span class="text-muted">Gestita</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
+                                        <div th:if="${richiesta.stato.name() == 'IN_ATTESA'}" class="actions-cell">
+                                            <form th:action="@{/admin/richieste/{id}/approva(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+                                                <button type="submit" class="btn-table-action btn-edit">Approva</button>
+                                            </form>
+                                            <form th:action="@{/admin/richieste/{id}/rifiuta(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+                                                <button type="submit" class="btn-table-action btn-danger">Rifiuta</button>
+                                            </form>
+                                        </div>
+                                        <div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
+                                            <span class="text-muted">Gestita</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr th:if="${#lists.isEmpty(richieste)}">
+                            <td colspan="6" style="text-align: center; color: var(--verde-salvia); padding: 30px;">
+                                Non ci sono richieste di adozione presenti nel sistema.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 
-	</body>	
-
-
+</body>
 </html>

@@ -1,26 +1,48 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Il Rifugio</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <h1>Login</h1>
-    
-    <div th:if="${param.error}" style="color: red;">
-        <p>Username o password errati.</p>
-    </div>
 
-    <form th:action="@{/login}" th:method="POST">
-        <div>
-            Username: <span><input type="text" name="username" required></span>
+    <nav class="navbar-top">
+        <div class="navbar-left">
+			<button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+			            🏡 Home
+		 </button>
         </div>
-        <div>
-            Password: <span><input type="password" name="password" required></span>
+    </nav>
+
+    <main class="main-dashboard">
+        <div class="dashboard-intro">
+            <h1>Accedi al Rifugio</h1>
+            <p>Inserisci le tue credenziali per entrare nella tua area personale</p>
         </div>
-        <div>
-            <span><button type="submit">Conferma</button></span>
-			<span><a th:href = "@{/register}">Non hai ancora un account? Registrati</a></span>
+
+        <div th:if="${param.error}" class="error-message">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Username o password errati.
         </div>
-		
-    </form>
+
+        <form th:action="@{/login}" th:method="POST" class="auth-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Inserisci il tuo username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Inserisci la tua password" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn-action-nav btn-block">Conferma</button>
+                <a th:href="@{/register}" class="auth-link">Non hai ancora un account? Registrati</a>
+            </div>
+        </form>
+    </main>
+
 </body>
 </html>
