@@ -1,24 +1,52 @@
 <!DOCTYPE HTML>
-<html>
 	<head>
-		<title>	ANIMALI </title>
+		<title>ANIMALI</title>
+		<link rel="stylesheet" th:href="@{/css/style.css}">
 	</head>
 	<body>
-		<h1> lista animali </h1>
-		<div>
-			<ul>
-				<li th:each = "animale : ${animali}">
-					<a th:href = "@{'/animali/' + ${animale.id}}" th:text = "${animale.nome}"> NomeAnimale </a>
-				</li>
-			</ul>
-		</div>
-		<div>
-			<a 	th:if = "${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
-				th:href="@{/admin/animali/form}"
-			       style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;">
-			       ➕ Aggiungi Animale
-			</a>
+		<nav class="navbar-top">
+		    
+		    <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+		        🏡 Home
+		    </button>
+		    
+		    <div class="navbar-right">
+		        
+		        <div class="profile-avatar-wrapper">
+		            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+		        </div>
+		        
+		        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+		            <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+		        </form>
+		        
+		        <form th:if="${userDetails == null}" th:action="@{/login}">
+		            <button type="submit" class="btn-action-nav">🔑 Log in</button>
+		        </form>
+		        
+		    </div>
+		</nav>
+		<div class="main-dashboard">
+			
+			<div class="dashboard-intro">
+				<h1>Lista Animali 🐾</h1>
+				<p>Seleziona un animale per vedere i dettagli</p>
+			</div>
+
+			<div class="animali-container">
+				<ul class="services-list">
+					<li th:each="animale : ${animali}">
+						<a th:href="@{'/animali/' + ${animale.id}}" th:text="${animale.nome}">NomeAnimale</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="admin-actions-container" th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
+				<a th:href="@{/admin/animali/form}" class="btn-action-nav btn-add-animal">
+					➕ Aggiungi Nuovo Animale
+				</a>
+			</div>
+
 		</div>
 	</body>
 </html>
-	

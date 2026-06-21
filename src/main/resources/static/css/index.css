@@ -179,3 +179,42 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(27, 77, 62, 0.12);
 }
+/* --- 🐾 SEZIONE SPECIFICA LISTA ANIMALI & ADMIN --- */
+
+/* Contenitore della lista per dare un po' di margine */
+.animali-container {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+/* Contenitore del tasto admin per distanziarlo dalla lista */
+.admin-actions-container {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(27, 77, 62, 0.15);
+    display: flex;
+    justify-content: center;
+}
+
+/* Personalizzazione del tasto aggiungi (eredita la base di .btn-action-nav) */
+.btn-add-animal {
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 26px; /* Leggermente più grande e comodo */
+}
+/* Contenitore della lista volontari per la spaziatura */
+.volontari-container {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+/* Personalizzazione del tasto aggiungi volontario (eredita la base di .btn-action-nav) */
+.btn-add-volunteer {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 26px;
+}
