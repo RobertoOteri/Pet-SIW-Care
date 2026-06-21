@@ -1,51 +1,100 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title> Aggiungi un Animale </title>
+		<title>Aggiungi un Animale</title>
+		<link rel="stylesheet" th:href="@{/css/style.css}">
 	</head>
 	<body> 
-		<h1> Inserisci un nuovo ospite </h1>
-		<form th:action = " ${animale.id == null} ? @{/admin/animali} : 
-							@{/admin/animali/{id}/modifica(id = ${animale.id})}"
-			  th:method = "POST" 
-			  th:object = "${animale}">
-			  
-			<input type="hidden" th:field="*{id}" />
+		<nav class="navbar-top">
+		    <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+		        🏡 Home
+		    </button>
+		    
+		    <div class="navbar-right">
+		        <div class="profile-avatar-wrapper">
+		            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+		        </div>
+		        
+		        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+		            <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+		        </form>
+		        
+		        <form th:if="${userDetails == null}" th:action="@{/login}">
+		            <button type="submit" class="btn-action-nav">🔑 Log in</button>
+		        </form>
+		    </div>
+		</nav>
+
+		<div class="main-dashboard">
 			
-		<div>
-			Nome: <span><input required type="text" th:field = "${animale.nome}"/></span>
+			<div class="dashboard-intro">
+				<h1 th:text="${animale.id == null} ? 'Inserisci un nuovo ospite 🐾' : 'Modifica ospite ✏️'">Inserisci un nuovo ospite</h1>
+				<p>Compila i campi sottostanti per aggiornare il database del rifugio</p>
+			</div>
+
+			<form th:action="${animale.id == null} ? @{/admin/animali} : @{/admin/animali/{id}/modifica(id=${animale.id})}"
+				  th:method="POST" 
+				  th:object="${animale}"
+				  class="form-strutturato">
+				  
+				<input type="hidden" th:field="*{id}" />
+				
+				<div class="form-group">
+					<label>Nome:</label>
+					<input required type="text" th:field="*{nome}" placeholder="Es: Thor"/>
+				</div>
+
+				<div class="form-group">
+					<label>Specie:</label>
+					<select th:field="*{specie}">
+						<option value="">-- Scegli Specie --</option>
+						<option th:each="s : ${specie}" th:value="${s}" th:text="${s}"></option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Razza:</label>
+					<input required type="text" th:field="*{razza}" placeholder="Es: Pastore Tedesco"/>
+				</div>
+
+				<div class="form-group">
+					<label>Data di nascita:</label>
+					<input type="date" th:field="*{dataNascita}"/>
+				</div>
+
+				<div class="form-group">
+					<label>Data di arrivo:</label>
+					<input type="date" th:field="*{dataArrivo}"/>
+				</div>
+
+				<div class="form-group">
+					<label>Volontario assegnato:</label>
+					<select th:field="*{volontario}">
+						<option value="">-- Scegli Volontario --</option>
+						<option th:each="volontario : ${volontari}" 
+								th:value="${volontario.id}" 
+								th:text="${volontario.nome + ' ' + volontario.cognome + ' - ' + volontario.specializzazione}">
+						</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Descrizione:</label>
+					<input required type="text" th:field="*{descrizione}" placeholder="Carattere, note sanitarie o storia..."/>
+				</div>
+
+				<div class="form-group">
+					<label>URL dell'immagine:</label>
+					<input type="url" th:field="*{immagineUrl}" placeholder="https://esempio.com/foto.jpg"/>
+				</div>
+
+				<div class="form-submit-container">
+					<button type="submit" class="btn-action-nav btn-submit-form">
+						Conferma Salvataggio
+					</button>
+				</div>
+			</form>
 		</div>
-		<div>
-			Specie: <select th:field="${animale.specie}">
-				<option value="">--Scegli Specie--</option>
-				<option th:each="s : ${specie}" th:value="${s}" th:text="${s}"></option>
-			</select>
-		</div>
-		<div>
-			Razza: <span><input required type="text" th:field = "${animale.razza}"/></span>
-		</div>
-		<div>
-			Data di nascita: <span><input type = "date" th:field = "${animale.dataNascita}"/></span>
-		</div>
-		<div>
-			Data di arrivo: <span><input type = "date" th:field = "${animale.dataArrivo}"/></span>
-		</div>
-		<div>
-			Volontario:<select th:field="${animale.volontario}">
-				<option value="">--Scegli Volontario--</option>
-				<option th:each="volontario :${volontari}" th:value="${volontario.id}" th:text="${volontario.nome + ' ' + volontario.cognome + ' - ' + volontario.specializzazione}"></option>
-			</select>
-		</div>
-		<div>
-			Descrizione: <span><input required type = "text" th:field = "${animale.descrizione}"/></span>
-		</div>
-		<div>
-			URL dell'immagine: <span><input type = "url" th:field = "${animale.immagineUrl}"/></span>
-		</div>
-		</div>
-			</span><button type = "submit"> Conferma </button></span>
-		</div>
-		</form>
 	</body>
 </html>
  		
