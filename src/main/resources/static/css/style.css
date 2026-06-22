@@ -16,7 +16,7 @@
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* Sfondo standard dell'Index */
+/* Sfondo standard delle pagine che usano la vecchia dashboard */
 body {
     background-image: url('../immagini/sfondo_index.png'); 
     background-size: cover;
@@ -41,6 +41,19 @@ body {
     background-color: #bce4c5 !important;
     background-image: none !important;
     background-attachment: unset !important;
+    display: flex !important;
+}
+
+/* Sfondo e reset specifico per la nuova ed elegante Home Page a schermo intero */
+.body-index-moderno {
+    padding-top: 75px !important;
+    margin: 0;
+    width: 100vw;
+    min-height: 100vh;
+    display: block !important;
+    background: #e2ede7 !important; /* 🌿 Verdino chiaro di sfondo */
+    overflow-x: hidden;
+    background-image: none !important;
 }
 
 
@@ -63,6 +76,12 @@ body {
     padding: 0 40px;
     z-index: 1000;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Variante navbar specifica per armonizzarsi con la Home Page */
+.navbar-index-blur {
+    background: rgba(226, 237, 231, 0.75) !important;
+    border-bottom: 1px solid rgba(27, 77, 62, 0.1) !important;
 }
 
 .navbar-right {
@@ -139,7 +158,7 @@ body {
     box-shadow: 0 6px 15px rgba(217, 56, 56, 0.15);
 }
 
-/* Card principale stretta (Index, Login, Registrazione) */
+/* Card principale stretta (Login, Registrazione) */
 .main-dashboard {
     background: rgba(255, 255, 255, 0.75); 
     backdrop-filter: blur(15px); 
@@ -187,8 +206,123 @@ body {
 
 
 /* ==========================================================================
-   4. 🧭 INTERFACCIA INDEX (Lista Servizi Principali)
+   4. 🧭 INTERFACCIA INDEX (Nuovo Layout Immersivo Premium Split)
    ========================================================================== */
+.hero-section {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 75px);
+    align-items: stretch;
+}
+
+.hero-left {
+    flex: 1.2;
+    background: linear-gradient(135deg, #113329 0%, #1b4d3e 50%, #2a755d 100%);
+    color: #ffffff;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    position: relative;
+}
+
+.hero-left::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+}
+
+.hero-left h1 {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #ffffff;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.hero-left .subtitle {
+    font-size: 16px;
+    color: #bce4c5;
+    font-weight: 700;
+    margin-bottom: 35px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.about-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #e8f2ee;
+    max-width: 580px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-right {
+    flex: 0.8;
+    background: #edf4f0; /* 🌿 Verdino chiaro interno */
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid rgba(27, 77, 62, 0.05);
+}
+
+.menu-right h2 {
+    font-size: 24px;
+    color: #1b4d3e;
+    font-weight: 800;
+    margin-bottom: 30px;
+    letter-spacing: -0.5px;
+}
+
+/* Gestione Lista Servizi della Home Page */
+.menu-right .services-list {
+    width: 100%;
+    max-width: 450px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.menu-right .services-list li {
+    margin-bottom: 5px;
+}
+
+.menu-right .services-list li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--testo);
+    background: #fafdff; 
+    border: 1px solid rgba(27, 77, 62, 0.08);
+    padding: 22px 26px;
+    border-radius: 20px;
+    font-size: 17px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(27, 77, 62, 0.03);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.menu-right .services-list li a:hover {
+    background: linear-gradient(135deg, #226f54 0%, #1b4d3e 100%) !important;
+    color: #ffffff !important;
+    transform: scale(1.03) translateY(-2px);
+    box-shadow: 0 10px 25px rgba(27, 77, 62, 0.2) !important;
+}
+
+/* Vecchia lista servizi standard (mantenuta per retrocompatibilità pagine interne) */
 .services-list {
     list-style: none;
     display: flex;
@@ -784,8 +918,23 @@ body {
 
 
 /* ==========================================================================
-   11. 📱 RESPONSIVITÀ (Ottimizzazione Mobile)
+   11. 📱 RESPONSIVITÀ (Nuova Ottimizzazione Unificata)
    ========================================================================== */
+@media (max-width: 992px) {
+    .hero-section {
+        flex-direction: column;
+        height: auto;
+    }
+    .hero-left, .menu-right {
+        flex: none;
+        width: 100%;
+        padding: 50px 30px;
+    }
+    .showcase-container {
+        height: 300px;
+    }
+}
+
 @media (max-width: 768px) {
     .animal-show-container, .profile-header {
         flex-direction: column;
@@ -830,13 +979,87 @@ body {
     height: 100%;
     object-fit: cover;     /* Mantiene le proporzioni centrando la foto */
 }
+
+
 /* ==========================================================================
-   12. 🌿 FOOTER CLASSICO COMPATTO (Verde Scuro con Icone Reali)
+   12. 📸 SECONDA SCHERMATA: GALLERY (Dedicata alla vetrina foto della Home)
+   ========================================================================== */
+.gallery-section {
+    background: #e2ede7; 
+    padding: 80px 10% 40px 10%;
+    text-align: center;
+    border-top: 1px solid rgba(27, 77, 62, 0.1);
+}
+
+.gallery-section h2 {
+    font-size: 32px;
+    color: #1b4d3e;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.gallery-section p {
+    color: #557060; 
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+.showcase-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(27, 77, 62, 0.12);
+    border: 6px solid #edf4f0; 
+    position: relative;
+    height: 500px;
+    background-color: var(--verde-salvia);
+}
+
+.showcase-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.showcase-container:hover img {
+    transform: scale(1.02);
+}
+
+.showcase-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px;
+    background: linear-gradient(transparent, rgba(11, 35, 28, 0.9));
+    color: #ffffff !important;
+    text-align: left;
+}
+
+.showcase-overlay h3 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: 700;
+    color: #ffffff !important;
+}
+
+.showcase-overlay p {
+    color: #ffffff !important;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+
+/* ==========================================================================
+   13. 🌿 FOOTER CLASSICO COMPATTO (Verde Scuro con Icone Reali)
    ========================================================================== */
 .footer-classico-compatto {
     width: 100%;
-    background-color: var(--verde-foresta); /* Il tuo verde scuro */
-    padding: 12px 40px; /* Molto sottile e discreto */
+    background-color: var(--verde-foresta); 
+    padding: 30px 40px; 
     margin-top: auto;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -867,11 +1090,10 @@ body {
     font-weight: 600;
     display: inline-flex;
     align-items: center;
-    gap: 6px; /* Spazio perfetto tra icona e testo */
+    gap: 6px; 
     transition: all 0.2s ease;
 }
 
-/* Stile e animazioni icone */
 .footer-link i {
     font-size: 14px;
     transition: transform 0.2s ease;
@@ -886,7 +1108,6 @@ body {
     transform: scale(1.15);
 }
 
-/* Colori reali al passaggio del mouse sulle icone social */
 .footer-link:hover .fa-facebook {
     color: #1877f2;
 }
@@ -906,7 +1127,6 @@ body {
     font-weight: 400;
 }
 
-/* Mobile responsive */
 @media (max-width: 768px) {
     .footer-classico-compatto {
         padding: 15px 20px;

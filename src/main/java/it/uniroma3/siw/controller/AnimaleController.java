@@ -75,12 +75,15 @@ public class AnimaleController {
 	public String salvaModificaAnimale(@PathVariable("id") Long id,
 									   @Valid @ModelAttribute("animale") Animale animale,
 									   BindingResult bindingResult, Model model) {
+		Animale animaleOriginale = this.animaleService.findById(id);
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("specie",Specie.values());
 			model.addAttribute("volontari", this.volontarioService.findAll());
 			return "admin/animali/form";
 		}
+		animale.setArea(animaleOriginale.getArea());
 		animale.setId(id);
+		animale.setCartellaClinica(animaleOriginale.getCartellaClinica());
 		this.animaleService.save(animale);
 		return "redirect:/animali/" + id;
 	}

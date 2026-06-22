@@ -70,6 +70,7 @@ public class CartellaClinicaController {
 		Animale animale = this.cartellaClinicaService.findById(id).getAnimale();
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("animale", animale);
+			model.addAttribute("cartellaClinica", cartellaClinica);
 			return "admin/animali/formCartella";
 		}
 		cartellaClinica.setId(id);

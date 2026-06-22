@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -68,6 +69,15 @@ public class RichiestaAdozioneController {
 		
 		Credenziali credenziali = this.credenzialiService.findByUsername(username);
 		Utente utente = credenziali.getUtente();
+		
+		List<RichiestaAdozione> richieste = utente.getRichiesteAdozione();
+		
+		for(RichiestaAdozione r: richieste){
+			if(r.getAnimale().equals(animale)) {
+				bindingResult.reject("richiesta.duplicata", "Hai già effetuato una richiesta per questo animale");
+				break;
+			}
+		}
 		
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("animale", animale);

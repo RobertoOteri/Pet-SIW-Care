@@ -5,28 +5,28 @@
     <title th:text="${animale.nome} + ' - Dettagli'">Dettagli Animale</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="body-animale"> <nav class="navbar-top">
-            <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
-                🏡 Home
-            </button>
-			<div class="navbar-right">
-			        
-			        <div class="profile-avatar-wrapper">
-			            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
-			        </div>
-			        
-			        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
-			            <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
-			        </form>
-			        
-			        <form th:if="${userDetails == null}" th:action="@{/login}">
-			            <button type="submit" class="btn-action-nav">🔑 Log in</button>
-			        </form>
-			        
-			    </div>
+<body class="body-animale"> 
+    
+    <nav class="navbar-top">
+        <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+            🏡 Home
+        </button>
+        <div class="navbar-right">
+            <div class="profile-avatar-wrapper">
+                <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+            </div>
+            
+            <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+                <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+            </form>
+            
+            <form th:if="${userDetails == null}" th:action="@{/login}">
+                <button type="submit" class="btn-action-nav">🔑 Log in</button>
+            </form>
+        </div>
     </nav>
 
-    <main class="profile-dashboard" style="max-width: 850px;">
+    <main class="profile-dashboard" style="max-width: 850px; margin-left: auto; margin-right: auto;">
         
         <div class="animal-show-container">
             <div class="animal-large-pic">
@@ -57,13 +57,36 @@
 
                     <div class="info-item">
                         <label>Area di Alloggio</label>
-                        <span th:text="${animale.area != null ? animale.area.nome : 'Non assegnata'}">Area Verde</span>
+                        <a th:if="${animale.area != null}" th:href="@{/aree/{id}(id=${animale.area.id})}">
+                            <span th:text="${animale.area.nome}">Area Verde</span>
+                        </a>    
+                        <span th:if="${animale.area == null}">Non assegnata</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Volontario di Riferimento</label>
+                        <a th:if="${animale.volontario != null}" th:href="@{/volontari/{id}(id=${animale.volontario.id})}" class="table-link">
+                            <span th:text="${animale.volontario.nome} + ' ' + ${animale.volontario.cognome}">Mario Rossi</span>
+                        </a>
+                        <span th:if="${animale.volontario == null}">Non assegnato</span>
                     </div>
                 </div>
 
                 <div th:if="${userDetails != null and !userDetails.authorities.toString().contains('ADMIN')}" style="margin-top: 15px; text-align: left;">
                     <a th:href="@{/utenti/animali/{id}/nuova-richiesta(id=${animale.id})}" class="btn-admin-edit" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; background: linear-gradient(135deg, var(--verde-foresta) 0%, #226f54 100%);">
                         💝 Invia Richiesta di Adozione
+                    </a>
+                </div>
+                
+                <div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" class="admin-area-actions">
+                    <a th:href="@{/admin/animali/{id}/modifica(id=${animale.id})}" class="btn-admin-edit">
+                        ✏️ Modifica Animale
+                    </a>
+                    
+                    <a th:href="@{/admin/animali/{id}/elimina(id=${animale.id})}" 
+                       onclick="return confirm('Sei sicuro di voler eliminare questo animale dal sistema?');" 
+                       class="btn-admin-delete">
+                        ❌ Elimina Animale
                     </a>
                 </div>
             </div>
@@ -95,6 +118,20 @@
                     </div>
                 </div>
             </div>
+            
+            <div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" class="admin-area-actions">
+                <a th:if="${animale.cartellaClinica != null}" 
+                   th:href="@{/admin/cartelleCliniche/{id}/modifica(id=${animale.cartellaClinica.id})}" 
+                   class="btn-admin-edit">
+                    ✏️ Aggiorna Cartella Clinica
+                </a>
+                
+                <a th:if="${animale.cartellaClinica == null}" 
+                   th:href="@{/admin/animali/{id}/nuova-cartella(id=${animale.id})}" 
+                   class="btn-admin-edit" style="background: #2c3e50;">
+                    ➕ Crea Cartella Clinica
+                </a>
+            </div>
         </div>
 
     </main>
@@ -121,6 +158,5 @@
 	        </div>
 	    </div>
 	</footer>
-
-</body>
+	</body>
 </html>

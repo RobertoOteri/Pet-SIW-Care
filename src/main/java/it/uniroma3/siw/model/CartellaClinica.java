@@ -32,7 +32,7 @@ public class CartellaClinica {
 	
 	private Double peso;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "cartellaClinica")
 	private Animale animale;
 	
 	// Costruttori //
