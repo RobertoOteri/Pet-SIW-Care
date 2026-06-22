@@ -814,14 +814,14 @@ body {
 
 /* Rettangolo verticale specifico per la foto del volontario */
 .volontario-badge-pic {
-    width: 180px;          /* Larghezza fissa più stretta */
-    height: 240px;         /* Altezza fissa più lunga (Rettangolo) */
-    border-radius: 20px;   /* Angoli arrotondati moderni */
-    overflow: hidden;      /* Taglia l'immagine se esce dai bordi */
-    border: 3px solid var(--verde-foresta); /* Bordo scuro coordinato */
-    box-shadow: 0 8px 25px rgba(27, 77, 62, 0.2); /* Ombra profonda */
+    width: 220px;          /* 🌟 Nuova larghezza aumentata */
+    height: 290px;         /* 🌟 Nuova altezza aumentata */
+    border-radius: 24px;   /* Arrotondiamo un filo di più per seguire la dimensione */
+    overflow: hidden;      
+    border: 3px solid var(--verde-foresta); 
+    box-shadow: 0 8px 25px rgba(27, 77, 62, 0.2); 
     background-color: var(--bianco);
-    flex-shrink: 0;        /* Impedisce il rimpicciolimento su schermi piccoli */
+    flex-shrink: 0;        
 }
 
 /* Regola l'immagine dentro il rettangolo per non farla deformare */
