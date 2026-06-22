@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Gestione Richieste Adozione</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="body-richiesta-show"> <nav class="navbar-top">
+<body class="body-richiesta-show"> 
+    
+    <nav class="navbar-top">
         <div class="navbar-left">
             <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
                 🏡 Home
@@ -67,7 +71,6 @@
                         
                         <td class="actions-cell">
                             <div th:if="${richiesta.stato.name() == 'IN_ATTESA'}" style="display: flex; gap: 8px;">
-                                
                                 <form th:action="@{/admin/richieste/{id}/approva(id=${richiesta.id})}" th:method="POST" style="display:inline;">
                                     <button type="submit" class="btn-table-action btn-edit" style="background-color: #e8f2ee; color: var(--verde-foresta);">
                                         ✅ Approva
@@ -79,10 +82,41 @@
                                         ❌ Rifiuta
                                     </button>
                                 </form>
-                                
                             </div>
                             
                             <div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
                                 <span class="text-muted">🔒 Pratica Archiviata</span>
                             </div>
-	
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer class="footer-classico-compatto">
+        <div class="footer-container">
+            <div class="footer-section">
+                <a href="https://facebook.com" target="_blank" class="footer-link">
+                    <i class="fa-brands fa-facebook"></i> Facebook
+                </a>
+                <span class="bullet">•</span>
+                <a href="https://instagram.com" target="_blank" class="footer-link">
+                    <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+            </div>
+            
+            <div class="footer-section footer-credits">
+                Associazione Rifugio Pet-SIW-Care &copy; 2026
+            </div>
+            
+            <div class="footer-section footer-contact-info">
+                <span><i class="fa-regular fa-envelope"></i> rifugioPet-SIW-Care@gmail.com</span>
+                <span class="bullet">•</span>
+                <span><i class="fa-solid fa-phone"></i> +39 06 1234567</span>
+            </div>
+        </div>
+    </footer>
+    
+</body>    
+</html>

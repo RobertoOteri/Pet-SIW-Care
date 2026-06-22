@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Pet-SIW-Care - Home</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- FontAwesome per le icone dei social nel footer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Reset per layout moderno e scorrimento verticale */
         body {
@@ -134,7 +136,7 @@
         /* 📸 SECONDA SCHERMATA: GALLERY (Scorrendo Giù) */
         .gallery-section {
             background: #e2ede7; /* 🌿 Uniformato al verdino del body */
-            padding: 80px 10%;
+            padding: 80px 10% 40px 10%;
             text-align: center;
             border-top: 1px solid rgba(27, 77, 62, 0.1);
         }
@@ -183,7 +185,7 @@
             width: 100%;
             padding: 40px;
             background: linear-gradient(transparent, rgba(11, 35, 28, 0.9));
-            color: #FFFEEF;
+            color: #ffffff !important;
             text-align: left;
         }
 
@@ -191,12 +193,63 @@
             font-size: 24px;
             margin-bottom: 5px;
             font-weight: 700;
+            color: #ffffff !important;
         }
 		
-		.showcase-overlay p {
-		    color: #ffffff !important;
-		    opacity: 0.9; /* Opzionale: lo rende leggermente morbido, ma sempre super leggibile */
-		}
+        .showcase-overlay p {
+            color: #ffffff !important;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        /* 📋 FOOTER COMPATTO */
+        .footer-classico-compatto {
+            background: #113329;
+            color: #e8f2ee;
+            padding: 30px 20px;
+            font-size: 14px;
+            border-top: 1px solid rgba(27, 77, 62, 0.2);
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-link {
+            color: #bce4c5;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: #ffffff;
+        }
+
+        .bullet {
+            color: #557060;
+        }
+
+        .footer-credits {
+            font-weight: 500;
+            color: #a3b899;
+        }
+
+        .footer-contact-info {
+            color: #e8f2ee;
+        }
 
         /* Ottimizzazione Mobile */
         @media (max-width: 992px) {
@@ -211,6 +264,10 @@
             }
             .showcase-container {
                 height: 300px;
+            }
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
@@ -241,7 +298,7 @@
     <!-- 🐾 PRIMA SCHERMATA: HERO SPLIT -->
     <div class="hero-section">
         
-        <!-- LATO SINISTRO: STORYTELLING PREMIUM (Verde scuro intatto) -->
+        <!-- LATO SINISTRO: STORYTELLING PREMIUM -->
         <section class="hero-left">
             <h1>Benvenuto al<br>Rifugio Pet-SIW-Care</h1>
             <div class="subtitle">Un futuro di gioia e seconde possibilità</div>
@@ -260,7 +317,7 @@
             </div>
         </section>
 
-        <!-- LATO DESTRO: MENU GESTIONALE (Sfondo verdino chiaro) -->
+        <!-- LATO DESTRO: MENU GESTIONALE -->
         <nav class="menu-right">
             <h2>Cosa vuoi fare oggi? 👋</h2>
             
@@ -281,7 +338,7 @@
 
     </div>
 
-    <!-- 📸 SECONDA SCHERMATA: FOTO DEL RIFUGIO (Sfondo verdino chiaro uniforme) -->
+    <!-- 📸 SECONDA SCHERMATA: FOTO DEL RIFUGIO -->
     <section class="gallery-section">
         <h2>I Nostri Spazi Verdeggianti</h2>
         <p>Uno sguardo all'ambiente sicuro in cui facciamo crescere e rinascere i nostri ospiti</p>
@@ -295,6 +352,31 @@
             </div>
         </div>
     </section>
+	
+    <!-- 📋 FOOTER COMPATTO INTEGRATO -->
+    <footer class="footer-classico-compatto">
+        <div class="footer-container">
+            <div class="footer-section">
+                <a href="https://facebook.com" target="_blank" class="footer-link">
+                    <i class="fa-brands fa-facebook"></i> Facebook
+                </a>
+                <span class="bullet">•</span>
+                <a href="https://instagram.com" target="_blank" class="footer-link">
+                    <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+            </div>
+            
+            <div class="footer-section footer-credits">
+                Associazione Rifugio Pet-SIW-Care &copy; 2026
+            </div>
+            
+            <div class="footer-section footer-contact-info">
+                <span><i class="fa-regular fa-envelope"></i> rifugioPet-SIW-Care@gmail.com</span>
+                <span class="bullet">•</span>
+                <span><i class="fa-solid fa-phone"></i> +39 06 1234567</span>
+            </div>
+        </div>
+    </footer>
 		
 </body>	
 </html>
