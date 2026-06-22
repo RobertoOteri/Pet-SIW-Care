@@ -830,3 +830,93 @@ body {
     height: 100%;
     object-fit: cover;     /* Mantiene le proporzioni centrando la foto */
 }
+/* ==========================================================================
+   12. 🌿 FOOTER CLASSICO COMPATTO (Verde Scuro con Icone Reali)
+   ========================================================================== */
+.footer-classico-compatto {
+    width: 100%;
+    background-color: var(--verde-foresta); /* Il tuo verde scuro */
+    padding: 12px 40px; /* Molto sottile e discreto */
+    margin-top: auto;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; /* Spazio perfetto tra icona e testo */
+    transition: all 0.2s ease;
+}
+
+/* Stile e animazioni icone */
+.footer-link i {
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--bianco) !important;
+    text-decoration: underline;
+}
+
+.footer-link:hover i {
+    transform: scale(1.15);
+}
+
+/* Colori reali al passaggio del mouse sulle icone social */
+.footer-link:hover .fa-facebook {
+    color: #1877f2;
+}
+
+.footer-link:hover .fa-instagram {
+    color: #fccc63;
+}
+
+.bullet {
+    color: var(--verde-salvia);
+    opacity: 0.4;
+}
+
+.footer-credits {
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    font-weight: 400;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .footer-classico-compatto {
+        padding: 15px 20px;
+    }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    .footer-section {
+        justify-content: center;
+    }
+}
