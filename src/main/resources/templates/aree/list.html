@@ -1,60 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Aree - Il Rifugio</title>
     <link rel="stylesheet" href="../css/style.css">
-    <!-- FontAwesome per le icone (utilizzato anche nel footer) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Allineamento perfetto del bottone admin in fondo alla dashboard */
-        .admin-actions-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            margin-top: 30px;
-        }
-
-        /* Bottone "Aggiungi" in stile pillola identico a image_709faa.jpg */
-        .btn-aggiungi-custom {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            text-decoration: none;
-            background: #1b4d3e; /* Il tuo verde foresta scuro */
-            color: #ffffff !important;
-            padding: 14px 28px;
-            border-radius: 25px; /* Angoli totalmente arrotondati a pillola */
-            font-size: 15px;
-            font-weight: 600;
-            border: none;
-            box-shadow: 0 4px 15px rgba(27, 77, 62, 0.2);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-aggiungi-custom:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(27, 77, 62, 0.3);
-            background: #226f54; /* Leggero schiarimento all'hover */
-        }
-
-        .btn-aggiungi-custom svg {
-            stroke: #a3b899; /* Il simbolo + prende il colore verde salvia chiaro dell'immagine */
-            transition: transform 0.3s ease;
-        }
-
-        .btn-aggiungi-custom:hover svg {
-            transform: rotate(90deg); /* Effetto rotazione bonus della croce al passaggio del mouse */
-        }
-    </style>
 </head>
 <body class="body-aree"> 
 
-    <!-- 🌿 NAVBAR TOP -->
     <nav class="navbar-top">
         <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
             🏡 Home
@@ -74,14 +25,12 @@
         </div>
     </nav>
 
-    <!-- 🐾 CONTENITORE DASHBOARD -->
-    <main class="profile-dashboard" style="max-width: 950px; margin-left: auto; margin-right: auto;">
+    <main class="profile-dashboard dashboard-aree-custom">
         <div class="dashboard-intro">
             <h1>Esplora le Aree del Rifugio</h1>
             <p>Seleziona una delle zone dedicate ai nostri ospiti per vedere i dettagli</p>
         </div>
 
-        <!-- Griglia delle Aree -->
         <div class="areas-grid">
             <a th:each="a : ${aree}" th:href="@{'/aree/' + ${a.id}}" class="area-card-link">
                 <div class="area-image-wrapper">
@@ -94,12 +43,10 @@
             </a>
         </div>
 
-        <!-- Messaggio Lista Vuota -->
-        <div th:if="${#lists.isEmpty(aree)}" style="padding: 40px; text-align: center; color: var(--verde-foresta); font-weight: 600;">
+        <div th:if="${#lists.isEmpty(aree)}" class="empty-list-message">
             Non ci sono aree registrate nel sistema al momento.
         </div>
 
-        <!-- 🛠️ SEZIONE AZIONI ADMIN (Pulsante in stile image_709faa.jpg) -->
         <div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" class="admin-actions-container">
             <a href="/admin/aree/form" class="btn-aggiungi-custom">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -112,7 +59,6 @@
         
     </main>
 
-    <!-- 📋 FOOTER -->
     <footer class="footer-classico-compatto">
         <div class="footer-container">
             <div class="footer-section">

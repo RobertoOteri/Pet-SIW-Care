@@ -28,7 +28,7 @@ public class RichiestaAdozione {
     @Enumerated(EnumType.STRING)
 	private Stato stato;
     
-	@NotBlank
+	@NotBlank(message = "non deve essere vuoto")
 	@Column(nullable = false)
 	private String descrizione;
 	

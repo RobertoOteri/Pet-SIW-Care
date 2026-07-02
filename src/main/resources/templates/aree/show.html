@@ -35,7 +35,15 @@
         </div>
 
         <div class="dashboard-intro" style="text-align: left; margin-bottom: 25px;">
+			<span>
             <h1 th:text="${area.nome}" class="animal-name-title" style="margin-bottom: 15px;">Nome Area</h1>
+
+				<span th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" class="admin-area-actions">
+				    <a th:href="@{/admin/aree/{id}/aggiungi-animale(id=${area.id})}" class="btn-admin-edit">
+				        ➕ Aggiungi animali
+				    </a>
+				</span>
+			</span>
             
             <div class="profile-info-grid" style="grid-template-columns: 1fr;">
                 <div class="info-item">
@@ -93,7 +101,7 @@
         
     </main>
 
-    <!-- 📋 FOOTER -->
+	
     <footer class="footer-classico-compatto">
         <div class="footer-container">
             <div class="footer-section">

@@ -1,43 +1,78 @@
 <!DOCTYPE html>
-<html>
 	<head>
 		<title>Aggiungi una Cartella</title>
+		<link rel="stylesheet" th:href="@{/css/style.css}">
 	</head>
 	<body>
-		<h1> Inserisci una nuova Cartella per <span th:text = "${animale.nome}"> nome Animale </span> </h1>
-		<form th:action = "${cartellaClinica.id == null} ? @{/admin/animali/{id}/salva-cartella(id = ${animale.id})} : 
-						                                   @{/admin/cartelleCliniche/{id}/modifica(id = ${cartellaClinica.id})}"
-			  th:method = "POST"
-			  th:object = "${cartellaClinica}">
-			  
-			  <input type = "hidden" th:field = "*{id}" />
+		<nav class="navbar-top">
+		    <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+		        🏡 Home
+		    </button>
+		    
+		    <div class="navbar-right">
+		        <div class="profile-avatar-wrapper">
+		            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+		        </div>
+		        
+		        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+		            <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+		        </form>
+		        
+		        <form th:if="${userDetails == null}" th:action="@{/login}">
+		            <button type="submit" class="btn-action-nav">🔑 Log in</button>
+		        </form>
+		    </div>
+		</nav>
 
-			  <div>
-				<label for="dataVisita"> Data della visita: </label>
-				<input type = "date" id="dataVisita" th:field = "*{dataVisita}" required />
-				<span th:if="${#fields.hasErrors('dataVisita')}" th:errors="*{dataVisita}">Errore data</span>
-			  </div>
-			  
-			  <div>
-				<label for = "diagnosi"> Diagnosi: </label>
-				<input type = "text" id = "diagnosi" th:field = "*{diagnosi}" required/>
-				<span th:if="${#fields.hasErrors('diagnosi')}" th:errors = "*{diagnosi}"> Errore diagnosi </span>
+		<div class="main-dashboard">
+			
+			<div class="dashboard-intro">
+				<h1>Cartella Clinica 🩺</h1>
+				<p>Inserisci o modifica i dati sanitari per <span th:text="${animale.nome}" style="color: var(--verde-foresta); font-weight: 700;">Nome Animale</span></p>
 			</div>
-			<div>
-				<label for = "terapia"> Terapia: </label>
-				<input type = "text" id = "terapia" th:field = "*{terapia}"/>
-				<span th:if = "${#fields.hasErrors('terapia')}" th:errors = "*{terapia}"> Errore terapia </span>
-			</div>
-			<div>
-				<label for = "peso"> Peso: </label>
-				<input type = "text" id ="peso" th:field = "*{peso}" />
-				<span th:if = "${#fields.hasErrors('peso')}" th:errors = "*{peso}"> Errore peso </span>
-			</div>
-			<div>
-				<span><button type="submit"> Conferma </button></span>
-			</div>
+
+			<form th:action="${cartellaClinica.id == null} ? @{/admin/animali/{id}/salva-cartella(id=${animale.id})} : @{/admin/cartelleCliniche/{id}/modifica(id=${cartellaClinica.id})}"
+				  th:method="POST"
+				  th:object="${cartellaClinica}"
+				  class="form-strutturato">
+				  
+				<input type="hidden" th:field="*{id}" />
+
+				<div th:if="${#fields.hasGlobalErrors()}" class="form-error-global">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+				</div>
+
+				<div class="form-group">
+					<label for="dataVisita">Data della visita:</label>
+					<input type="date" id="dataVisita" th:field="*{dataVisita}" required />
+					<span class="field-error" th:if="${#fields.hasErrors('dataVisita')}" th:errors="*{dataVisita}"></span>
+				</div>
+				  
+				<div class="form-group">
+					<label for="diagnosi">Diagnosi riscontrata:</label>
+					<input type="text" id="diagnosi" th:field="*{diagnosi}" placeholder="Es: In salute, dermatite, controllo di routine..." required/>
+					<span class="field-error" th:if="${#fields.hasErrors('diagnosi')}" th:errors="*{diagnosi}"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="terapia">Terapia consigliata:</label>
+					<input type="text" id="terapia" th:field="*{terapia}" placeholder="Es: Applicazione lozione lenitiva 1v al giorno..."/>
+					<span class="field-error" th:if="${#fields.hasErrors('terapia')}" th:errors="*{terapia}"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="peso">Peso attuale (kg):</label>
+					<input type="text" id="peso" th:field="*{peso}" placeholder="Es: 12.5"/>
+					<span class="field-error" th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></span>
+				</div>
+
+				<div class="form-submit-container">
+					<button type="submit" class="btn-action-nav btn-submit-form">
+						Conferma Cartella Clinica
+					</button>
+				</div>
+				
 			</form>
-		</body>
+		</div>
+	</body>
 </html>
-				
-				

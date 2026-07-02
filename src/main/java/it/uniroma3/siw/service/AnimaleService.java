@@ -31,4 +31,12 @@ public class AnimaleService {
 	public void deleteById(Long id) {
 		animaleRepository.deleteById(id);
 	}
+	
+	public List<Animale> findAllNotInArea(Area area){
+		return this.animaleRepository.findByAreaNotOrAreaIsNull(area);
+	}
+	
+	public List<Animale> findAllById(List<Long> ids){
+		return (List<Animale>) this.animaleRepository.findAllById(ids);
+	}
 }

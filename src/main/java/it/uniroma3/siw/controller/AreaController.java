@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.model.Animale;
 import it.uniroma3.siw.model.Area;
+import it.uniroma3.siw.service.AnimaleService;
 import it.uniroma3.siw.service.AreaService;
 import jakarta.validation.Valid;
 
@@ -19,8 +22,11 @@ public class AreaController {
 
 	private AreaService areaService;
 	
-	public AreaController(AreaService areaService) {
+	private AnimaleService animaleService;
+	
+	public AreaController(AreaService areaService, AnimaleService animaleService) {
 		this.areaService = areaService;
+		this.animaleService = animaleService;
 	}
 	
 	@GetMapping("/aree")
@@ -77,5 +83,32 @@ public class AreaController {
 		area.setId(id);
 		this.areaService.save(area);
 		return "redirect:/aree/" + id;
+	}
+	
+	@GetMapping("/admin/aree/{id}/aggiungi-animale")
+	public String aggiungiAnimale(@PathVariable("id") Long id, Model model) {
+		Area area = this.areaService.findById(id);
+		List<Animale> animali = this.animaleService.findAllNotInArea(area);
+		if(animali == null) {
+			return "redirect:/aree";
+		}
+		model.addAttribute("area", area);
+		model.addAttribute("animali", animali);
+		return "admin/aree/salva-animale";
+	}
+	
+	@PostMapping("/admin/aree/{id}/salva-animale")
+	public String  salvaAnimale(@PathVariable("id") Long id, @RequestParam(required = false) List<Long> animaliId) {
+		if(animaliId == null) {
+			return "redirect:/aree/" + id;
+		}
+		Area area = this.areaService.findById(id);
+		List<Animale> animali = this.animaleService.findAllById(animaliId);
+		area.getAnimali().addAll(animali);
+		for(Animale a: animali) {
+			a.setArea(area);
+		}
+		this.areaService.save(area);
+		return "redirect/aree/" + id;
 	}
 }

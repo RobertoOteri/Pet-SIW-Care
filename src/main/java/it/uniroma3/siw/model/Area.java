@@ -35,7 +35,7 @@ public class Area {
 	
 	private String immagineUrl;
 	
-	@OneToMany(mappedBy = "area",cascade = {CascadeType.PERSIST,CascadeType.REMOVE,CascadeType.MERGE})
+	@OneToMany(mappedBy = "area",cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
 	private List<Animale> animali;
 	
 	// Costruttori //

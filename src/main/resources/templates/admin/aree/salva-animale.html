@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Aggiungi Animali</title>
+	</head>
+	<body>
+	<div class="list-container view-container form-container">
+				
+				<div class="torneo-header">
+					<h1>Aggiungi animali all'Area</h1>
+				</div>
+
+				<form th:method="POST" th:action="@{/admin/aree/{id}/salva-animale(id=${area.id})}" class="custom-form">
+					
+					<div class="form-group checkbox-list-group">
+						<div th:each="a : ${animale}" class="checkbox-item-row">
+							<input type="checkbox" name="animaleId" th:value="${a.id}" class="custom-checkbox">
+							<span th:text="${a.nome}" class="team-name-inline checkbox-label-text">Nome Animale</span>
+						</div>
+					</div>
+
+					<div class="form-submit-block">
+						<button type="submit" class="button admin-btn form-btn">Conferma</button>
+					</div>
+					
+				</form>
+	</div>
+	</body>
+</html>
+
