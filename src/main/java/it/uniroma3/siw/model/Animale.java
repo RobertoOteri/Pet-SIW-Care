@@ -49,7 +49,7 @@ public class Animale {
 	@ManyToOne(cascade = {CascadeType.PERSIST})
 	private Volontario volontario;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Area area;
 	
 	@OneToOne(cascade =  CascadeType.ALL)

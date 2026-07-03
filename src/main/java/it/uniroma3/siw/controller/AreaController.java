@@ -97,6 +97,7 @@ public class AreaController {
 		return "admin/aree/salva-animale";
 	}
 	
+	
 	@PostMapping("/admin/aree/{id}/salva-animale")
 	public String  salvaAnimale(@PathVariable("id") Long id, @RequestParam(required = false) List<Long> animaliId) {
 		if(animaliId == null) {
@@ -109,6 +110,6 @@ public class AreaController {
 			a.setArea(area);
 		}
 		this.areaService.save(area);
-		return "redirect/aree/" + id;
+		return "redirect:/aree/" + id;
 	}
 }

@@ -36,5 +36,7 @@ public class AreaService {
 	public void deleteById(Long id) {
 		this.areaRepository.deleteById(id);
 	}
-
+	
 }
+
+
