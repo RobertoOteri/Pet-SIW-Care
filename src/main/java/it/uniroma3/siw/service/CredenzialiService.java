@@ -1,6 +1,7 @@
 package it.uniroma3.siw.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Credenziali;
 import it.uniroma3.siw.repository.CredenzialiRepository;
@@ -14,14 +15,17 @@ public class CredenzialiService {
 		this.credenzialiRepository = credenzialiRepository;
 	}
 	
+	@Transactional(readOnly = true)
 	public Credenziali findById(Long id) {
 		return this.credenzialiRepository.findById(id).get();
 	}
 	
+	@Transactional(readOnly = true)
 	public Credenziali findByUsername(String username) {
 		return this.credenzialiRepository.findByUsername(username).get();
 	}
 	
+	@Transactional
 	public Credenziali save(Credenziali credenziali) {
 		return this.credenzialiRepository.save(credenziali);
 	}
