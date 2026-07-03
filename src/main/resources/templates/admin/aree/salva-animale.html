@@ -1,30 +1,72 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Aggiungi Animali</title>
-	</head>
-	<body>
-	<div class="list-container view-container form-container">
-				
-				<div class="torneo-header">
-					<h1>Aggiungi animali all'Area</h1>
-				</div>
 
-				<form th:method="POST" th:action="@{/admin/aree/{id}/salva-animale(id=${area.id})}" class="custom-form">
-					
-					<div class="form-group checkbox-list-group">
-						<div th:each="a : ${animali}" class="checkbox-item-row">
-							<input type="checkbox" name="animaliId" th:value="${a.id}" class="custom-checkbox">
-							<span th:text="${a.nome}" class="team-name-inline checkbox-label-text">Nome Animale</span>
-						</div>
-					</div>
+<head>
+	<title>Aggiungi Animali</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 
-					<div class="form-submit-block">
-						<button type="submit" class="button admin-btn form-btn">Conferma</button>
+<body>
+	<nav class="navbar-top">
+		<button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+			🏡 Home
+		</button>
+
+		<div class="navbar-right">
+			<div class="profile-avatar-wrapper">
+				<img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
+			</div>
+
+			<form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+				<button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+			</form>
+
+			<form th:if="${userDetails == null}" th:action="@{/login}">
+				<button type="submit" class="btn-action-nav">🔑 Log in</button>
+			</form>
+		</div>
+	</nav>
+
+	<div class="main-dashboard">
+
+		<div class="dashboard-intro">
+			<h1>Aggiungi animali all'Area</h1>
+			<p>Seleziona i membri del rifugio da assegnare a questa zona</p>
+		</div>
+
+		<form th:method="POST" th:action="@{/admin/aree/{id}/salva-animale(id=${area.id})}" class="form-strutturato">
+
+			<div class="form-group">
+
+				<th:block th:unless="${#lists.isEmpty(animali)}">
+					<div th:each="a : ${animali}" class="checkbox-item-row">
+						<input type="checkbox" name="animaliId" th:value="${a.id}" class="custom-checkbox">
+						<span th:text="${a.nome}" class="checkbox-label-text">Nome Animale</span>
 					</div>
-					
-				</form>
+				</th:block>
+
+				<th:block th:if="${#lists.isEmpty(animali)}">
+					<div class="empty-list-message">
+						Non ci sono altri animali disponibili da inserire in quest'area.
+					</div>
+					<div class="form-submit-container">
+						<a th:href="@{/admin/animali/form}" class="btn-action-nav"
+							style="text-decoration: none; display: inline-block; text-align: center;">
+							➕ Registra Nuovo Animale
+						</a>
+					</div>
+				</th:block>
+
+			</div>
+
+			<div class="form-submit-container" th:unless="${#lists.isEmpty(animali)}">
+				<button type="submit" class="btn-action-nav btn-submit-form">
+					Conferma
+				</button>
+			</div>
+
+		</form>
 	</div>
-	</body>
-</html>
+</body>
 
+</html>
