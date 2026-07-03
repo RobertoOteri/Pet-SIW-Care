@@ -1,109 +1,112 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Pet-SIW-Care - Home</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<meta charset="UTF-8">
+	<title>Pet-SIW-Care - Home</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body class="body-index-moderno">
 
-    <nav class="navbar-top navbar-index-blur">
-        <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
-            🏡 Home
-        </button>
-        
-        <div class="navbar-right">
-            <div class="profile-avatar-wrapper">
-                <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
-            </div>
-            
-            <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
-                <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
-            </form>
-            
-            <form th:if="${userDetails == null}" th:action="@{/login}">
-                <button type="submit" class="btn-action-nav">🔑 Log in</button>
-            </form>
-        </div>
-    </nav>
+	<nav class="navbar-top navbar-index-blur">
+		<button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+			🏡 Home
+		</button>
 
-    <div class="hero-section">
-        
-        <section class="hero-left">
-            <h1>Benvenuto al<br>Rifugio Pet-SIW-Care</h1>
-            <div class="subtitle">Un futuro di gioia e seconde possibilità</div>
-            
-            <div class="about-text">
-                <p style="margin-bottom: 15px;">
-                    Il nostro rifugio nasce dall'amore incondizionato verso gli animali e dal desiderio 
-                    di offrire un luogo sicuro, accogliente e protetto a chi è stato meno fortunato. 
-                    Non siamo solo una struttura di passaggio, ma una vera e propria grande famiglia.
-                </p>
-                <p>
-                    Qui ogni ospite riceve cure mediche, affetto e tutto lo spazio necessario per correre felice. 
-                    Il nostro obiettivo quotidiano è curare le ferite del passato e accompagnare i nostri piccoli 
-                    amici verso una nuova vita.
-                </p>
-            </div>
-        </section>
+		<div class="navbar-right">
+			<div class="profile-avatar-wrapper">
+				<img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
+			</div>
 
-        <nav class="menu-right">
-            <h2>Cosa vuoi fare oggi? 👋</h2>
-            
-            <ul class="services-list">
-                <li><a href="/animali">🦮 I nostri Animali</a></li>
-                <li><a href="/volontari">🤝 I nostri Volontari</a></li>
-                <li><a href="/aree">🌳 Le nostre Aree</a></li>
-                
-                <li th:if="${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}">
-                    <a href="/utenti">👤 Il tuo Profilo Utente</a>
-                </li>
-                <li th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
-                    <a href="/admin/richieste">📋 Pannello Gestione Richieste</a>
-                </li>
-            </ul>
-        </nav>
+			<form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+				<button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+			</form>
 
-    </div>
+			<form th:if="${userDetails == null}" th:action="@{/login}">
+				<button type="submit" class="btn-action-nav">🔑 Log in</button>
+			</form>
+		</div>
+	</nav>
 
-    <section class="gallery-section">
-        <h2>I Nostri Spazi Verdeggianti</h2>
-        <p>Uno sguardo all'ambiente sicuro in cui facciamo crescere e rinascere i nostri ospiti</p>
-        
-        <div class="showcase-container">
-            <img th:src="@{/immagini/sfondo_index.png}" alt="Struttura Rifugio Pet-SIW-Care">
-            
-            <div class="showcase-overlay">
-                <h3>Un'oasi di serenità</h3>
-                <p>Ampi spazi all'aperto, aree attrezzate per il gioco e tanto verde per la loro felicidade quotidiana.</p>
-            </div>
-        </div>
-    </section>
-	
-    <footer class="footer-classico-compatto">
-        <div class="footer-container">
-            <div class="footer-section">
-                <a href="https://facebook.com" target="_blank" class="footer-link">
-                    <i class="fa-brands fa-facebook"></i> Facebook
-                </a>
-                <span class="bullet">•</span>
-                <a href="https://instagram.com" target="_blank" class="footer-link">
-                    <i class="fa-brands fa-instagram"></i> Instagram
-                </a>
-            </div>
-            
-            <div class="footer-section footer-credits">
-                Associazione Rifugio Pet-SIW-Care &copy; 2026
-            </div>
-            
-            <div class="footer-section footer-contact-info">
-                <span><i class="fa-regular fa-envelope"></i> rifugioPet-SIW-Care@gmail.com</span>
-                <span class="bullet">•</span>
-                <span><i class="fa-solid fa-phone"></i> +39 06 1234567</span>
-            </div>
-        </div>
-    </footer>
-		
-</body>	
+	<div class="hero-section">
+
+		<section class="hero-left">
+			<h1>Benvenuto al<br>Rifugio Pet-SIW-Care</h1>
+			<div class="subtitle">Un futuro di gioia e seconde possibilità</div>
+
+			<div class="about-text">
+				<p style="margin-bottom: 15px;">
+					Il nostro rifugio nasce dall'amore incondizionato verso gli animali e dal desiderio
+					di offrire un luogo sicuro, accogliente e protetto a chi è stato meno fortunato.
+					Non siamo solo una struttura di passaggio, ma una vera e propria grande famiglia.
+				</p>
+				<p>
+					Qui ogni ospite riceve cure mediche, affetto e tutto lo spazio necessario per correre felice.
+					Il nostro obiettivo quotidiano è curare le ferite del passato e accompagnare i nostri piccoli
+					amici verso una nuova vita.
+				</p>
+			</div>
+		</section>
+
+		<nav class="menu-right">
+			<h2>Cosa vuoi fare oggi? 👋</h2>
+
+			<ul class="services-list">
+				<li><a href="/animali">🦮 I nostri Animali</a></li>
+				<li><a href="/volontari">🤝 I nostri Volontari</a></li>
+				<li><a href="/aree">🌳 Le nostre Aree</a></li>
+
+				<li th:if="${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}">
+					<a href="/utenti">👤 Il tuo Profilo Utente</a>
+				</li>
+				<li th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
+					<a href="/admin/richieste">📋 Pannello Gestione Richieste</a>
+				</li>
+			</ul>
+		</nav>
+
+	</div>
+
+	<section class="gallery-section">
+		<h2>I Nostri Spazi Verdeggianti</h2>
+		<p>Uno sguardo all'ambiente sicuro in cui facciamo crescere e rinascere i nostri ospiti</p>
+
+		<div class="showcase-container">
+			<img th:src="@{/immagini/sfondo_index.png}" alt="Struttura Rifugio Pet-SIW-Care">
+
+			<div class="showcase-overlay">
+				<h3>Un'oasi di serenità</h3>
+				<p>Ampi spazi all'aperto, aree attrezzate per il gioco e tanto verde per la loro felicidade quotidiana.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<footer class="footer-classico-compatto">
+		<div class="footer-container">
+			<div class="footer-section">
+				<a href="https://facebook.com" target="_blank" class="footer-link">
+					<i class="fa-brands fa-facebook"></i> Facebook
+				</a>
+				<span class="bullet">•</span>
+				<a href="https://instagram.com" target="_blank" class="footer-link">
+					<i class="fa-brands fa-instagram"></i> Instagram
+				</a>
+			</div>
+
+			<div class="footer-section footer-credits">
+				Associazione Rifugio Pet-SIW-Care &copy; 2026
+			</div>
+
+			<div class="footer-section footer-contact-info">
+				<span><i class="fa-regular fa-envelope"></i> rifugioPet-SIW-Care@gmail.com</span>
+				<span class="bullet">•</span>
+				<span><i class="fa-solid fa-phone"></i> +39 06 1234567</span>
+			</div>
+		</div>
+	</footer>
+
+</body>
+
 </html>

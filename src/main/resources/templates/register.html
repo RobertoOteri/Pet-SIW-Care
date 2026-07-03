@@ -1,70 +1,80 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrazione - Il Rifugio</title>
-    <link rel="stylesheet" href="../css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registrazione - Il Rifugio</title>
+	<link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
 
-    <nav class="navbar-top">
-			<button type="button" onclick="window.location.href='/'" class="btn-home-nav">
-			            🏡 Home
-			</button>
-    </nav>
+	<nav class="navbar-top">
+		<button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+			🏡 Home
+		</button>
+	</nav>
 
-    <main class="main-dashboard">
-        <div class="dashboard-intro">
-            <h1>Crea un Account</h1>
-            <p>Unisciti alla nostra community in pochi semplici passi</p>
-        </div>
+	<main class="main-dashboard">
+		<div class="dashboard-intro">
+			<h1>Crea un Account</h1>
+			<p>Unisciti alla nostra community in pochi semplici passi</p>
+		</div>
 
-        <form th:action="@{/register}" method="POST" class="auth-form">
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Nome</label>
-                    <input type="text" name="nome" th:value="${utente.nome}" placeholder="Esempio: Mario" required />
-                    <p th:if="${#fields.hasErrors('utente.nome')}" th:errors="${utente.nome}" class="field-error"></p>
-                </div>
-                
-                <div class="form-group">
-                    <label>Cognome</label>
-                    <input type="text" name="cognome" th:value="${utente.cognome}" placeholder="Esempio: Rossi" required />
-                    <p th:if="${#fields.hasErrors('utente.cognome')}" th:errors="${utente.cognome}" class="field-error"></p>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>Indirizzo</label>
-                <input type="text" th:field="${utente.indirizzo}" placeholder="Via, Piazza, Corso e numero civico">
-                <p th:if="${#fields.hasErrors('utente.indirizzo')}" th:errors="${utente.indirizzo}" class="field-error"></p>
-            </div>
-            
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" th:value="${utente.email}" placeholder="esempio@email.com" required />
-                <p th:if="${#fields.hasErrors('utente.email')}" th:errors="${utente.email}" class="field-error"></p>
-            </div>
-            
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" th:value="${credenziali.username}" placeholder="Scegli un username" required />
-                <p th:if="${#fields.hasErrors('credenziali.username')}" th:text="${#fields.errors('credenziali.username')[0]}" class="field-error"></p>
-            </div>
-            
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" th:value="${credenziali.password}" placeholder="Scegli una password sicura" required />
-                <p th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}" class="field-error"></p>
-            </div>
-            
-            <div class="form-actions">
-                <button type="submit" class="btn-action-nav btn-block">Registrati</button>
-                <a th:href="@{/login}" class="auth-link">Hai già un account? Accedi</a>
-            </div>
-        </form>
-    </main>
+		<form th:action="@{/register}" method="POST" class="auth-form">
+			<div class="form-row">
+				<div class="form-group">
+					<label>Nome</label>
+					<input type="text" name="nome" th:value="${utente.nome}" placeholder="Esempio: Mario" required />
+					<p th:if="${#fields.hasErrors('utente.nome')}" th:errors="${utente.nome}" class="field-error"></p>
+				</div>
+
+				<div class="form-group">
+					<label>Cognome</label>
+					<input type="text" name="cognome" th:value="${utente.cognome}" placeholder="Esempio: Rossi"
+						required />
+					<p th:if="${#fields.hasErrors('utente.cognome')}" th:errors="${utente.cognome}" class="field-error">
+					</p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>Indirizzo</label>
+				<input type="text" th:field="${utente.indirizzo}" placeholder="Via, Piazza, Corso e numero civico">
+				<p th:if="${#fields.hasErrors('utente.indirizzo')}" th:errors="${utente.indirizzo}" class="field-error">
+				</p>
+			</div>
+
+			<div class="form-group">
+				<label>Email</label>
+				<input type="email" name="email" th:value="${utente.email}" placeholder="esempio@email.com" required />
+				<p th:if="${#fields.hasErrors('utente.email')}" th:errors="${utente.email}" class="field-error"></p>
+			</div>
+
+			<div class="form-group">
+				<label>Username</label>
+				<input type="text" name="username" th:value="${credenziali.username}" placeholder="Scegli un username"
+					required />
+				<p th:if="${#fields.hasErrors('credenziali.username')}"
+					th:text="${#fields.errors('credenziali.username')[0]}" class="field-error"></p>
+			</div>
+
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" name="password" th:value="${credenziali.password}"
+					placeholder="Scegli una password sicura" required />
+				<p th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}"
+					class="field-error"></p>
+			</div>
+
+			<div class="form-actions">
+				<button type="submit" class="btn-action-nav btn-block">Registrati</button>
+				<a th:href="@{/login}" class="auth-link">Hai già un account? Accedi</a>
+			</div>
+		</form>
+	</main>
 
 </body>
+
 </html>

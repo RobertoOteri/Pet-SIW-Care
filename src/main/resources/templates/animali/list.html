@@ -13,7 +13,7 @@
 		    <div class="navbar-right">
 		        
 		        <div class="profile-avatar-wrapper">
-		            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+		            <img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
 		        </div>
 		        
 		        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">

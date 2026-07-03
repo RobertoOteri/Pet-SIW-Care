@@ -1,153 +1,167 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Area Utente - Il Rifugio</title>
-    <link rel="stylesheet" href="../css/style.css">
+	<title>Area Utente - Il Rifugio</title>
+	<link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body class="body-profilo">
 	<nav class="navbar-top">
-			<button type="button" onclick="window.location.href='/'" class="btn-home-nav">
-			            🏡 Home
-		 </button>
-		 <div class="navbar-right">
-		             
-		             <div class="profile-avatar-wrapper">
-		                 <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
-		             </div>
-		             
-		             <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
-		                 <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
-		             </form>
-		             
-		             <form th:if="${userDetails == null}" th:action="@{/login}">
-		                 <button type="submit" class="btn-action-nav">🔑 Log in</button>
-		             </form>
-		             
-		         </div>
-    </nav>
+		<button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+			🏡 Home
+		</button>
+		<div class="navbar-right">
 
-    <main class="profile-dashboard">
-        
-        <section class="profile-header">
-            <div class="profile-large-avatar">
-                <img src="../immagini/profile_default.jpg" th:src="@{/immagini/profile_default.jpg}" alt="Foto Profilo">
-            </div>
-            
-            <div class="profile-info-grid">
-                <div class="info-item">
-                    <label>Nome</label>
-                    <span th:text="${utente.nome}">Nome</span>
-                </div>
-                <div class="info-item">
-                    <label>Cognome</label>
-                    <span th:text="${utente.cognome}">Cognome</span>
-                </div>
-                <div class="info-item">
-                    <label>Indirizzo</label>
-                    <span th:text="${utente.indirizzo}">Via delle Foreste, 12</span>
-                </div>
-                <div class="info-item">
-                    <label>Email</label>
-                    <span th:text="${utente.email}">utente@email.com</span>
-                </div>
-            </div>
-        </section>
-        
-        <section>
-            <h2 class="section-title">Elenco Richieste di Adozione</h2>
+			<div class="profile-avatar-wrapper">
+				<img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
+			</div>
 
-            <div class="table-container">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Data/Ora</th>
-                            <th>Animale</th>
-                            <th>Descrizione</th>
-                            <th>Stato Attuale</th>
-                            <th>Azioni</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="richiesta : ${richieste}">
-                            <td>
-                                <a th:href="@{/richieste/{id}(id=${richiesta.id})}" th:text="${richiesta.id}" class="table-link">1</a>
-                            </td>
-                            <td th:text="${#temporals.format(richiesta.dataOra, 'dd/MM/yyyy HH:mm')}">02/06/2026 15:37</td>
-                            <td th:text="${richiesta.animale != null ? richiesta.animale.nome : 'Non specificato'}">Nome Animale</td>
-                            <td th:text="${richiesta.descrizione}">Dettagli...</td>
-                            
-                            <td>
-                                <span class="badge-stato" th:text="${richiesta.stato}">IN_ATTESA</span>
-                            </td>
-                            
-                            <td>
-                                <div class="actions-cell">
-                                    <div th:if="${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}">
-                                        <div th:if="${richiesta.stato.name() == 'IN_ATTESA'}" class="actions-cell">
-                                            <form th:action="@{/utenti/richieste/{id}/elimina(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-                                                <button type="submit" class="btn-table-action btn-danger">Elimina</button>
-                                            </form>
-                                            <form th:action="@{/utenti/richieste/{id}/modifica(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-                                                <button type="submit" class="btn-table-action btn-edit">Modifica</button>
-                                            </form>
-                                        </div>
-                                        <div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
-                                            <span class="text-muted">Gestita</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
-                                        <div th:if="${richiesta.stato.name() == 'IN_ATTESA'}" class="actions-cell">
-                                            <form th:action="@{/admin/richieste/{id}/approva(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-                                                <button type="submit" class="btn-table-action btn-edit">Approva</button>
-                                            </form>
-                                            <form th:action="@{/admin/richieste/{id}/rifiuta(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-                                                <button type="submit" class="btn-table-action btn-danger">Rifiuta</button>
-                                            </form>
-                                        </div>
-                                        <div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
-                                            <span class="text-muted">Gestita</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr th:if="${#lists.isEmpty(richieste)}">
-                            <td colspan="6" style="text-align: center; color: var(--verde-salvia); padding: 30px;">
-                                Non ci sono richieste di adozione presenti nel sistema.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
+			<form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+				<button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+			</form>
+
+			<form th:if="${userDetails == null}" th:action="@{/login}">
+				<button type="submit" class="btn-action-nav">🔑 Log in</button>
+			</form>
+
+		</div>
+	</nav>
+
+	<main class="profile-dashboard">
+
+		<section class="profile-header">
+			<div class="profile-large-avatar">
+				<img src="../immagini/profile_default.jpg" alt="Foto Profilo">
+			</div>
+
+			<div class="profile-info-grid">
+				<div class="info-item">
+					<label>Nome</label>
+					<span th:text="${utente.nome}">Nome</span>
+				</div>
+				<div class="info-item">
+					<label>Cognome</label>
+					<span th:text="${utente.cognome}">Cognome</span>
+				</div>
+				<div class="info-item">
+					<label>Indirizzo</label>
+					<span th:text="${utente.indirizzo}">Via delle Foreste, 12</span>
+				</div>
+				<div class="info-item">
+					<label>Email</label>
+					<span th:text="${utente.email}">utente@email.com</span>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="section-title">Elenco Richieste di Adozione</h2>
+
+			<div class="table-container">
+				<table class="custom-table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Data/Ora</th>
+							<th>Animale</th>
+							<th>Descrizione</th>
+							<th>Stato Attuale</th>
+							<th>Azioni</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="richiesta : ${richieste}">
+							<td>
+								<a th:href="@{/richieste/{id}(id=${richiesta.id})}" th:text="${richiesta.id}"
+									class="table-link">1</a>
+							</td>
+							<td th:text="${#temporals.format(richiesta.dataOra, 'dd/MM/yyyy HH:mm')}">02/06/2026 15:37
+							</td>
+							<td th:text="${richiesta.animale != null ? richiesta.animale.nome : 'Non specificato'}">Nome
+								Animale</td>
+							<td th:text="${richiesta.descrizione}">Dettagli...</td>
+
+							<td>
+								<span class="badge-stato" th:text="${richiesta.stato}">IN_ATTESA</span>
+							</td>
+
+							<td>
+								<div class="actions-cell">
+									<div
+										th:if="${userDetails != null and userDetails.authorities.toString().contains('DEFAULT')}">
+										<div th:if="${richiesta.stato.name() == 'IN_ATTESA'}" class="actions-cell">
+											<form th:action="@{/utenti/richieste/{id}/elimina(id=${richiesta.id})}"
+												th:method="POST" style="display:inline;">
+												<button type="submit"
+													class="btn-table-action btn-danger">Elimina</button>
+											</form>
+											<form th:action="@{/utenti/richieste/{id}/modifica(id=${richiesta.id})}"
+												th:method="POST" style="display:inline;">
+												<button type="submit"
+													class="btn-table-action btn-edit">Modifica</button>
+											</form>
+										</div>
+										<div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
+											<span class="text-muted">Gestita</span>
+										</div>
+									</div>
+
+									<div
+										th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
+										<div th:if="${richiesta.stato.name() == 'IN_ATTESA'}" class="actions-cell">
+											<form th:action="@{/admin/richieste/{id}/approva(id=${richiesta.id})}"
+												th:method="POST" style="display:inline;">
+												<button type="submit" class="btn-table-action btn-edit">Approva</button>
+											</form>
+											<form th:action="@{/admin/richieste/{id}/rifiuta(id=${richiesta.id})}"
+												th:method="POST" style="display:inline;">
+												<button type="submit"
+													class="btn-table-action btn-danger">Rifiuta</button>
+											</form>
+										</div>
+										<div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
+											<span class="text-muted">Gestita</span>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+
+						<tr th:if="${#lists.isEmpty(richieste)}">
+							<td colspan="6" style="text-align: center; color: var(--verde-salvia); padding: 30px;">
+								Non ci sono richieste di adozione presenti nel sistema.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</main>
 	<footer class="footer-classico-compatto">
-	    <div class="footer-container">
-	        <div class="footer-section">
-	            <a href="https://facebook.com" target="_blank" class="footer-link">
-	                <i class="fa-brands fa-facebook"></i> Facebook
-	            </a>
-	            <span class="bullet">•</span>
-	            <a href="https://instagram.com" target="_blank" class="footer-link">
-	                <i class="fa-brands fa-instagram"></i> Instagram
-	            </a>
-	        </div>
-	        
-	        <div class="footer-section footer-credits">
-	            Associazione Rifugio Pet-SIW-Care &copy; 2026
-	        </div>
-	        
-	        <div class="footer-section footer-contact-info">
-	            <span><i class="fa-regular fa-envelope"></i> rifugioPet-SIW-Care@gmail.com</span>
-	            <span class="bullet">•</span>
-	            <span><i class="fa-solid fa-phone"></i> +39 06 1234567</span>
-	        </div>
-	    </div>
+		<div class="footer-container">
+			<div class="footer-section">
+				<a href="https://facebook.com" target="_blank" class="footer-link">
+					<i class="fa-brands fa-facebook"></i> Facebook
+				</a>
+				<span class="bullet">•</span>
+				<a href="https://instagram.com" target="_blank" class="footer-link">
+					<i class="fa-brands fa-instagram"></i> Instagram
+				</a>
+			</div>
+
+			<div class="footer-section footer-credits">
+				Associazione Rifugio Pet-SIW-Care &copy; 2026
+			</div>
+
+			<div class="footer-section footer-contact-info">
+				<span><i class="fa-regular fa-envelope"></i> rifugioPet-SIW-Care@gmail.com</span>
+				<span class="bullet">•</span>
+				<span><i class="fa-solid fa-phone"></i> +39 06 1234567</span>
+			</div>
+		</div>
 	</footer>
 
 </body>
+
 </html>

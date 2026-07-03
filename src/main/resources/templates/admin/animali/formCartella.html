@@ -11,7 +11,7 @@
 		    
 		    <div class="navbar-right">
 		        <div class="profile-avatar-wrapper">
-		            <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+		            <img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
 		        </div>
 		        
 		        <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
@@ -28,7 +28,7 @@
 			
 			<div class="dashboard-intro">
 				<h1>Cartella Clinica 🩺</h1>
-				<p>Inserisci o modifica i dati sanitari per <span th:text="${animale.nome}" style="color: var(--verde-foresta); font-weight: 700;">Nome Animale</span></p>
+				<p>Inserisci o modifica i dati sanitari per <span th:text="${animale.nome}" >Nome Animale</span></p>
 			</div>
 
 			<form th:action="${cartellaClinica.id == null} ? @{/admin/animali/{id}/salva-cartella(id=${animale.id})} : @{/admin/cartelleCliniche/{id}/modifica(id=${cartellaClinica.id})}"

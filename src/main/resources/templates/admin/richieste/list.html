@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Gestione Richieste Adozione</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body class="body-richiesta-show"> 
     
@@ -16,7 +14,7 @@
         </div>
         <div class="navbar-right">
             <div class="profile-avatar-wrapper">
-                <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+                <img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
             </div>
             
             <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
@@ -57,27 +55,27 @@
                         <td>
                             <strong th:text="${richiesta.animale != null ? richiesta.animale.nome : 'Non specificato'}">Nome Animale</strong>
                         </td>
-                        <td th:text="${richiesta.descrizione}" style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Dettagli...</td>
+                        <td th:text="${richiesta.descrizione}">Dettagli...</td>
                         
                         <td>
                             <span th:text="${richiesta.stato}" 
                                   th:class="'badge-stato ' + 
                                             (${richiesta.stato.name() == 'IN_ATTESA'} ? 'status-waiting' : 
                                             (${richiesta.stato.name() == 'APPROVATA'} ? 'status-approved' : 'status-rejected'))"
-                                  style="padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;">
+                                  >
                                 IN_ATTESA
                             </span>
                         </td>
                         
                         <td class="actions-cell">
                             <div th:if="${richiesta.stato.name() == 'IN_ATTESA'}" style="display: flex; gap: 8px;">
-                                <form th:action="@{/admin/richieste/{id}/approva(id=${richiesta.id})}" th:method="POST" style="display:inline;">
-                                    <button type="submit" class="btn-table-action btn-edit" style="background-color: #e8f2ee; color: var(--verde-foresta);">
+                                <form th:action="@{/admin/richieste/{id}/approva(id=${richiesta.id})}" th:method="POST" >
+                                    <button type="submit" class="btn-table-action btn-edit" >
                                         ✅ Approva
                                     </button>
                                 </form>
                                 
-                                <form th:action="@{/admin/richieste/{id}/rifiuta(id=${richiesta.id})}" th:method="POST" style="display:inline;">
+                                <form th:action="@{/admin/richieste/{id}/rifiuta(id=${richiesta.id})}" th:method="POST" >
                                     <button type="submit" class="btn-table-action btn-danger" onclick="return confirm('Sei sicuro di voler rifiutare questa richiesta?');">
                                         ❌ Rifiuta
                                     </button>

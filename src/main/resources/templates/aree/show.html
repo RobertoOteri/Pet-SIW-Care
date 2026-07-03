@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${area.nome} + ' - Dettagli'">Dettagli Area</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="body-area-show"> 
     
-    <!-- 🌿 NAVBAR TOP -->
     <nav class="navbar-top">
         <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
             🏡 Home
         </button>
         <div class="navbar-right">
             <div class="profile-avatar-wrapper">
-                <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+                <img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
             </div>
             
             <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
@@ -27,14 +25,13 @@
         </div>
     </nav>
 
-    <!-- 🐾 CONTENITORE PRINCIPALE -->
-    <main class="profile-dashboard" style="max-width: 850px; margin-left: auto; margin-right: auto;">
+    <main class="profile-dashboard">
         
         <div class="area-banner-box">
-            <img th:src="${area?.immagineUrl != null ? area.immagineUrl : '/images/default-area.png'}" alt="Immagine Area">
+            <img th:src="${area.immagineUrl}" alt="Immagine Area">
         </div>
 
-        <div class="dashboard-intro" style="text-align: left; margin-bottom: 25px;">
+        <div class="dashboard-intro">
 			<span>
             <h1 th:text="${area.nome}" class="animal-name-title" style="margin-bottom: 15px;">Nome Area</h1>
 
@@ -45,7 +42,7 @@
 				</span>
 			</span>
             
-            <div class="profile-info-grid" style="grid-template-columns: 1fr;">
+            <div class="profile-info-grid">
                 <div class="info-item">
                     <label>Capacità Massima Ospiti</label>
                     <span>
@@ -55,7 +52,6 @@
             </div>
         </div>
 
-        <!-- Descrizione dell'Area -->
         <div class="info-item" style="text-align: left; margin-bottom: 25px;">
             <label>Presentazione e Dettagli della Zona</label>
             <p th:text="${area.descrizione}" class="area-description-text">
@@ -63,18 +59,17 @@
             </p>
         </div>
 
-        <!-- 🦮 SEZIONE NUOVA: LISTA ANIMALI OSPITATI -->
-		<div class="info-item" style="text-align: left; margin-bottom: 20px;">
+		<div class="info-item">
 		            <label>Ospiti Attualmente in questa Area</label>
-		            <div class="area-description-text" style="border-left-color: var(--verde-salvia); background: rgba(163, 184, 153, 0.05);">
+		            <div class="area-description-text">
 		                
 		                <p th:if="${#lists.isEmpty(area.animali)}" style="margin: 0; font-style: italic; color: #7f8c8d;">
 		                    Al momento non ci sono animali ospitati in questa zona del rifugio.
 		                </p>
 		                
 		                <ul th:unless="${#lists.isEmpty(area.animali)}" style="margin: 0; padding-left: 20px; line-height: 26px;">
-		                    <li th:each="animale : ${area.animali}" style="margin-bottom: 5px;">
-		                        <a th:href="@{/animali/{id}(id=${animale.id})}" th:text="${animale.nome}" class="table-link" style="font-weight: 600; font-size: 16px;">
+		                    <li th:each="animale : ${area.animali}">
+		                        <a th:href="@{/animali/{id}(id=${animale.id})}" th:text="${animale.nome}" class="table-link">
 		                            Nome Animale
 		                        </a> 
 		                        <span th:text="' (' + ${animale.specie} + ${animale.razza != null and animale.razza != '' ? ' - ' + animale.razza : ''} + ')'" style="font-size: 14px; color: #557060;">
@@ -86,7 +81,6 @@
 		            </div>
 		        </div>
 
-        <!-- Azioni per l'Amministratore -->
         <div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" class="admin-area-actions">
             <a th:href="@{/admin/aree/{id}/modifica(id=${area.id})}" class="btn-admin-edit">
                 ✏️ Modifica Informazioni

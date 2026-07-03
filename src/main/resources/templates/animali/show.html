@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${animale.nome} + ' - Dettagli'">Dettagli Animale</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -13,7 +12,7 @@
         </button>
         <div class="navbar-right">
             <div class="profile-avatar-wrapper">
-                <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+                <img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
             </div>
             
             <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
@@ -26,17 +25,17 @@
         </div>
     </nav>
 
-    <main class="profile-dashboard" style="max-width: 850px; margin-left: auto; margin-right: auto;">
+    <main class="profile-dashboard" >
         
         <div class="animal-show-container">
             <div class="animal-large-pic">
-               <img src="../immagini/default-animal.jpg" th:src="@{${animale.immagineUrl}}" alt="Foto Animale">
+               <img th:src="@{${animale.immagineUrl}}" alt="Foto Animale">
             </div>
             
             <div class="animal-details-box">
                 <h1 class="animal-name-title" th:text="${animale.nome}">Nome Animale</h1>
                 
-                <div class="profile-info-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="profile-info-grid">
                     <div class="info-item">
                         <label>Specie / Razza</label>
                         <span th:text="${animale.specie} + ' / ' + ${animale.razza}">Cane / Labradoodle</span>
@@ -57,7 +56,7 @@
 
                     <div class="info-item">
                         <label>Area di Alloggio</label>
-                        <a th:if="${animale.area != null}" th:href="@{/aree/{id}(id=${animale.area.id})}">
+                        <a th:if="${animale.area != null}" th:href="@{/aree/{id}(id=${animale.area.id})}" class="table-link">
                             <span th:text="${animale.area.nome}">Area Verde</span>
                         </a>    
                         <span th:if="${animale.area == null}">Non assegnata</span>
@@ -72,8 +71,8 @@
                     </div>
                 </div>
 
-                <div th:if="${userDetails != null and !userDetails.authorities.toString().contains('ADMIN')}" style="margin-top: 15px; text-align: left;">
-                    <a th:href="@{/utenti/animali/{id}/nuova-richiesta(id=${animale.id})}" class="btn-admin-edit" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; background: linear-gradient(135deg, var(--verde-foresta) 0%, #226f54 100%);">
+                <div th:if="${userDetails != null and !userDetails.authorities.toString().contains('ADMIN')}" style="margin-top: 60px; text-align: left;">
+                    <a th:href="@{/utenti/animali/{id}/nuova-richiesta(id=${animale.id})}" class="btn-admin-edit" >
                         💝 Invia Richiesta di Adozione
                     </a>
                 </div>

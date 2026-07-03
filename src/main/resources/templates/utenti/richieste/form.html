@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Richiesta di Adozione</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
     
-    <!-- 🌿 NAVBAR TOP -->
     <nav class="navbar-top">
         <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
             🏡 Home
@@ -15,7 +13,7 @@
         
         <div class="navbar-right">
             <div class="profile-avatar-wrapper">
-                <img th:src="@{https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg}" alt="Profilo">
+                <img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
             </div>
             
             <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
@@ -28,32 +26,26 @@
         </div>
     </nav>
 
-    <!-- CONTENITORE PRINCIPALE -->
     <div class="main-dashboard">
         
         <div class="dashboard-intro">
             <h1>Richiesta di Adozione 📝</h1>
-            <p>Stai avviando la procedura per: <strong th:text="${animale != null ? animale.nome : (richiesta.animale != null ? richiesta.animale.nome : 'Ospite del rifugio')}">Rocky</strong></p>
+            <p>Stai avviando la procedura per: <strong th:text="${animale.nome}">Rocky</strong></p>
         </div>
     
-        <!-- ✅ FORM UNICO CON ACTION DINAMICA E SICURA AL 100% -->
         <form th:method="POST" 
-              th:action="${richiesta.id == null} ? @{/utenti/animali/{id}/salva-richiesta(id=${animale != null ? animale.id : (richiesta.animale != null ? richiesta.animale.id : 0)})} : @{/utenti/richieste/{id}/modifica(id=${richiesta.id})}"
+              th:action="${richiesta.id == null} ? @{/utenti/animali/{id}/salva-richiesta(id=${animale.id})} : @{/utenti/richieste/{id}/modifica(id=${richiesta.id})}"
               th:object="${richiesta}"
               class="form-strutturato">
              
-            <!-- ID nascosto per la modifica -->
             <input type="hidden" th:field="*{id}" />
             
-            <!-- Errori Globali -->
             <div th:if="${#fields.hasGlobalErrors()}" class="form-error-global">
                 <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
             </div>
             
-            <!-- Campo Descrizione (Ora visibile a schermo!) -->
             <div class="form-group">
                 <label for="descrizione">Presentazione e motivazione:</label>
-                <!-- Usiamo una comoda textarea per fargli scrivere quanto vogliono -->
                 <textarea th:field="*{descrizione}" 
                           id="descrizione"
                           placeholder="Raccontaci qualcosa di te, della tua casa, del tempo che potrai dedicargli e perché desideri adottarlo..."
@@ -61,7 +53,6 @@
                 <span class="error-message" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
             </div>
             
-            <!-- Pulsante Invia Richiesta -->
             <div class="form-submit-container">
                 <button type="submit" class="btn-action-nav btn-submit-form" style="display: inline-flex; align-items: center; justify-content: center; width: 100%; max-width: 250px; padding: 14px 0; font-size: 15px;">
                     🚀 Invia Richiesta Ufficiale
