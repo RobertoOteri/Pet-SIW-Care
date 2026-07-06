@@ -70,6 +70,13 @@
 					<input type="text" th:field="*{specializzazione}" placeholder="Es: Cani aggressivi, Gatti anziani, Educatore..."/>
 					<span class="error-message" th:if="${#fields.hasErrors('specializzazione')}" th:errors="*{specializzazione}"></span>
 				</div>
+				
+				<div class="form-group">
+					<label>Foto Profilo:</label>
+					<input type="url" th:field="*{immagineUrl}" placeholder="https://esempio.com/foto.jpg">
+					<span class="error-message" th:if="${#fields.hasErrors('immagineUrl')}" th:errors="*{immagineUrl}"></span>
+					
+				</div>
 
 				<div class="form-submit-container">
 					<button type="submit" class="btn-action-nav btn-submit-form">

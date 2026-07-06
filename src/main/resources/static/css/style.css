@@ -1,9 +1,6 @@
-/* ==========================================================================
-   1. 🌿 RESET & VARIABILI CHILL (Identità del Brand)
-   ========================================================================== */
 :root {
-    --verde-foresta: #1b4d3e;  /* Verde profondo del rifugio */
-    --verde-salvia: #a3b899;    /* Verde morbido e rilassante */
+    --verde-foresta: #1b4d3e; 
+    --verde-salvia: #a3b899;    
     --bianco: #ffffff;
     --testo: #2c3e50;
     --shadow-morbida: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -16,7 +13,7 @@
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* Sfondo standard delle pagine che usano la vecchia dashboard */
+/* Sfondo standard delle pagine */
 body {
     background-image: url('../immagini/sfondo_index.png'); 
     background-size: cover;
@@ -31,7 +28,7 @@ body {
     align-items: center;
 }
 
-/* Sfondi specifici per le pagine interne (Verde chiaro acceso #bce4c5) */
+/* Sfondi specifici per le pagine interne */
 .body-profilo,
 .body-aree,
 .body-animale,
@@ -44,22 +41,18 @@ body {
     display: flex !important;
 }
 
-/* Sfondo e reset specifico per la nuova ed elegante Home Page a schermo intero */
 .body-index-moderno {
     padding-top: 75px !important;
     margin: 0;
     width: 100vw;
     min-height: 100vh;
     display: block !important;
-    background: #e2ede7 !important; /* 🌿 Verdino chiaro di sfondo */
+    background: #e2ede7 !important; 
     overflow-x: hidden;
     background-image: none !important;
 }
 
 
-/* ==========================================================================
-   2. 🌿 NAVBAR TOP (Presente in tutte le pagine)
-   ========================================================================== */
 .navbar-top {
     position: fixed;
     top: 0;
@@ -107,9 +100,7 @@ body {
 }
 
 
-/* ==========================================================================
-   3. ⚡ ELEMENTI DI INTERFACCIA COMUNI (Bottoni, Link, Card Globale)
-   ========================================================================== */
+
 .btn-home-nav {
     display: inline-flex;
     align-items: center;
@@ -205,9 +196,7 @@ body {
 }
 
 
-/* ==========================================================================
-   4. 🧭 INTERFACCIA INDEX (Nuovo Layout Immersivo Premium Split)
-   ========================================================================== */
+/* INTERFACCIA INDEX   */
 .hero-section {
     display: flex;
     width: 100%;
@@ -322,7 +311,6 @@ body {
     box-shadow: 0 10px 25px rgba(27, 77, 62, 0.2) !important;
 }
 
-/* Vecchia lista servizi standard (mantenuta per retrocompatibilità pagine interne) */
 .services-list {
     list-style: none;
     display: flex;
@@ -350,9 +338,7 @@ body {
 }
 
 
-/* ==========================================================================
-   5. 📝 FORM DI INSERIMENTO & AUTENTICAZIONE (Login, Reg, Inserimenti)
-   ========================================================================== */
+/* FORM DI INSERIMENTO E AUTENTICAZIONE*/
 .auth-form, .form-strutturato {
     display: flex;
     flex-direction: column;
@@ -423,6 +409,7 @@ body {
     justify-content: center;
 }
 
+/* se non ho ancora un acoount link per la registrazione*/
 .auth-link {
     font-size: 14px;
     color: #4a6358;
@@ -459,9 +446,7 @@ body {
 }
 
 
-/* ==========================================================================
-   6. 🪵 STRUTTURA DATI UTENTE (Layout ad Info Grid)
-   ========================================================================== */
+/* STRUTTURA DATI UTENTE E VOLONTARI*/
 .profile-header {
     display: flex;
     align-items: center;
@@ -494,7 +479,7 @@ body {
     gap: 15px 25px;
     flex-grow: 1;
 }
-
+/*--------------*/
 .info-item {
     display: flex;
     flex-direction: column;
@@ -515,9 +500,7 @@ body {
 }
 
 
-/* ==========================================================================
-   7. 📋 TABELLE DI TRACCIAMENTO RICHIESTE (Stile Moderno)
-   ========================================================================== */
+/* TABELLE DELLE RICHIESTE */
 .section-title {
     font-size: 22px;
     color: var(--verde-foresta);
@@ -615,9 +598,7 @@ body {
 }
 
 
-/* ==========================================================================
-   8. 🗺️ GRIGLIA DELLE AREE (Mega Pulsanti Rettangolari)
-   ========================================================================== */
+/* GRIGLIA DELLE AREE  */
 .areas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -677,9 +658,8 @@ body {
 }
 
 
-/* ==========================================================================
-   9. 🐾 INTERFACCIA DELLE PAGINE INTERNE DI SHOW
-   ========================================================================== */
+/* PAGINE SHOW */
+
 /* Animali Show */
 .animal-show-container {
     display: flex;
@@ -718,7 +698,7 @@ body {
     margin: 0;
 }
 
-/* La vera Cartella Clinica */
+/* La Cartella Clinica */
 .medical-folder {
     background: #e6dfd3; 
     padding: 20px;
@@ -770,7 +750,7 @@ body {
     color: #111;
 }
 
-/* Aree Show (Mega Banner) */
+/* Aree Show */
 .area-banner-box {
     width: 100%;
     height: 350px; 
@@ -812,7 +792,7 @@ body {
     margin-top: 5px;
 }
 
-/* Richieste Show (Badge Banners) */
+/* Richieste Show */
 .status-banner {
     display: inline-flex;
     align-items: center;
@@ -829,9 +809,7 @@ body {
 .status-rejected { background-color: #fff0f0; color: #d93838; border: 1px solid #ffdbdb; }
 
 
-/* ==========================================================================
-   10. 🛠️ SEZIONE AZIONI OPERATIVE ADMIN & SPAZIATURA CONTENITORI
-   ========================================================================== */
+/* OPERAZIONI CHE POSSO SVOLGERE GLI ADMIN */
 .admin-actions-container {
     margin-top: 25px;
     padding-top: 20px;
@@ -917,55 +895,13 @@ body {
 }
 
 
-/* ==========================================================================
-   11. 📱 RESPONSIVITÀ (Nuova Ottimizzazione Unificata)
-   ========================================================================== */
-@media (max-width: 992px) {
-    .hero-section {
-        flex-direction: column;
-        height: auto;
-    }
-    .hero-left, .menu-right {
-        flex: none;
-        width: 100%;
-        padding: 50px 30px;
-    }
-    .showcase-container {
-        height: 300px;
-    }
-}
 
-@media (max-width: 768px) {
-    .animal-show-container, .profile-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .animal-large-pic {
-        max-width: 100%;
-        height: 300px;
-    }
-    .profile-info-grid {
-        grid-template-columns: 1fr;
-    }
-    .admin-area-actions {
-        flex-direction: column;
-        width: 100%;
-    }
-    .btn-admin-edit, .btn-admin-delete, .btn-admin-dark {
-        width: 100%;
-        text-align: center;
-    }
-    .navbar-top {
-        padding: 0 20px;
-    }
-}
 
 /* Rettangolo verticale specifico per la foto del volontario */
 .volontario-badge-pic {
-    width: 220px;          /* 🌟 Nuova larghezza aumentata */
-    height: 290px;         /* 🌟 Nuova altezza aumentata */
-    border-radius: 24px;   /* Arrotondiamo un filo di più per seguire la dimensione */
+    width: 220px;          
+    height: 290px;        
+    border-radius: 24px;   
     overflow: hidden;      
     border: 3px solid var(--verde-foresta); 
     box-shadow: 0 8px 25px rgba(27, 77, 62, 0.2); 
@@ -981,9 +917,7 @@ body {
 }
 
 
-/* ==========================================================================
-   12. 📸 SECONDA SCHERMATA: GALLERY (Dedicata alla vetrina foto della Home)
-   ========================================================================== */
+/*SECONDA SCHERMATA DELL'INDEX*/
 .gallery-section {
     background: #e2ede7; 
     padding: 80px 10% 40px 10%;
@@ -1053,9 +987,6 @@ body {
 }
 
 
-/* ==========================================================================
-   13. 🌿 FOOTER CLASSICO COMPATTO (Verde Scuro con Icone Reali)
-   ========================================================================== */
 .footer-classico-compatto {
     width: 100%;
     background-color: var(--verde-foresta); 
@@ -1127,23 +1058,8 @@ body {
     font-weight: 400;
 }
 
-@media (max-width: 768px) {
-    .footer-classico-compatto {
-        padding: 15px 20px;
-    }
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-    .footer-section {
-        justify-content: center;
-    }
-}
 
-/* ==========================================================================
-   🌿 AGGIUNTE SPECIFICHE PER LA PAGINA GESTIONE AREE
-   ========================================================================== */
+/*AGGIUNTE SPECIFICHE PER LA PAGINA GESTIONE AREE*/
 
 /* Allineamento e ottimizzazione della card larga delle aree */
 .profile-dashboard.dashboard-aree-custom {
@@ -1160,7 +1076,7 @@ body {
     font-weight: 600;
 }
 
-/* Allineamento perfetto del bottone admin in fondo alla dashboard */
+/* Allineamento del bottone admin in fondo alla dashboard */
 .admin-actions-container {
     display: flex;
     justify-content: center;
@@ -1169,7 +1085,7 @@ body {
     margin-top: 30px;
 }
 
-/* Bottone "Aggiungi" in stile pillola */
+/* Bottone "Aggiungi" */
 .btn-aggiungi-custom {
     display: inline-flex;
     align-items: center;

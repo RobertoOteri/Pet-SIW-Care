@@ -1,124 +1,133 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title th:text="${area.nome} + ' - Dettagli'">Dettagli Area</title>
-    <link rel="stylesheet" href="../css/style.css">
+	<title th:text="${area.nome} + ' - Dettagli'">Dettagli Area</title>
+	<link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="body-area-show"> 
-    
-    <nav class="navbar-top">
-        <button type="button" onclick="window.location.href='/'" class="btn-home-nav">
-            🏡 Home
-        </button>
-        <div class="navbar-right">
-            <div class="profile-avatar-wrapper">
-                <img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
-            </div>
-            
-            <form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
-                <button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
-            </form>
-            
-            <form th:if="${userDetails == null}" th:action="@{/login}">
-                <button type="submit" class="btn-action-nav">🔑 Log in</button>
-            </form>
-        </div>
-    </nav>
 
-    <main class="profile-dashboard">
-        
-        <div class="area-banner-box">
-            <img th:src="${area.immagineUrl}" alt="Immagine Area">
-        </div>
+<body class="body-area-show">
 
-        <div class="dashboard-intro">
+	<nav class="navbar-top">
+		<button type="button" onclick="window.location.href='/'" class="btn-home-nav">
+			🏡 Home
+		</button>
+		<div class="navbar-right">
+			<div class="profile-avatar-wrapper">
+				<img th:src="@{/immagini/profile_default.jpg}" alt="Profilo">
+			</div>
+
+			<form th:if="${userDetails != null}" th:action="@{/logout}" method="POST">
+				<button type="submit" class="btn-action-nav btn-logout">Disconnetti</button>
+			</form>
+
+			<form th:if="${userDetails == null}" th:action="@{/login}">
+				<button type="submit" class="btn-action-nav">🔑 Log in</button>
+			</form>
+		</div>
+	</nav>
+
+	<main class="profile-dashboard">
+
+		<div class="area-banner-box">
+			<img th:src="${area.immagineUrl}" alt="Immagine Area">
+		</div>
+
+		<div class="dashboard-intro">
 			<span>
-            <h1 th:text="${area.nome}" class="animal-name-title" style="margin-bottom: 15px;">Nome Area</h1>
+				<h1 th:text="${area.nome}" class="animal-name-title" style="margin-bottom: 15px;">Nome Area</h1>
 
-				<span th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" class="admin-area-actions">
-				    <a th:href="@{/admin/aree/{id}/aggiungi-animale(id=${area.id})}" class="btn-admin-edit">
-				        ➕ Aggiungi animali
-				    </a>
-				</span>
+
 			</span>
-            
-            <div class="profile-info-grid">
-                <div class="info-item">
-                    <label>Capacità Massima Ospiti</label>
-                    <span>
-                         🐾 <strong th:text="${area.capacita}">10</strong> animali consentiti
-                    </span>
-                </div>
-            </div>
-        </div>
 
-        <div class="info-item" style="text-align: left; margin-bottom: 25px;">
-            <label>Presentazione e Dettagli della Zona</label>
-            <p th:text="${area.descrizione}" class="area-description-text">
-                Descrizione dell'area...
-            </p>
-        </div>
+			<div class="profile-info-grid">
+				<div class="info-item">
+					<label>Capacità Massima Ospiti</label>
+					<span>
+						🐾 <strong th:text="${area.capacita}">10</strong> animali consentiti
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="info-item" style="text-align: left; margin-bottom: 25px;">
+			<label>Presentazione e Dettagli della Zona</label>
+			<p th:text="${area.descrizione}" class="area-description-text">
+				Descrizione dell'area...
+			</p>
+		</div>
 
 		<div class="info-item">
-		            <label>Ospiti Attualmente in questa Area</label>
-		            <div class="area-description-text">
-		                
-		                <p th:if="${#lists.isEmpty(area.animali)}" style="margin: 0; font-style: italic; color: #7f8c8d;">
-		                    Al momento non ci sono animali ospitati in questa zona del rifugio.
-		                </p>
-		                
-		                <ul th:unless="${#lists.isEmpty(area.animali)}" style="margin: 0; padding-left: 20px; line-height: 26px;">
-		                    <li th:each="animale : ${area.animali}">
-		                        <a th:href="@{/animali/{id}(id=${animale.id})}" th:text="${animale.nome}" class="table-link">
-		                            Nome Animale
-		                        </a> 
-		                        <span th:text="' (' + ${animale.specie} + ${animale.razza != null and animale.razza != '' ? ' - ' + animale.razza : ''} + ')'" style="font-size: 14px; color: #557060;">
-		                            (Cane - Pastore Tedesco)
-		                        </span>
-		                    </li>
-		                </ul>
-		                
-		            </div>
-		        </div>
+			<label>Ospiti Attualmente in questa Area</label>
+			<div class="area-description-text">
 
-        <div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}" class="admin-area-actions">
-            <a th:href="@{/admin/aree/{id}/modifica(id=${area.id})}" class="btn-admin-edit">
-                ✏️ Modifica Informazioni
-            </a>
-            
-            <a th:href="@{/admin/aree/{id}/elimina(id=${area.id})}" 
-               onclick="return confirm('Attenzione! Questa operazione eliminerà definitivamente l\'area e potrebbe influire sugli animali ospitati. Vuoi procedere?');" 
-               class="btn-admin-delete">
-                ❌ Elimina Area
-            </a>
-        </div>
-        
-    </main>
+				<p th:if="${#lists.isEmpty(area.animali)}" style="margin: 0; font-style: italic; color: #7f8c8d;">
+					Al momento non ci sono animali ospitati in questa zona del rifugio.
+				</p>
 
-	
-    <footer class="footer-classico-compatto">
-        <div class="footer-container">
-            <div class="footer-section">
-                <a href="https://facebook.com" target="_blank" class="footer-link">
-                    <i class="fa-brands fa-facebook"></i> Facebook
-                </a>
-                <span class="bullet">•</span>
-                <a href="https://instagram.com" target="_blank" class="footer-link">
-                    <i class="fa-brands fa-instagram"></i> Instagram
-                </a>
-            </div>
-            
-            <div class="footer-section footer-credits">
-                Associazione Rifugio Pet-SIW-Care &copy; 2026
-            </div>
-            
-            <div class="footer-section footer-contact-info">
-                <span><i class="fa-regular fa-envelope"></i> rifugioPet-SIW-Care@gmail.com</span>
-                <span class="bullet">•</span>
-                <span><i class="fa-solid fa-phone"></i> +39 06 1234567</span>
-            </div>
-        </div>
-    </footer>
+				<ul th:unless="${#lists.isEmpty(area.animali)}"
+					style="margin: 0; padding-left: 20px; line-height: 26px;">
+					<li th:each="animale : ${area.animali}">
+						<a th:href="@{/animali/{id}(id=${animale.id})}" th:text="${animale.nome}" class="table-link">
+							Nome Animale
+						</a>
+						<span
+							th:text="' (' + ${animale.specie} + ${animale.razza != null and animale.razza != '' ? ' - ' + animale.razza : ''} + ')'"
+							style="font-size: 14px; color: #557060;">
+							(Cane - Pastore Tedesco)
+						</span>
+					</li>
+				</ul>
+
+			</div>
+			<span th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
+				class="admin-area-actions">
+				<a th:href="@{/admin/aree/{id}/aggiungi-animale(id=${area.id})}" class="btn-admin-edit">
+					➕ Aggiungi animali
+				</a>
+			</span>
+		</div>
+
+		<div th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}"
+			class="admin-area-actions">
+			<a th:href="@{/admin/aree/{id}/modifica(id=${area.id})}" class="btn-admin-edit">
+				✏️ Modifica Informazioni
+			</a>
+
+			<a th:href="@{/admin/aree/{id}/elimina(id=${area.id})}"
+				onclick="return confirm('Attenzione! Questa operazione eliminerà definitivamente l\'area e potrebbe influire sugli animali ospitati. Vuoi procedere?');"
+				class="btn-admin-delete">
+				❌ Elimina Area
+			</a>
+		</div>
+
+	</main>
+
+
+	<footer class="footer-classico-compatto">
+		<div class="footer-container">
+			<div class="footer-section">
+				<a href="https://facebook.com" target="_blank" class="footer-link">
+					<i class="fa-brands fa-facebook"></i> Facebook
+				</a>
+				<span class="bullet">•</span>
+				<a href="https://instagram.com" target="_blank" class="footer-link">
+					<i class="fa-brands fa-instagram"></i> Instagram
+				</a>
+			</div>
+
+			<div class="footer-section footer-credits">
+				Associazione Rifugio Pet-SIW-Care &copy; 2026
+			</div>
+
+			<div class="footer-section footer-contact-info">
+				<span><i class="fa-regular fa-envelope"></i> rifugioPet-SIW-Care@gmail.com</span>
+				<span class="bullet">•</span>
+				<span><i class="fa-solid fa-phone"></i> +39 06 1234567</span>
+			</div>
+		</div>
+	</footer>
 
 </body>
+
 </html>
