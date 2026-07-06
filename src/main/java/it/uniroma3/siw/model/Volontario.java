@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,6 +42,7 @@ public class Volontario {
 	private String immagineUrl;
 
 	@OneToMany(mappedBy = "volontario", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Animale> listaAnimali;
 	
 	// Costruttori //

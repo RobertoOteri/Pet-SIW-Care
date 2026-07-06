@@ -4,6 +4,8 @@ package it.uniroma3.siw.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,7 @@ public class CartellaClinica {
 	private Double peso;
 	
 	@OneToOne(mappedBy = "cartellaClinica")
+	@JsonIgnore
 	private Animale animale;
 	
 	// Costruttori //

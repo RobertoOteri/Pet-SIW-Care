@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -50,6 +52,7 @@ public class Animale {
 	private Volontario volontario;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Area area;
 	
 	@OneToOne(cascade =  CascadeType.ALL)
