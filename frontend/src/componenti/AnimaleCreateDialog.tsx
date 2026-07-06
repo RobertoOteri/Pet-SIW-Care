@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     Dialog,
     DialogTitle,
@@ -7,12 +7,12 @@ import {
     TextField,
     Button,
     MenuItem,
-	Box,
-	Typography,
-	OutlinedInput
+    Box,
+    Typography,
+    OutlinedInput
 } from "@mui/material";
 import { createAnimale, updateAnimale } from "../services/AnimaleService";
-// 🌟 NOTA: Ho importato 'Specie' (l'oggetto reale) separatamente dai tipi
+import api from "../services/api";
 import { Specie } from "../types";
 import type { Animale, SpecieType, Volontario } from "../types";
 
@@ -32,9 +32,31 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
     const [dataNascita, setDataNascita] = useState("");
     const [descrizione, setDescrizione] = useState("");
     const [immagineUrl, setImmagineUrl] = useState("");
-    const [volontario, setVolontario] = useState<Volontario | null>(null);
+    
+    // Gestione selezione ID nel menu a tendina
+    const [volontarioId, setVolontarioId] = useState<number | "">("");
+    // Lista completa dei volontari dal database
+    const [listaVolontari, setListaVolontari] = useState<Volontario[]>([]);
 
-    // --- FUNZIONE RESET (Ora è al posto giusto) ---
+    // --- EFFECT: CARICA SOLO LA LISTA DEI VOLONTARI ---
+    useEffect(() => {
+        if (open) {
+            api.get<Volontario[]>("/rest/volontari")
+                .then((res) => {
+                    if (res && Array.isArray(res.data)) {
+                        setListaVolontari(res.data);
+                    }
+                })
+                .catch((err) => console.error("Errore recupero volontari", err));
+            
+            // Se non stiamo modificando, resetta il form per sicurezza
+            if (!animaleDaModificare) {
+                resetForm();
+            }
+        }
+    }, [open, animaleDaModificare]);
+
+    // --- FUNZIONE RESET ---
     const resetForm = () => {
         setNome("");
         setSpecie("");
@@ -43,12 +65,15 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
         setDataNascita("");
         setDescrizione("");
         setImmagineUrl("");
-        setVolontario(null);
+        setVolontarioId(""); 
     };
 
-    // --- FUNZIONE SUBMIT (Riceve l'evento del form ed è chiusa correttamente) ---
+    // --- FUNZIONE SUBMIT ---
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault(); // Evita il refresh della pagina
+        e.preventDefault();
+
+        // Trova l'oggetto volontario completo dall'ID selezionato
+        const volontarioSelezionato = listaVolontari.find(v => v.id === volontarioId);
 
         const data = {
             nome,
@@ -58,7 +83,7 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
             dataNascita: dataNascita || undefined,
             descrizione: descrizione || undefined,
             immagineUrl: immagineUrl || undefined,
-            volontario: volontario || undefined,
+            volontario: volontarioSelezionato || undefined, 
         };
 
         try {
@@ -74,9 +99,8 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
         } catch (error) {
             console.error("Errore salvataggio", error);
         }
-    }; // 🌟 Ora la funzione handleSubmit si chiude QUI.
+    };
 
-    // --- RETURN DEL COMPONENTE (Ora è nel corpo principale del componente) ---
     return (
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
             <DialogTitle>
@@ -121,39 +145,57 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
                         onChange={(e) => setRazza(e.target.value)}
                     />
 
-					{/* --- CAMPO DATA ARRIVO (SISTEMATO) --- */}
-					<Box sx={{ mt: 2, mb: 1 }}>
-					    <Typography 
-					        variant="body2" 
-					        sx={{ mb: 0.5, color: "text.secondary", fontWeight: "medium", display: "block" }}
-					    >
-					        Data Arrivo *
-					    </Typography>
-					    <OutlinedInput
-					        type="date"
-					        fullWidth
-					        required
-					        value={dataArrivo}
-					        onChange={(e) => setDataArrivo(e.target.value)}
-					    />
-					</Box>
+                    {/* Campo Data Arrivo */}
+                    <Box sx={{ mt: 2, mb: 1 }}>
+                        <Typography 
+                            variant="body2" 
+                            sx={{ mb: 0.5, color: "text.secondary", fontWeight: "medium", display: "block" }}
+                        >
+                            Data Arrivo *
+                        </Typography>
+                        <OutlinedInput
+                            type="date"
+                            fullWidth
+                            required
+                            value={dataArrivo}
+                            onChange={(e) => setDataArrivo(e.target.value)}
+                        />
+                    </Box>
 
-					{/* --- CAMPO DATA NASCITA (SISTEMATO) --- */}
-					<Box sx={{ mt: 2, mb: 1 }}>
-					    <Typography 
-					        variant="body2" 
-					        sx={{ mb: 0.5, color: "text.secondary", fontWeight: "medium", display: "block" }}
-					    >
-					        Data Nascita
-					    </Typography>
-					    <OutlinedInput
-					        type="date"
-					        fullWidth
-					        value={dataNascita}
-					        onChange={(e) => setDataNascita(e.target.value)}
-					    />
-					</Box>
-                    {/* 6. URL Immagine (Opzionale) */}
+                    {/* Campo Data Nascita */}
+                    <Box sx={{ mt: 2, mb: 1 }}>
+                        <Typography 
+                            variant="body2" 
+                            sx={{ mb: 0.5, color: "text.secondary", fontWeight: "medium", display: "block" }}
+                        >
+                            Data Nascita
+                        </Typography>
+                        <OutlinedInput
+                            type="date"
+                            fullWidth
+                            value={dataNascita}
+                            onChange={(e) => setDataNascita(e.target.value)}
+                        />
+                    </Box>
+
+                    {/* Menu a tendina Volontari */}
+                    <TextField
+                        select
+                        label="Volontario Assegnato"
+                        fullWidth
+                        margin="normal"
+                        value={volontarioId}
+                        onChange={(e) => setVolontarioId(e.target.value as number | "")}
+                    >
+                        <MenuItem value="">-- Nessun Volontario --</MenuItem>
+                        {listaVolontari.map((v) => (
+                            <MenuItem key={v.id} value={v.id}>
+                                {v.nome} {v.cognome}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
+                    {/* URL Immagine */}
                     <TextField
                         label="URL Immagine"
                         fullWidth
@@ -161,6 +203,8 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
                         value={immagineUrl}
                         onChange={(e) => setImmagineUrl(e.target.value)}
                     />
+                    
+                    {/* Descrizione */}
                     <TextField
                         label="Descrizione"
                         fullWidth
@@ -181,4 +225,4 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
             </form>
         </Dialog>
     );
-} 
+}

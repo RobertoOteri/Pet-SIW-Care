@@ -48,7 +48,7 @@ public class Animale {
 	
 	private String immagineUrl;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST})
+	@ManyToOne
 	private Volontario volontario;
 	
 	@ManyToOne
