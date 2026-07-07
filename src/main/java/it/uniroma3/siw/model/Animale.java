@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.Fetch;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -48,14 +50,14 @@ public class Animale {
 	
 	private String immagineUrl;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Volontario volontario;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Area area;
 	
-	@OneToOne(cascade =  CascadeType.ALL)
+	@OneToOne(cascade =  CascadeType.ALL, fetch = FetchType.LAZY)
 	private CartellaClinica cartellaClinica;
 	
 	@OneToMany(mappedBy = "animale", cascade = {CascadeType.REMOVE})

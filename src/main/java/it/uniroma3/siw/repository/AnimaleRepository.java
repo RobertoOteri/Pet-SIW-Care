@@ -1,6 +1,7 @@
 package it.uniroma3.siw.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.repository.CrudRepository;
@@ -13,7 +14,7 @@ public interface AnimaleRepository extends CrudRepository<Animale, Long> {
 	public List<Animale> findByAreaNotOrAreaIsNull(Area area);
 	
 	@Override
-    @EntityGraph(attributePaths = {"area", "volontario", "cartellaClinica"})
-	public List<Animale> findAll();
+	@EntityGraph(attributePaths = {"area", "volontario", "cartellaClinica"})
+	public Optional<Animale> findById(Long id);
 
 }
