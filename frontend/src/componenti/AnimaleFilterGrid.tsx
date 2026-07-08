@@ -25,12 +25,11 @@ interface Props {
 }
 
 export default function AnimaleFilterGrid({ animali, deleteAnimale, modificaAnimale }: Props) {
-    // Stati per i filtri
     const [selectedSpecie, setSelectedSpecie] = useState<string | null>(null);
     const [etaRange, setEtaRange] = useState<[number, number] | null>(null);
     const [sort, setSort] = useState<SortOption>("nome-asc");
 
-    // Funzione helper per calcolare l'età dall'anno di nascita
+
     const calcolaEta = (dataNascita: string): number => {
         if (!dataNascita) return 0;
         const annoNascita = new Date(dataNascita).getFullYear();
@@ -38,7 +37,7 @@ export default function AnimaleFilterGrid({ animali, deleteAnimale, modificaAnim
         return annoCorrente - annoNascita;
     };
 
-    // Estraiamo le specie uniche (CANE, GATTO, ecc.) per i Chip
+
     const specieElenco = useMemo(() => {
         const set = new Set<string>();
         animali.forEach((a) => {
@@ -47,7 +46,7 @@ export default function AnimaleFilterGrid({ animali, deleteAnimale, modificaAnim
         return Array.from(set).sort();
     }, [animali]);
 
-    // Calcoliamo l'età minima e massima in base agli animali presenti
+
     const [minEta, maxEta] = useMemo(() => {
         if (animali.length === 0) return [0, 20];
         const etaElenco = animali.map((a) => calcolaEta(a.dataNascita));
@@ -59,22 +58,19 @@ export default function AnimaleFilterGrid({ animali, deleteAnimale, modificaAnim
         [etaRange, minEta, maxEta]
     );
 
-    // Logica di filtraggio e ordinamento
+
     const filtered = useMemo(() => {
         let result = animali;
 
-        // 1. Filtro per Specie
         if (selectedSpecie) {
             result = result.filter((a) => a.specie === selectedSpecie);
         }
 
-        // 2. Filtro per Età
         result = result.filter((a) => {
             const eta = calcolaEta(a.dataNascita);
             return eta >= effectiveRange[0] && eta <= effectiveRange[1];
         });
 
-        // 3. Ordinamento dinamico
         result = [...result].sort((a, b) => {
             switch (sort) {
                 case "nome-asc":
@@ -92,19 +88,13 @@ export default function AnimaleFilterGrid({ animali, deleteAnimale, modificaAnim
     }, [animali, selectedSpecie, effectiveRange, sort]);
 
     const civileUrl = (url: string) => {
-        // Se l'URL inizia già con http (es: un link internet), usalo così com'è
         if (url.startsWith("http")) return url;
-
-        // Altrimenti, forza il browser a prenderlo dal backend Spring Boot
         return `http://localhost:8080${url}`;
     };
 
     return (
         <Box sx={{ p: 3 }}>
-            {/* Sezione Filtri */}
             <Box sx={{ mb: 4, display: "flex", flexDirection: "column", gap: 2 }}>
-
-                {/* Chip per filtrare la Specie */}
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
                     <Chip
                         label="Tutte le specie"
@@ -123,7 +113,6 @@ export default function AnimaleFilterGrid({ animali, deleteAnimale, modificaAnim
                     ))}
                 </Box>
 
-                {/* Slider Età + Select Ordinamento */}
                 <Box sx={{ display: "flex", gap: 4, alignItems: "center", flexWrap: "wrap" }}>
                     <Box sx={{ minWidth: 250, flex: 1 }}>
                         <Typography variant="body2" gutterBottom sx={{ fontWeight: "bold" }}>
@@ -155,13 +144,12 @@ export default function AnimaleFilterGrid({ animali, deleteAnimale, modificaAnim
                 </Box>
             </Box>
 
-            {/* Griglia degli Animali */}
+
             <Grid container spacing={3}>
                 {filtered.map((animale) => (
                     <Grid size={{ xs: 12, sm: 6, md: 4 }} key={animale.id}>
                         <Card variant="outlined" sx={{ position: "relative", height: "100%", display: "flex", flexDirection: "column", '&:hover': { boxShadow: 3 } }}>
 
-                            {/* Pulsante Modifica */}
                             <IconButton
                                 size="small"
                                 onClick={() => modificaAnimale(animale)}
@@ -178,7 +166,6 @@ export default function AnimaleFilterGrid({ animali, deleteAnimale, modificaAnim
                                 ✏️
                             </IconButton>
 
-                            {/* Pulsante Elimina */}
                             <IconButton
                                 size="small"
                                 onClick={() => {
@@ -199,7 +186,6 @@ export default function AnimaleFilterGrid({ animali, deleteAnimale, modificaAnim
                                 ❌
                             </IconButton>
 
-                            {/* Immagine Animale */}
                             <CardMedia
                                 component="img"
                                 height="180"
@@ -230,10 +216,9 @@ export default function AnimaleFilterGrid({ animali, deleteAnimale, modificaAnim
                                     {animale.descrizione}
                                 </Typography>
 
-                                {/* Sezione Volontario */}
                                 {animale.volontario && (
                                     <Box sx={{ mt: 2, pt: 2, borderTop: "1px solid #e0e0e0" }}>
-                                        <Typography variant="caption" display="block" color="text.secondary">
+                                        <Typography variant="caption"sx={{ display: "block" }} color="text.secondary">
                                             🙋‍♂️ <strong>Volontario:</strong> {animale.volontario.nome} {animale.volontario.cognome}
                                         </Typography>
                                     </Box>

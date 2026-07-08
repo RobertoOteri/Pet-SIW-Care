@@ -24,7 +24,6 @@ interface Props {
 }
 
 export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleDaModificare }: Props) {
-    // --- STATI ---
     const [nome, setNome] = useState("");
     const [specie, setSpecie] = useState<SpecieType | "">("");
     const [dataArrivo, setDataArrivo] = useState("");
@@ -32,31 +31,9 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
     const [dataNascita, setDataNascita] = useState("");
     const [descrizione, setDescrizione] = useState("");
     const [immagineUrl, setImmagineUrl] = useState("");
-    
-    // Gestione selezione ID nel menu a tendina
     const [volontarioId, setVolontarioId] = useState<number | "">("");
-    // Lista completa dei volontari dal database
     const [listaVolontari, setListaVolontari] = useState<Volontario[]>([]);
 
-    // --- EFFECT: CARICA SOLO LA LISTA DEI VOLONTARI ---
-    useEffect(() => {
-        if (open) {
-            api.get<Volontario[]>("/rest/volontari")
-                .then((res) => {
-                    if (res && Array.isArray(res.data)) {
-                        setListaVolontari(res.data);
-                    }
-                })
-                .catch((err) => console.error("Errore recupero volontari", err));
-            
-            // Se non stiamo modificando, resetta il form per sicurezza
-            if (!animaleDaModificare) {
-                resetForm();
-            }
-        }
-    }, [open, animaleDaModificare]);
-
-    // --- FUNZIONE RESET ---
     const resetForm = () => {
         setNome("");
         setSpecie("");
@@ -65,14 +42,35 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
         setDataNascita("");
         setDescrizione("");
         setImmagineUrl("");
-        setVolontarioId(""); 
+        setVolontarioId("");
     };
 
-    // --- FUNZIONE SUBMIT ---
+	useEffect(() => {
+	        if (open) {
+	            api.get<Volontario[]>("/rest/volontari")
+	                .then((res) => {
+	                    if (res && Array.isArray(res.data)) {
+	                        setListaVolontari(res.data);
+	                    }
+	                })
+	                .catch((err) => console.error("Errore recupero volontari", err));
+	            
+	            // Se non stiamo modificando, resetta il form in modo asincrono
+	            if (!animaleDaModificare) {
+	                setTimeout(() => {
+	                    resetForm();
+	                }, 0);
+	            }
+	        }
+	    }, [open, animaleDaModificare]);
+
+
+
+
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Trova l'oggetto volontario completo dall'ID selezionato
         const volontarioSelezionato = listaVolontari.find(v => v.id === volontarioId);
 
         const data = {
@@ -83,7 +81,7 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
             dataNascita: dataNascita || undefined,
             descrizione: descrizione || undefined,
             immagineUrl: immagineUrl || undefined,
-            volontario: volontarioSelezionato || undefined, 
+            volontario: volontarioSelezionato || undefined,
         };
 
         try {
@@ -109,7 +107,7 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
 
             <form onSubmit={handleSubmit}>
                 <DialogContent dividers>
-                    {/* Campo Nome */}
+
                     <TextField
                         label="Nome"
                         fullWidth
@@ -119,7 +117,7 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
                         onChange={(e) => setNome(e.target.value)}
                     />
 
-                    {/* Menu a tendina Specie */}
+
                     <TextField
                         select
                         label="Specie"
@@ -145,10 +143,10 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
                         onChange={(e) => setRazza(e.target.value)}
                     />
 
-                    {/* Campo Data Arrivo */}
+
                     <Box sx={{ mt: 2, mb: 1 }}>
-                        <Typography 
-                            variant="body2" 
+                        <Typography
+                            variant="body2"
                             sx={{ mb: 0.5, color: "text.secondary", fontWeight: "medium", display: "block" }}
                         >
                             Data Arrivo *
@@ -162,10 +160,10 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
                         />
                     </Box>
 
-                    {/* Campo Data Nascita */}
+
                     <Box sx={{ mt: 2, mb: 1 }}>
-                        <Typography 
-                            variant="body2" 
+                        <Typography
+                            variant="body2"
                             sx={{ mb: 0.5, color: "text.secondary", fontWeight: "medium", display: "block" }}
                         >
                             Data Nascita
@@ -178,7 +176,7 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
                         />
                     </Box>
 
-                    {/* Menu a tendina Volontari */}
+
                     <TextField
                         select
                         label="Volontario Assegnato"
@@ -195,7 +193,7 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
                         ))}
                     </TextField>
 
-                    {/* URL Immagine */}
+
                     <TextField
                         label="URL Immagine"
                         fullWidth
@@ -203,8 +201,8 @@ export default function AnimaleCreateDialog({ open, onClose, onCreated, animaleD
                         value={immagineUrl}
                         onChange={(e) => setImmagineUrl(e.target.value)}
                     />
-                    
-                    {/* Descrizione */}
+
+
                     <TextField
                         label="Descrizione"
                         fullWidth
