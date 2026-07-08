@@ -96,11 +96,7 @@
 												<button type="submit"
 													class="btn-table-action btn-danger">Elimina</button>
 											</form>
-											<form th:action="@{/utenti/richieste/{id}/modifica(id=${richiesta.id})}"
-												th:method="POST" style="display:inline;">
-												<button type="submit"
-													class="btn-table-action btn-edit">Modifica</button>
-											</form>
+
 										</div>
 										<div th:unless="${richiesta.stato.name() == 'IN_ATTESA'}">
 											<span class="text-muted">Gestita</span>

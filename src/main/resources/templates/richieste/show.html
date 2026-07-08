@@ -96,18 +96,6 @@
 
 			</th:block>
 
-			<th:block th:if="${userDetails != null and userDetails.authorities.toString().contains('ADMIN')}">
-
-				<a th:if="${richiesta.utente != null}" th:href="@{/utenti/{id}(id=${richiesta.utente.id})}"
-					class="btn-admin-dark">
-					👤 Visualizza Profilo Richiedente
-				</a>
-
-				<span th:unless="${richiesta.utente != null}" class="text-muted">
-					⚠️ Utente richiedente non trovato nel database
-				</span>
-
-			</th:block>
 
 		</div>
 
