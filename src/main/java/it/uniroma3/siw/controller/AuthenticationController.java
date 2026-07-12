@@ -46,13 +46,22 @@ public class AuthenticationController {
 	
 	@PostMapping("/register")
 	public String salvaUtenteRegistrato(@Valid @ModelAttribute("credenziali") Credenziali credenziali,
+										BindingResult credenzialiBindingResult,
 										@Valid @ModelAttribute("utente") Utente utente,
-										BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {
-			model.addAttribute("credenziali", credenziali);
-	        model.addAttribute("utente", utente);
+										BindingResult utenteBindingResult, Model model) {
+
+		if(credenzialiService.findByUsername(credenziali.getUsername())!=null) {
+			credenzialiBindingResult.rejectValue("username", "duplicate", "Questo username esiste già");
+		}
+		
+		if(utenteService.findByEmail(utente.getEmail()) != null) {
+			utenteBindingResult.rejectValue("email", "duplicate",  "Questa email è gia associata a un account");
+		}
+		
+		if(utenteBindingResult.hasErrors() || credenzialiBindingResult.hasErrors()) {
 			return "register";
 		}
+		
 		String password = credenziali.getPassword();
 		String passwordCifrata = this.passwordEncoder.encode(password);
 		credenziali.setRuolo("DEFAULT");

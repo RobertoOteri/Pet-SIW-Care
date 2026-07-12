@@ -24,5 +24,10 @@ public class UtenteService {
 	public Utente save(Utente utente) {
 		return this.utenteRepository.save(utente);
 	}
+	
+	@Transactional(readOnly = true)
+	public Utente findByEmail(String email) {
+		return this.utenteRepository.findByEmail(email);
+	}
 
 }

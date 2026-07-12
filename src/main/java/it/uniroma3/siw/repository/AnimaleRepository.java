@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import it.uniroma3.siw.model.Animale;
 import it.uniroma3.siw.model.Area;
+import it.uniroma3.siw.model.Specie;
 
 public interface AnimaleRepository extends CrudRepository<Animale, Long> {
 	
@@ -16,5 +17,8 @@ public interface AnimaleRepository extends CrudRepository<Animale, Long> {
 	@Override
 	@EntityGraph(attributePaths = {"area", "volontario", "cartellaClinica"})
 	public Optional<Animale> findById(Long id);
+	
+
+	public List<Animale> findAllBySpecie(Specie specie);
 
 }

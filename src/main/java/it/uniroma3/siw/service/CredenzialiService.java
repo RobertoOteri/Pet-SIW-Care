@@ -22,7 +22,7 @@ public class CredenzialiService {
 	
 	@Transactional(readOnly = true)
 	public Credenziali findByUsername(String username) {
-		return this.credenzialiRepository.findByUsername(username).get();
+		return this.credenzialiRepository.findByUsername(username).orElse(null);
 	}
 	
 	@Transactional
