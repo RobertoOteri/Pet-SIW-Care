@@ -44,7 +44,7 @@ public class SecurityConfiguration {
 		
 		httpSecurity.csrf(csrf -> csrf.ignoringRequestMatchers("/rest/**"));
 		httpSecurity.authorizeHttpRequests(authorize -> {
-			authorize.requestMatchers("/rest/**").permitAll();
+			  authorize.requestMatchers("/rest/**").permitAll();
 			  authorize.requestMatchers(HttpMethod.GET, "/", "/login", "/index", "/register", "/css/**", "/immagini/**",   
 								                        "/aree/**", "/volontari/**", "/animali/**", "/favicon.ico").permitAll();
 			  authorize.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll();
