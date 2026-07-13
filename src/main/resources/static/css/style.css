@@ -13,7 +13,6 @@
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* Sfondo standard delle pagine */
 body {
     background-image: url('../immagini/sfondo_index.png'); 
     background-size: cover;
@@ -28,7 +27,6 @@ body {
     align-items: center;
 }
 
-/* Sfondi specifici per le pagine interne */
 .body-profilo,
 .body-aree,
 .body-animale,
@@ -71,7 +69,6 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* Variante navbar specifica per armonizzarsi con la Home Page */
 .navbar-index-blur {
     background: rgba(226, 237, 231, 0.75) !important;
     border-bottom: 1px solid rgba(27, 77, 62, 0.1) !important;
@@ -149,7 +146,6 @@ body {
     box-shadow: 0 6px 15px rgba(217, 56, 56, 0.15);
 }
 
-/* Card principale stretta (Login, Registrazione) */
 .main-dashboard {
     background: rgba(255, 255, 255, 0.75); 
     backdrop-filter: blur(15px); 
@@ -196,7 +192,6 @@ body {
 }
 
 
-/* INTERFACCIA INDEX   */
 .hero-section {
     display: flex;
     width: 100%;
@@ -259,7 +254,7 @@ body {
 
 .menu-right {
     flex: 0.8;
-    background: #edf4f0; /* 🌿 Verdino chiaro interno */
+    background: #edf4f0; 
     padding: 60px 80px;
     display: flex;
     flex-direction: column;
@@ -275,7 +270,6 @@ body {
     letter-spacing: -0.5px;
 }
 
-/* Gestione Lista Servizi della Home Page */
 .menu-right .services-list {
     width: 100%;
     max-width: 450px;
@@ -338,7 +332,6 @@ body {
 }
 
 
-/* FORM DI INSERIMENTO E AUTENTICAZIONE*/
 .auth-form, .form-strutturato {
     display: flex;
     flex-direction: column;
@@ -409,7 +402,6 @@ body {
     justify-content: center;
 }
 
-/* se non ho ancora un acoount link per la registrazione*/
 .auth-link {
     font-size: 14px;
     color: #4a6358;
@@ -445,8 +437,6 @@ body {
     padding-left: 4px;
 }
 
-
-/* STRUTTURA DATI UTENTE E VOLONTARI*/
 .profile-header {
     display: flex;
     align-items: center;
@@ -479,7 +469,7 @@ body {
     gap: 15px 25px;
     flex-grow: 1;
 }
-/*--------------*/
+
 .info-item {
     display: flex;
     flex-direction: column;
@@ -598,7 +588,6 @@ body {
 }
 
 
-/* GRIGLIA DELLE AREE  */
 .areas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -658,9 +647,7 @@ body {
 }
 
 
-/* PAGINE SHOW */
 
-/* Animali Show */
 .animal-show-container {
     display: flex;
     gap: 40px;
@@ -698,7 +685,6 @@ body {
     margin: 0;
 }
 
-/* La Cartella Clinica */
 .medical-folder {
     background: #e6dfd3; 
     padding: 20px;
@@ -750,7 +736,6 @@ body {
     color: #111;
 }
 
-/* Aree Show */
 .area-banner-box {
     width: 100%;
     height: 350px; 
@@ -777,7 +762,7 @@ body {
     margin-top: 10px;
 }
 
-/* Volontari Show */
+
 .specialization-badge {
     display: inline-block;
     background: #e8f2ee;
@@ -792,7 +777,6 @@ body {
     margin-top: 5px;
 }
 
-/* Richieste Show */
 .status-banner {
     display: inline-flex;
     align-items: center;
@@ -809,7 +793,6 @@ body {
 .status-rejected { background-color: #fff0f0; color: #d93838; border: 1px solid #ffdbdb; }
 
 
-/* OPERAZIONI CHE POSSO SVOLGERE GLI ADMIN */
 .admin-actions-container {
     margin-top: 25px;
     padding-top: 20px;
@@ -895,9 +878,6 @@ body {
 }
 
 
-
-
-/* Rettangolo verticale specifico per la foto del volontario */
 .volontario-badge-pic {
     width: 220px;          
     height: 290px;        
@@ -909,15 +889,13 @@ body {
     flex-shrink: 0;        
 }
 
-/* Regola l'immagine dentro il rettangolo per non farla deformare */
+
 .volontario-badge-pic img {
     width: 100%;
     height: 100%;
-    object-fit: cover;     /* Mantiene le proporzioni centrando la foto */
+    object-fit: cover;  
 }
 
-
-/*SECONDA SCHERMATA DELL'INDEX*/
 .gallery-section {
     background: #e2ede7; 
     padding: 80px 10% 40px 10%;
@@ -1059,16 +1037,13 @@ body {
 }
 
 
-/*AGGIUNTE SPECIFICHE PER LA PAGINA GESTIONE AREE*/
-
-/* Allineamento e ottimizzazione della card larga delle aree */
 .profile-dashboard.dashboard-aree-custom {
     max-width: 950px;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Messaggio di avviso per liste aree vuote */
+
 .empty-list-message {
     padding: 40px;
     text-align: center;
@@ -1076,7 +1051,7 @@ body {
     font-weight: 600;
 }
 
-/* Allineamento del bottone admin in fondo alla dashboard */
+
 .admin-actions-container {
     display: flex;
     justify-content: center;
@@ -1085,7 +1060,7 @@ body {
     margin-top: 30px;
 }
 
-/* Bottone "Aggiungi" */
+
 .btn-aggiungi-custom {
     display: inline-flex;
     align-items: center;

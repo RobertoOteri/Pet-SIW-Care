@@ -1,6 +1,7 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,9 +18,11 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -79,7 +82,7 @@ public class Animale {
 	}
 	
 	// Getters And Setters //
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -195,6 +198,7 @@ public class Animale {
 		return Objects.equals(dataNascita, other.dataNascita) && Objects.equals(nome, other.nome)
 				&& Objects.equals(razza, other.razza) && specie == other.specie;
 	}
+	
 
 
 }
