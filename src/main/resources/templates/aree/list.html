@@ -30,7 +30,6 @@
             <h1>Esplora le Aree del Rifugio</h1>
             <p>Seleziona una delle zone dedicate ai nostri ospiti per vedere i dettagli</p>
         </div>
-
         <div class="areas-grid">
             <a th:each="a : ${aree}" th:href="@{'/aree/' + ${a.id}}" class="area-card-link">
                 <div class="area-image-wrapper">

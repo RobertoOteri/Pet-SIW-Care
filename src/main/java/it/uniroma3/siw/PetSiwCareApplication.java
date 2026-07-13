@@ -37,5 +37,10 @@ public class PetSiwCareApplication implements CommandLineRunner {
 		System.out.println(watch.prettyPrint());
 	}
 	
+	//Prestazioni: 100% 0.0668276 seconds metodo: LAZY   (Con EntityGraph)
+	//Prestazioni: 100% 0.0766634 seconds metodo: EAGER  (Con EntityGraph)
+	
+	//Prestazioni: 100% 0.0658747 seconds metodo: LAZY
+	//Prestazioni: 100% 0.0736177 seconds metodo: EAGER
 
 }

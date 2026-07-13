@@ -46,8 +46,4 @@ public class AnimaleService {
 	public List<Animale> findAllById(List<Long> ids){
 		return (List<Animale>) this.animaleRepository.findAllById(ids);
 	}
-	
-	public List<Animale> findAllBySpecie(Specie specie){
-		return this.animaleRepository.findAllBySpecie(specie);
-	}
 }

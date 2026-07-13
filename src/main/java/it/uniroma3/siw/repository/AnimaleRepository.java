@@ -17,8 +17,5 @@ public interface AnimaleRepository extends CrudRepository<Animale, Long> {
 	@Override
 	@EntityGraph(attributePaths = {"area", "volontario", "cartellaClinica"})
 	public Optional<Animale> findById(Long id);
-	
-
-	public List<Animale> findAllBySpecie(Specie specie);
 
 }
