@@ -198,7 +198,5 @@ public class Animale {
 		return Objects.equals(dataNascita, other.dataNascita) && Objects.equals(nome, other.nome)
 				&& Objects.equals(razza, other.razza) && specie == other.specie;
 	}
-	
-
 
 }
